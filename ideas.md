@@ -6,21 +6,25 @@ A simple browser based application that allows users to track their workouts. It
 
 ## Core Features
 
-  Devise for Authentication - sign in with Google or Facebook using OAuth
+  Redux auth for authentication https://github.com/lynndylanhurley/redux-auth
   Paperclip for image uploading
   Admin panel ( for backend use )
   Bootstrap for design
 
-
-
-
-
-
 # Architecture
 
-
-
-
+  Home 
+  Exercise
+    - current routine
+    - add routine
+    - view upcoming workouts
+    - workout details
+  Nutrition
+    - view current nutrition plan
+  Profile
+    - modify user data
+    - set presets
+    - log out
 
 ## Nice to Have
 
@@ -32,7 +36,10 @@ A simple browser based application that allows users to track their workouts. It
 
   # Built in timer with alerts for tracking sets. 
 
-  # API calls to 
+  # API calls to nutrion database
+
+  # add exercies to workout on the fly 
+
 
 
 
@@ -56,10 +63,12 @@ A simple browser based application that allows users to track their workouts. It
 
   Exericse
     - name
+    - muscles
+    - has_many sets
     - belongs_to category
 
-  Equipment
-    - name
+  Set 
+    - repititions
 
   Repitition_Unit
     - enum [Kilometers, Miles, Minutes, Repititions, Seconds, Until Failure]
@@ -67,10 +76,6 @@ A simple browser based application that allows users to track their workouts. It
   Exercise_Category 
     - name
     - has_many exercises
-
-  Equipment_Category 
-    - name
-    - has_many equipments
 
   Workout ( a collection of exercises )
     - name ( eg Chest / Tris)
