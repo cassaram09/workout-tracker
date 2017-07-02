@@ -6,25 +6,60 @@ A simple browser based application that allows users to track their workouts. It
 
 ## Core Features
 
-  Redux auth for authentication https://github.com/lynndylanhurley/redux-auth
+  Redux-Auth for authentication https://github.com/lynndylanhurley/redux-auth
   Paperclip for image uploading
   Admin panel ( for backend use )
   Bootstrap for design
+  Progress graphs
+    - body weight
+    - bmr
+    - body fat %
+    - weight / reps for strength exercises
+    - time / distance for cardio exercises
+
 
 # Architecture
 
   Home 
+    - home page if logged out
+    - dashboard if logged in
   Exercise
     - current routine
-    - add routine
-    - view upcoming workouts
-    - workout details
-  Nutrition
-    - view current nutrition plan
+    - link to archived routines
+    - link to create new routine
+    - link to creating new workout
+    - list all workouts for this week, completed and incompleted. clicking on a workout will take you to the workout details page.
+      - Workout Detail
+
+      New Workout Form
+        - Select exercise and set sets, reps, and rest time
+        - optional: add directly to Routine
+
+      New Routine Form
+        - assign workout to day of week (optional: time)
+        - repeat ( length of time routine should repeat: eg 8 weeks)
+
   Profile
     - modify user data
-    - set presets
-    - log out
+    - defaults for exercises and nutrition (measurement units, reps)
+    - log in / out
+
+
+  Reports
+    - graphs for strength, cardio, body weight, etc.
+
+
+  Nutrition
+    - current nutrition plan
+    - index of nutrition plans
+    - add nutrition plans
+      - meals
+      - ingredients
+
+
+  
+
+
 
 ## Nice to Have
 
@@ -36,10 +71,13 @@ A simple browser based application that allows users to track their workouts. It
 
   # Built in timer with alerts for tracking sets. 
 
-  # API calls to nutrion database
+  # API calls to Nutrition Database USDA
 
-  # add exercies to workout on the fly 
+  # export to CSV or Excel
 
+  # circuits and supersets
+
+  # add exercises to workout on the fly 
 
 
 
@@ -52,6 +90,7 @@ A simple browser based application that allows users to track their workouts. It
     - weight int
     - height int
     - gender str
+    - body_fat int 
     - BMR int
     - smoker bool
     - drinker bool
@@ -62,13 +101,13 @@ A simple browser based application that allows users to track their workouts. It
     - has_many :notes, through :workouts
 
   Exericse
-    - name
-    - muscles
+    - name str
+    - rest_time
     - has_many sets
     - belongs_to category
 
-  Set 
-    - repititions
+  Set
+    - repititions int
 
   Repitition_Unit
     - enum [Kilometers, Miles, Minutes, Repititions, Seconds, Until Failure]
@@ -77,6 +116,11 @@ A simple browser based application that allows users to track their workouts. It
     - name
     - has_many exercises
 
+  Circuit ( multiple exercises completed in succession )
+    - name
+    - has_many exercises
+    - rest_time
+
   Workout ( a collection of exercises )
     - name ( eg Chest / Tris)
     - has_many exercises
@@ -84,6 +128,7 @@ A simple browser based application that allows users to track their workouts. It
     - date
     - start_time
     - end_time
+    - average_rest_time
 
   Routine ( a collection of workouts )
     - name ( eg strength training )
