@@ -4,11 +4,11 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :email
       t.integer :age
-      t.integer :weight
-      t.integer :height
+      t.float :weight
+      t.float :height
       t.string :gender
-      t.integer :body_fat
-      t.integer :bmr
+      t.float :body_fat
+      t.float :bmr
       t.boolean :smoker
       t.boolean :drinker
       t.boolean :vegetarian
