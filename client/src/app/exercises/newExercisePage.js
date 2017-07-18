@@ -3,8 +3,9 @@ import ExerciseForm from './exerciseForm'
 
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux'; 
-import * as exercisesActions from './exercisesActions';
+import Resource from '../api/resource'
 
+const Exercise = new Resource('exercise', '/exercises')
 
 class NewExercisePage extends Component {
   constructor(props){
@@ -25,8 +26,7 @@ class NewExercisePage extends Component {
 
     this.saveExercise = (event) => {
       event.preventDefault();
-      alert('saved!')
-      this.props.actions.dispatchAction('createExercise', this.state.exercise)
+      Exercise.dispatchAction('create', this.state.exercise)
     }
   }
 
@@ -44,10 +44,4 @@ class NewExercisePage extends Component {
   }
 };
 
-function mapDispatchToProps(dispatch) {  
-  return {
-    actions: bindActionCreators(exercisesActions, dispatch)
-  };
-}
-
-export default connect(null, mapDispatchToProps)(NewExercisePage);
+export default NewExercisePage;
