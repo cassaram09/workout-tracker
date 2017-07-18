@@ -9,9 +9,9 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :gender
       t.integer :body_fat
       t.integer :bmr
-      t.bool :smoker
-      t.bool :drinker
-      t.bool :vegetarian
+      t.boolean :smoker
+      t.boolean :drinker
+      t.boolean :vegetarian
       t.string :profile_image
 
       t.timestamps

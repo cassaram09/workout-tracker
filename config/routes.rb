@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :routines
+  resources :workouts
   resources :exercise_categories
   resources :exercises
   resources :users
