@@ -1,6 +1,11 @@
 import React, {Component, PropTypes}  from 'react'
 import ExerciseForm from './exerciseForm'
 
+import {connect} from 'react-redux';  
+import {bindActionCreators} from 'redux'; 
+import * as exercisesActions from './exercisesActions';
+
+
 class NewExercisePage extends Component {
   constructor(props){
     super(props)
@@ -21,43 +26,28 @@ class NewExercisePage extends Component {
     this.saveExercise = (event) => {
       event.preventDefault();
       alert('saved!')
-      // this.props.actions.ApiAction('catApi', 'createCat', this.state.cat);
+      this.props.actions.dispatchAction('createExercise', this.state.exercise)
     }
   }
 
-  
-
   render(){
     return (
-
       <div className="col-md-8 col-md-offset-2">
       {this.props.children}
         <h1>New Exercise</h1>
         <ExerciseForm 
         exercise={this.state.exercise} 
-        onSave={this.saveExerise} 
+        onSave={this.saveExercise} 
         onChange={this.updateExerciseState} />
       </div>
     )
   }
 };
 
+function mapDispatchToProps(dispatch) {  
+  return {
+    actions: bindActionCreators(exercisesActions, dispatch)
+  };
+}
 
-// function mapStateToProps(state, ownProps) {  
-//   let checkBoxHobbies = [];
-//   if (state.hobbies.length > 0) {
-//     checkBoxHobbies = hobbiesForCheckBoxes(Object.assign([], state.hobbies));
-//   }
-
-//   return {
-//     checkBoxHobbies: checkBoxHobbies
-//   };
-// }
-
-// function mapDispatchToProps(dispatch) {  
-//   return {
-//     actions: bindActionCreators(catActions, dispatch)
-//   };
-// }
-
-export default NewExercisePage;
+export default connect(null, mapDispatchToProps)(NewExercisePage);

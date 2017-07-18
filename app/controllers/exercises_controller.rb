@@ -1,30 +1,30 @@
 class ExercisesController < ApplicationController
    def index
-    @exercises = exercise.all
+    @exercises = Exercise.all
     render json: @exercises
   end
 
   def create
-    @exercise = exercise.new(exercise_params)
+    @exercise = Exercise.new(exercise_params)
     if @exercise.save()
       render json: @exercise
     end
   end
 
   def show
-    @exercise = exercise.find(params[:id])
+    @exercise = Exercise.find(params[:id])
     render json: @exercise
   end
 
   def update
-    @exercise = exercise.find(exercise_params[:id])
+    @exercise = Exercise.find(exercise_params[:id])
     if @exercise.update(exercise_params)
       render json: @exercise
     end
   end
 
   def destroy
-    @exercise = exercise.find(params[:id])
+    @exercise = Exercise.find(params[:id])
     if @exercise.delete
       render json: @exercise
     end

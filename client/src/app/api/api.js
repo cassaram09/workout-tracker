@@ -6,9 +6,10 @@ class API {
   }
 
   static createRequest(url, method, body) {
-    const request = new Request(url, {
+    var request = new Request(API.base() + url, {
       method: method,
-      body: body
+      headers: API.createHeaders(),
+      body: JSON.stringify(body)
     });
     return request;
   }
@@ -16,8 +17,8 @@ class API {
   // define our headers to be sent with every request
   static createHeaders() {
     return new Headers({
-        'Content-Type': 'application/json',
-        'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
+        'Content-Type': 'application/json'
+        // 'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
       })
   }
 
@@ -33,29 +34,30 @@ class API {
   // CRUD API actions
 
   static $query(url) {
-    const request = API.createRequest(url, 'GET', null)
+    var request = API.createRequest(url, 'GET', null)
     return API.fetchRequest(request)
   }
 
   static $get(url, resource) {
-    const request = API.createRequest(url, 'GET', null);
+    var request = API.createRequest(url, 'GET', null);
     return API.fetchRequest(request);
   }
 
   static $post(url, resource){
-    const body = JSON.stringify({resource: resource});
-    const request = API.createRequest(url, 'POST', body);
+    var body = {}
+    body[resource.name] = resource.data;
+    var request = API.createRequest(url, 'POST', body);
     return API.fetchRequest(request)
   }
 
   static $patch(url, resource) {
-    const body = JSON.stringify({resource: resource});
-    const request = API.createRequest(url, 'PATCH', body);
+    var body = JSON.stringify({resource: resource});
+    var request = API.createRequest(url, 'PATCH', body);
     return API.fetchRequest(request);
   }
 
   static $delete(url, resource){
-    const request = API.createRequest(url, 'DELETE', null);
+    var request = API.createRequest(url, 'DELETE', null);
     return API.fetchRequest(request)
   }
 
