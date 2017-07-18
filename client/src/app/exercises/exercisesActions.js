@@ -26,10 +26,10 @@ const resourceName = 'exercise'
 
 const actions = {
   queryExercises: queryExercises,
-  getExercise: getExercise
-  createExercise: createExercise
+  getExercise: getExercise,
+  createExercise: createExercise,
   updateExercise: updateExercise,
-  deleteExercise: deleteExericse
+  deleteExercise: deleteExercise
 }
 
 function queryExercises(){
