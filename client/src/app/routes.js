@@ -2,11 +2,13 @@ import React from 'react';
 import { Route, IndexRoute} from 'react-router';
 
 import App from './App'
+import HomePage from './pages/homePage'
+
 
 export default(
   // configure our routes - set App as our top level component with Home as the index route
   <Route path='/' component={App}>
-    
+    <IndexRoute component={HomePage}/>
   </Route>
 )
 
