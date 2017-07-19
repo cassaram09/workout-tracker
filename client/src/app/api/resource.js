@@ -27,8 +27,8 @@ class Resource {
   // define our headers to be sent with every request
   static createHeaders() {
     return new Headers({
-      'Content-Type': 'application/json'
-      // 'AUTHORIZATION': `Bearer {sessionStorage.jwt}`
+      'Content-Type': 'application/json',
+      'AUTHORIZATION': `Bearer {sessionStorage.jwt}`
     })
   }
 

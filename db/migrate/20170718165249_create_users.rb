@@ -13,6 +13,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.boolean :drinker
       t.boolean :vegetarian
       t.string :profile_image
+      t.string :password_digest
 
       t.timestamps
     end
