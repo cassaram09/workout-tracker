@@ -12,6 +12,12 @@ class ExercisePage extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.exercise.id != nextProps.exercise.id) {
+      this.setState({exercise: nextProps.exercise});
+    }
+  }
+
   render() {
     return (
       <div id="exercisesPage">
@@ -26,7 +32,7 @@ ExercisePage.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) { 
-  const exercise = findById(state.exercise, ownProps.params.id)
+  const exercise = findById(state.exercises, ownProps.params.id)
   return {exercise: exercise};
 };
 

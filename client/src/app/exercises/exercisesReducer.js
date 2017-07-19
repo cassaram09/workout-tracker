@@ -4,7 +4,7 @@ import Exercise from './exerciseResource'
 
 export default function exercisesReducer(state = initialState.exercises, action) {
   switch(action.type){
-    case Exercise.actionTypes.query:
+    case "QUERY_EXERCISE_SUCCESS":
       return action.data;
     case Exercise.actionTypes.create:
       browserHistory.push(`/exercises/${action.data.id}`);
