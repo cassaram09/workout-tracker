@@ -6,6 +6,8 @@ import { Link, IndexLink } from 'react-router';
 
 import * as actions from '../store/actions'
 import Exercise from './exerciseResource'
+import StoreHelpers from '../store/storeHelpers'
+
 
 class ExercisePage extends Component {
   constructor(props){
@@ -59,7 +61,7 @@ ExercisePage.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) { 
-  const exercise = findById(state.exercises, ownProps.params.id)
+  const exercise = StoreHelpers.findById(state.exercises, ownProps.params.id)
   return {exercise: exercise};
 };
 
@@ -71,7 +73,3 @@ function mapDispatchToProps(dispatch){
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExercisePage);
 
-function findById(state, id){
-  const collection = Object.assign([], state)
-  return collection.filter(obj => obj.id == id)[0]
-}
