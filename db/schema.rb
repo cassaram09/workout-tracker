@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20170718170549) do
   create_table "exercises", force: :cascade do |t|
     t.string   "name"
     t.integer  "rest_time"
+    t.integer  "workout_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "exercise_category_id"
