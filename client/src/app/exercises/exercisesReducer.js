@@ -8,6 +8,11 @@ export default function exercisesReducer(state = initialState.exercises, action)
   switch(action.type){
     case types.query:
       return action.data;
+    case types.get:
+      browserHistory.push(`/exercises/${action.data.id}`);
+      return addExercise(state, action);
+    case types.update:
+      return state;
     case types.create:
       browserHistory.push(`/exercises/${action.data.id}`);
       return addExercise(state, action);
