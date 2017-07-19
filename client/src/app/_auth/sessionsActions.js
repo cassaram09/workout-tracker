@@ -9,7 +9,6 @@ export function logInUser(credentials){
     return sessionApi.login(credentials).then(response =>{
       console.log('JWT', response)
       if ( response.jwt ) {
-        debugger
         sessionStorage.setItem('jwt', response.jwt)
         dispatch({type: 'LOG_IN_SUCCESS'})
       } else {
@@ -42,6 +41,7 @@ export function signUpSuccess(){
 }
 
 export function logOutUser(){
-  sessionStorage.removeItem('jwt');
-  return {type: 'LOG_OUT_SUCCESS'}
+  return function(dispatch){
+    dispatch({type: 'LOG_OUT_SUCCESS'})
+  }
 }

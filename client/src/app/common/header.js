@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 import * as sessionActions from '../_auth/sessionsActions';
 
 class Header extends React.Component {
-  constructor(){
+  constructor(props){
     super()
 
     this.logOut = (event) =>{
@@ -17,6 +17,7 @@ class Header extends React.Component {
   }
 
   render() {
+
      if (!this.props.logged_in) {
       return (
          <Navbar>
@@ -33,7 +34,8 @@ class Header extends React.Component {
               <Link to="/signup" activeClassName="active">SignUp</Link>
             </NavItem>
           </Nav>
-          
+          <a href="/logout" onClick={this.logOut}>log out</a>
+          <p>{this.props.logged_in}</p>
         </Navbar>
       )
     } else {
@@ -55,6 +57,8 @@ class Header extends React.Component {
               <Link to="/workouts" activeClassName="active">Workouts</Link>
             </MenuItem>
           </Nav>
+          <p>{this.props.logged_in}</p>
+          <a href="/logout" onClick={this.logOut}>log out</a>
         </Navbar>
       )
     }
@@ -77,4 +81,4 @@ function mapDispatchToProps(dispatch){
 }
 
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
