@@ -1,28 +1,19 @@
-import API from './api'
-
 class Resource {
   constructor(name, url){
-    this.name = name; // for strong params
+    this.name = name.toUpperCase(); // for strong params
     this.url = url;
 
     this.actionTypes = {
-      query: `QUERY_${this.name.toUpperCase()}_SUCCESS`,
-      get: `GET_${this.name.toUpperCase()}_SUCCESS`,
-      create: `CREATE_${this.name.toUpperCase()}_SUCCESS`,
-      update: `UPDATE_${this.name.toUpperCase()}_SUCCESS`,
-      delete: `DELETE_${this.name.toUpperCase()}_SUCCESS`
-    }
-    this.actions = {
-      query: this.$query,
-      get: this.$get,
-      create: this.$post,
-      update: this.$patch,
-      delete: this.$delete
+      query: `QUERY_${this.name}_SUCCESS`,
+      get: `GET_${this.name}_SUCCESS`,
+      create: `CREATE_${this.name}_SUCCESS`,
+      update: `UPDATE_${this.name}_SUCCESS`,
+      delete: `DELETE_${this.name}_SUCCESS`
     }
   }
 
   static createRequest(url, method, body) {
-    var request = new Request(API.base + url, {
+    var request = new Request(url, {
       method: method,
       headers: Resource.createHeaders(),
       body: JSON.stringify(body)
@@ -34,7 +25,7 @@ class Resource {
   static createHeaders() {
     return new Headers({
       'Content-Type': 'application/json'
-      // 'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
+      // 'AUTHORIZATION': `Bearer {sessionStorage.jwt}`
     })
   }
 
@@ -47,56 +38,33 @@ class Resource {
     })
   }
 
-  static createBody(resource){
-    var obj = {}
-    obj[this.name] = resource
-    return obj;
-  }
-
   // CRUD Resource actions
-  $query() {
+  query() {
     var request = Resource.createRequest(this.url, 'GET', null)
     return Resource.fetchRequest(request)
   }
 
-  $get(id) {
+  get(id) {
     var url = this.url + '/' + id
     var request = Resource.createRequest(url , 'GET', null);
     return Resource.fetchRequest(request);
   }
 
-  $post(resource){
-    var request = Resource.createRequest(this.url, 'POST', Resource.createBody(resource));
+  create(resource){
+    var request = Resource.createRequest(this.url, 'POST', resource);
     return Resource.fetchRequest(request)
   }
 
-  $patch(resource) {
+  update(resource) {
     var url = this.url + '/' + resource.id
-    var request = Resource.createRequest(this.url, 'PATCH', Resource.createBody(resource));
+    var request = Resource.createRequest(this.url, 'PATCH', resource);
     return Resource.fetchRequest(request);
   }
 
-  $delete(id){
+  delete(id){
     var url = this.url + '/' + id
     var request = Resource.createRequest(this.url, 'DELETE', null);
     return Resource.fetchRequest(request)
-  }
-
-  dispatchAction(action, data) {
-    debugger
-    return function(dispatch){
-      return this.actions[action](data).then( response => {
-        console.log(`%c ${action} SUCCESS`, 'color: green', response)
-        dispatch(this.reducerAction(action, response))
-      }).catch(error =>{
-        throw(error);
-      })
-    }
-  }
-
-  // generic action we'll pass to our reducer
-  reducerAction(action, data) { 
-    return {type: this.actionTypes[action], data};
   }
 
 }

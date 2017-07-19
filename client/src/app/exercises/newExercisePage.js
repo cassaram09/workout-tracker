@@ -1,11 +1,12 @@
-import React, {Component, PropTypes}  from 'react'
-import ExerciseForm from './exerciseForm'
-
+import React, {Component}  from 'react'
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux'; 
-import Resource from '../api/resource'
 
-const Exercise = new Resource('exercise', '/exercises')
+import ExerciseForm from './exerciseForm'
+import * as actions from '../store/actions'
+
+import Exercise from './exerciseResource'
 
 class NewExercisePage extends Component {
   constructor(props){
@@ -16,7 +17,6 @@ class NewExercisePage extends Component {
       }  
     }
 
-    // update cat attributes
     this.updateExerciseState = (event) => {
       const field = event.target.name;
       const exercise = this.state.exercise;
@@ -26,7 +26,7 @@ class NewExercisePage extends Component {
 
     this.saveExercise = (event) => {
       event.preventDefault();
-      Exercise.dispatchAction('create', this.state.exercise)
+      this.props.actions.dispatchAction(Exercise, 'create', this.state)
     }
   }
 
@@ -44,4 +44,10 @@ class NewExercisePage extends Component {
   }
 };
 
-export default NewExercisePage;
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(NewExercisePage);
