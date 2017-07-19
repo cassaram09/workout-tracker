@@ -4,21 +4,26 @@ import Workout from './workoutResource'
 
 const types = Workout.actionTypes;
 
+const name = Workout.name.toUpperCase()
+
 export default function workoutsReducer(state = initialState.workouts, action) {
   switch(action.type){
     case types.query:
-      console.log('query succesful')
+       console.log(`%c ${name} QUERY SUCCESSFUL`, 'color: blue')
       return action.data;
     case types.get:
+      console.log(`%c ${name} GET SUCCESSFUL`, 'color: blue')
       browserHistory.push(`/workouts/${action.data.id}`);
       return addWorkout(state, action);
     case types.update:
+       console.log(`%c ${name} UPDATE SUCCESSFUL`, 'color: blue')
       return addWorkout(state, action);
     case types.create:
+       console.log(`%c ${name} CREATE SUCCESSFUL`, 'color: blue')
       browserHistory.push(`/workouts/${action.data.id}`);
       return addWorkout(state, action);
     case types.delete:
-      // expect one Cat object
+      console.log(`%c ${name} DELETE SUCCESSFUL`, 'color: blue')
       const newState = Object.assign([], state);
       const indexToDelete = state.findIndex(workout => {
         return workout.id == action.data.id

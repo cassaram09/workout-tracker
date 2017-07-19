@@ -24,7 +24,6 @@ export default function exercisesReducer(state = initialState.exercises, action)
       return addExercise(state, action);
     case types.delete:
       console.log(`%c ${name} DELETE SUCCESSFUL`, 'color: blue')
-      // expect one Cat object
       const newState = Object.assign([], state);
       const indexToDelete = state.findIndex(exercise => {
         return exercise.id == action.data.id

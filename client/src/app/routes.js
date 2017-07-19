@@ -8,6 +8,8 @@ import NewExercisePage from './exercises/newExercisePage'
 import ExercisePage from './exercises/exercisePage'
 
 import WorkoutsPage from './workouts/workoutsPage'
+import NewWorkoutPage from './workouts/newWorkoutPage'
+
 
 
 
@@ -20,7 +22,7 @@ export default(
       <Route name='exercise' path='/exercises/:id' component={ExercisePage} />
     </Route>
     <Route path='/workouts' component={WorkoutsPage}>
-      
+      <Route name='newExercise' path='/workouts/new' component={NewWorkoutPage} />
     </Route>
   </Route>
 )
