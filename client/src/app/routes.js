@@ -7,11 +7,7 @@ import ExercisesPage from './exercises/exercisesPage'
 import NewExercisePage from './exercises/newExercisePage'
 import ExercisePage from './exercises/exercisePage'
 
-import WorkoutsPage from './workouts/workoutsPage'
-import NewWorkoutPage from './workouts/newWorkoutPage'
-
-
-
+import * as workouts from './workouts/index'
 
 export default(
   // configure our routes - set App as our top level component with Home as the index route
@@ -21,8 +17,9 @@ export default(
       <Route name='newExercise' path='/exercises/new' component={NewExercisePage} />
       <Route name='exercise' path='/exercises/:id' component={ExercisePage} />
     </Route>
-    <Route path='/workouts' component={WorkoutsPage}>
-      <Route name='newExercise' path='/workouts/new' component={NewWorkoutPage} />
+    <Route path='/workouts' component={workouts.WorkoutsPage}>
+      <Route name='newWorkout' path='/workouts/new' component={workouts.NewWorkoutPage} />
+       <Route name='workout' path='/workouts/:id' component={workouts.WorkoutPage} />
     </Route>
   </Route>
 )
