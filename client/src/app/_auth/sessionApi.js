@@ -1,58 +1,22 @@
 import API from '../api/api'
+import HTTP from '../api/http'
 
-class SessionApi {
+
+class Auth {
+
+  static headers(){
+    new Headers({
+      'Content-Type': 'application/json'
+    })
+  }
+
   static login(credentials){
-    const request = new Request('/login', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }),
-      body: JSON.stringify({auth: credentials})
-    });
-
-    return SessionApi.fetchRequest(request)
+    return HTTP.post('/login',{auth: credentials}, Auth.headers() )
   }
 
   static signUp(credentials){
-    const request = new Request('/signup', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }),
-      body: JSON.stringify({user: credentials})
-    });
-
-    return SessionApi.fetchRequest(request)
-  }
-
-  static createRequest(url, method, body) {
-    if (body){
-      body = JSON.stringify(body);
-    }
-    var request = new Request(url, {
-      method: method,
-      headers: SessionApi.createHeaders(),
-      body: body
-    });
-    return request;
-  }
-
-  // define our headers to be sent with every request
-  static createHeaders() {
-    return new Headers({
-      'Content-Type': 'application/json'
-      // 'AUTHORIZATION': `Bearer {sessionStorage.jwt}`
-    })
-  }
-
-  // wrapper for our fetch requests
-  static fetchRequest(request){
-    return fetch(request).then(response => {
-      return response.json();
-    }).catch(error => {
-      return error;
-    })
+    return HTTP.post('/signup', {user: credentials}, Auth.headers() )
   }
 }
 
-export default SessionApi;
+export default Auth;

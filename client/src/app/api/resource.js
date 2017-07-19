@@ -1,7 +1,12 @@
-class Resource {
-  constructor(name, url){
+import HTTP from './http'
+
+class Resource extends HTTP {
+  constructor(name, url, headers){
+    super();
+
     this.name = name.toUpperCase(); // for strong params
     this.url = url;
+    this.headers = headers;
 
     this.actionTypes = {
       query: `QUERY_${this.name}_SUCCESS`,
@@ -12,67 +17,38 @@ class Resource {
     }
   }
 
-  static createRequest(url, method, body) {
-    if (body){
-      body = JSON.stringify(body);
-    }
-    var request = new Request(url, {
-      method: method,
-      headers: Resource.createHeaders(),
-      body: body
-    });
-    return request;
-  }
-
-  // define our headers to be sent with every request
-  static createHeaders() {
-    return new Headers({
-      'Content-Type': 'application/json',
-      'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
-    })
-  }
-
-  // wrapper for our fetch requests
-  static fetchRequest(request){
-    return fetch(request).then(response => {
-      return response.json();
-    }).catch(error => {
-      return error;
-    })
-  }
-
   addAction(name, callback){
     this.actionTypes[name] = `${this.name.toUpperCase()}_SUCCESS`;
     this[name] = callback;
   }
 
-  // CRUD Resource actions
+  // CRUD HTTP actions
   query() {
-    var request = Resource.createRequest(this.url, 'GET', null)
-    return Resource.fetchRequest(request)
+    var request = HTTP.createRequest(this.url, 'GET', null, this.headers)
+    return HTTP.fetchRequest(request)
   }
 
   get(id) {
     var url = this.url + '/' + id
-    var request = Resource.createRequest(url , 'GET', null);
-    return Resource.fetchRequest(request);
+    var request = HTTP.createRequest(url , 'GET', null, this.headers);
+    return HTTP.fetchRequest(request);
   }
 
-  create(resource){
-    var request = Resource.createRequest(this.url, 'POST', resource);
-    return Resource.fetchRequest(request)
+  create(data){
+    var request = HTTP.createRequest(this.url, 'POST', data, this.headers);
+    return HTTP.fetchRequest(request)
   }
 
-  update(resource) {
-    var url = this.url + '/' + resource.id
-    var request = Resource.createRequest(url, 'PATCH', resource);
-    return Resource.fetchRequest(request);
+  update(data) {
+    var url = this.url + '/' + data.id
+    var request = HTTP.createRequest(url, 'PATCH', data, this.headers);
+    return HTTP.fetchRequest(request);
   }
 
   delete(id){
     var url = this.url + '/' + id
-    var request = Resource.createRequest(url, 'DELETE', null);
-    return Resource.fetchRequest(request)
+    var request = HTTP.createRequest(url, 'DELETE', null, this.headers);
+    return HTTP.fetchRequest(request)
   }
 
 }
