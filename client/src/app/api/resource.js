@@ -13,10 +13,13 @@ class Resource {
   }
 
   static createRequest(url, method, body) {
+    if (body){
+      body = JSON.stringify(body);
+    }
     var request = new Request(url, {
       method: method,
       headers: Resource.createHeaders(),
-      body: JSON.stringify(body)
+      body: body
     });
     return request;
   }

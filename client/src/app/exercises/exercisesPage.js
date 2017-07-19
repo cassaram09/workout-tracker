@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Link, IndexLink } from 'react-router';
-import newExercisePage from '../exercises/newExercisePage';
+import {connect} from 'react-redux';  
+import {bindActionCreators} from 'redux'; 
 
+import * as actions from '../store/actions'
+import Exercise from './exerciseResource'
 
 class ExercisesPage extends Component {
+  componentWillMount(){
+    this.props.actions.dispatchAction(Exercise, 'query', null)
+  }
+
   render() {
     return (
       <div id="exercisesPage">
@@ -18,8 +25,14 @@ class ExercisesPage extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
 ExercisesPage.propTypes = {
 
 }
 
-export default ExercisesPage;
+export default connect(null, mapDispatchToProps)(ExercisesPage);

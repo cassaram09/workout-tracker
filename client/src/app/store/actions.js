@@ -1,7 +1,7 @@
 export function dispatchAction(resource, action, data) {
   return function(dispatch){
     return resource[action](data).then( response => {
-      console.log(`%c ${action} SUCCESS`, 'color: green', response)
+      console.log(`%c ${resource.name} ${action.toUpperCase()} SUCCESSFUL`, 'color: green', response)
       dispatch(reducerAction(resource, action, response))
     }).catch(error =>{
       throw(error);
