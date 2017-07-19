@@ -7,27 +7,33 @@ import HomePage from './pages/homePage'
 import * as exercises from './exercises/index'
 import * as workouts from './workouts/index'
 
+import LoginPage from './pages/loginPage'
+import SignUpPage from './pages/signup'
+
+
 export default(
   // configure our routes - set App as our top level component with Home as the index route
   <Route path='/' component={App}>
     <IndexRoute component={HomePage}/>
-    <Route path='/exercises' component={exercises.ExercisesPage}>
+    <Route path='/login' component={LoginPage} />
+    <Route path='/signup' component={SignUpPage} />
+    <Route path='/exercises' component={exercises.ExercisesPage} onEnter={requireAuth} >
       <Route name='newExercise' path='/exercises/new' component={exercises.NewExercisePage} />
       <Route name='exercise' path='/exercises/:id' component={exercises.ExercisePage} />
     </Route>
-    <Route path='/workouts' component={workouts.WorkoutsPage}>
+    <Route path='/workouts' component={workouts.WorkoutsPage} onEnter={requireAuth} >
       <Route name='newWorkout' path='/workouts/new' component={workouts.NewWorkoutPage} />
        <Route name='workout' path='/workouts/:id' component={workouts.WorkoutPage} />
     </Route>
   </Route>
 )
 
-// checks if a user is loggedin (if JWT is in session storage); if not, redirect them to the login page 
-// function requireAuth(nextState, replace){
-//   if (!sessionStorage.jwt) {
-//     replace({
-//       pathname: '/login',
-//       state: {nextPathName: nextState.location.pathName}
-//     })
-//   }
-// }
+//checks if a user is loggedin (if JWT is in session storage); if not, redirect them to the login page 
+function requireAuth(nextState, replace){
+  if (!sessionStorage.jwt) {
+    replace({
+      pathname: '/login',
+      state: {nextPathName: nextState.location.pathName}
+    })
+  }
+}

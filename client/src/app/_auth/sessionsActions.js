@@ -1,8 +1,9 @@
-import * as types from './actionTypes';
-import sessionApi from '../api/sessionApi';
+import sessionApi from './sessionApi';
+
+var types = {}
 
 export function loginSuccess(){
-  return {type: types.LOGIN_SUCCESS};
+  return {type: 'LOG_IN_SUCCESS'};
 }
 
 export function logInUser(credentials){
@@ -38,10 +39,10 @@ export function signUpUser(credentials){
 }
 
 export function signUpSuccess(){
-  return {type: types.SIGN_UP_SUCCESS};
+  return {type: 'SIGN_UP_SUCCESS'};
 }
 
 export function logOutUser(){
   sessionStorage.removeItem('jwt');
-  return {type: types.LOG_OUT_SUCCESS}
+  return {type: 'LOG_OUT_SUCCESS'}
 }
