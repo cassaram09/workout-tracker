@@ -48,7 +48,7 @@ class ExercisePage extends Component {
       // this.props.actions.dispatchAction(Exercise, 'get', this.props.params.id );
       this.exercise.get(this.props.params.id).then( (response) => {
         this.setState({exercise: response })
-        console.log("GET EXERCISE", response)
+        console.log("GET EXERCISE ON LOAD", response)
       })
     }
   }
