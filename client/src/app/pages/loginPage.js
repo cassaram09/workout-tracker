@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
-import * as sessionActions from '../_auth/sessionsActions'
+import * as authActions from '../_auth/authActions'
 import TextInput from '../common/textInput'
 
 
@@ -28,7 +28,7 @@ class LoginPage extends Component {
     // dispatches the API call action
     this.onSave = (event) => {
       event.preventDefault();
-      this.props.actions.logInUser(this.state.credentials);
+      this.props.auth.dispatchAuthorization('login', this.state.credentials);
     }
   }
 
@@ -68,7 +68,7 @@ LoginPage.propTypes = {
 // map our sessionActions to class props
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(sessionActions, dispatch)
+    auth: bindActionCreators(authActions, dispatch)
   }
 }
 

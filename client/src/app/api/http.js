@@ -15,6 +15,7 @@ class HTTP {
       headers: headers,
       body: body
     });
+
     return request;
   }
 

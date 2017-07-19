@@ -4,7 +4,7 @@ import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';  
-import * as sessionActions from '../_auth/sessionsActions';
+import * as authActions from '../_auth/authActions';
 
 class Header extends React.Component {
   constructor(props){
@@ -12,13 +12,13 @@ class Header extends React.Component {
 
     this.logOut = (event) =>{
       event.preventDefault();
-      this.props.actions.logOutUser();
+      this.props.auth.dispatchAuthorization('logout');
     }
   }
 
   render() {
 
-     if (!this.props.logged_in) {
+     if (!this.props.session) {
       return (
          <Navbar>
           <Navbar.Header>
@@ -35,7 +35,7 @@ class Header extends React.Component {
             </NavItem>
           </Nav>
           <a href="/logout" onClick={this.logOut}>log out</a>
-          <p>{this.props.logged_in}</p>
+          <p>{this.props.session}</p>
         </Navbar>
       )
     } else {
@@ -71,12 +71,12 @@ Header.propTypes = {
 }
 
 function mapStateToProps(state, ownProps){
-  return {logged_in: state.session}
+  return {session: state.session}
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(sessionActions, dispatch)
+    auth: bindActionCreators(authActions, dispatch)
   }
 }
 
