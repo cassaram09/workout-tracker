@@ -3,6 +3,6 @@
 
 export default {  
   exercises: [],
-  workouts: []
-  // session: !!sessionStorage.jwt
+  workouts: [],
+  session: !!sessionStorage.jwt
 }
