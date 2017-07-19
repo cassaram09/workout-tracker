@@ -12,7 +12,7 @@ export default function exercisesReducer(state = initialState.exercises, action)
       browserHistory.push(`/exercises/${action.data.id}`);
       return addExercise(state, action);
     case types.update:
-      return state;
+      return addExercise(state, action);
     case types.create:
       browserHistory.push(`/exercises/${action.data.id}`);
       return addExercise(state, action);
@@ -35,7 +35,7 @@ export default function exercisesReducer(state = initialState.exercises, action)
 
 function addExercise(state, action) {
   return [
-        ...state.filter(cat => cat.id !== action.data.id),
+        ...state.filter(exercise => exercise.id !== action.data.id),
         Object.assign({}, action.data)
       ]
 }

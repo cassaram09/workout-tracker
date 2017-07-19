@@ -4,6 +4,7 @@ import { Link, IndexLink } from 'react-router';
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux'; 
 
+import {Button} from 'react-bootstrap'
 import * as actions from '../store/actions'
 import Exercise from './exerciseResource'
 import ExercisesList from './exercisesList'
@@ -17,9 +18,10 @@ class ExercisesPage extends Component {
   render() {
     return (
       <div id="exercisesPage">
-        I'm the exercises page!
-        <Link to={"/exercises/new"} activeClassName="active">New Exercise</Link>
        <div className="col-md-4">
+          <Button bsStyle="default">
+            <Link to={"/exercises/new"}>New Exercise</Link>
+          </Button>
           <ExercisesList exercises={this.props.exercises} />
         </div>
         <div className="col-md-8">

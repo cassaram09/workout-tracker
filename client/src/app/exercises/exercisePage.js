@@ -7,6 +7,8 @@ import { Link, IndexLink } from 'react-router';
 import * as actions from '../store/actions'
 import Exercise from './exerciseResource'
 import StoreHelpers from '../store/storeHelpers'
+import ExerciseForm from './exerciseForm'
+
 
 
 class ExercisePage extends Component {
@@ -15,14 +17,29 @@ class ExercisePage extends Component {
     this.exercise = Exercise;
     this.state = {
       exercise: this.props.exercise,
+      editing: false
     }
 
     this.delete = (event) => {
+      event.preventDefault();
       this.props.actions.dispatchAction(Exercise, 'delete', this.state.exercise.id);
     }
 
     this.save = (event) => {
-      this.props.actions.dispatchAction(Exercise, 'myCustomAction', this.state);
+      event.preventDefault();
+      this.props.actions.dispatchAction(Exercise, 'update', this.state);
+      this.setState({editing: !this.state.editing})
+    }
+
+     this.toggleEdit = () => {
+      this.setState({editing: !this.state.editing})
+    }
+
+     this.updateExerciseState = (event) => {
+      const field = event.target.name;
+      const exercise = this.state.exercise;
+      exercise[field] = event.target.value;
+      return this.setState({exercise: exercise});
     }
   }
 
@@ -45,14 +62,29 @@ class ExercisePage extends Component {
   }
 
   render() {
-    var name = this.state.exercise ? this.state.exercise.name : "Loading..."
-    return (
-      <div id="exercisesPage">
-        {name}
-        <button onClick={this.delete} className='btn btn-danger'>Delete</button>
-        <button onClick={this.save} className='btn btn-danger'>Save</button>
+    var exercise = this.state.exercise ? this.state.exercise :  {name: "Loading..."}
+
+    if (this.state.editing) {
+      return (
+      <div className="exercisesPage">
+        <ExerciseForm 
+        exercise={this.state.exercise} 
+        onSave={this.save} 
+        onChange={this.updateExerciseState} />
       </div>
-    )
+      )
+    } else {
+      return (
+        <div id="exercisesPage">
+          <h1>{exercise.name}</h1>
+          <button onClick={this.toggleEdit} 
+            className="btn btn-default">edit
+          </button>
+           <button onClick={this.delete} className='btn btn-danger'>Delete</button>
+        </div>
+      )
+    }
+    
   }
 }
 
