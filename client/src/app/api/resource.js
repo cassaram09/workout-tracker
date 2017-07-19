@@ -6,7 +6,6 @@ class Resource extends HTTP {
 
     this.name = name.toUpperCase(); // for strong params
     this.url = url;
-    this.headers = headers;
 
     this.actionTypes = {
       query: `QUERY_${this.name}_SUCCESS`,
@@ -15,6 +14,11 @@ class Resource extends HTTP {
       update: `UPDATE_${this.name}_SUCCESS`,
       delete: `DELETE_${this.name}_SUCCESS`
     }
+
+    this.headers = new Headers({
+      'Content-Type': 'application/json',
+      'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
+    })
   }
 
   addAction(name, callback){
