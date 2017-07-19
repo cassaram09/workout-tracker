@@ -2,6 +2,7 @@
 // this object will be user as the initial state in our cats and hobbies reducers 
 
 export default {  
-  exercises: []
+  exercises: [],
+  workouts: []
   // session: !!sessionStorage.jwt
 }
