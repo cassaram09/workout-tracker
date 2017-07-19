@@ -10,7 +10,7 @@ class SessionApi {
       body: JSON.stringify({auth: credentials})
     });
 
-    return API.fetchRequest(request)
+    return SessionApi.fetchRequest(request)
   }
 
   static signUp(credentials){
@@ -22,7 +22,36 @@ class SessionApi {
       body: JSON.stringify({user: credentials})
     });
 
-    return API.fetchRequest(request)
+    return SessionApi.fetchRequest(request)
+  }
+
+  static createRequest(url, method, body) {
+    if (body){
+      body = JSON.stringify(body);
+    }
+    var request = new Request(url, {
+      method: method,
+      headers: SessionApi.createHeaders(),
+      body: body
+    });
+    return request;
+  }
+
+  // define our headers to be sent with every request
+  static createHeaders() {
+    return new Headers({
+      'Content-Type': 'application/json'
+      // 'AUTHORIZATION': `Bearer {sessionStorage.jwt}`
+    })
+  }
+
+  // wrapper for our fetch requests
+  static fetchRequest(request){
+    return fetch(request).then(response => {
+      return response.json();
+    }).catch(error => {
+      return error;
+    })
   }
 }
 

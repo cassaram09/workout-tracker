@@ -26,7 +26,7 @@ class SignUpPage extends Component {
     }
 
     // dispatches the API call action
-    this.onSave = (event) => {
+    this.signUp = (event) => {
       event.preventDefault();
       this.props.actions.signUpUser(this.state.credentials);
     }
@@ -61,7 +61,7 @@ class SignUpPage extends Component {
           <input
             type="submit"
             className="btn btn-primary"
-            onClick={this.onSave}/>
+            onClick={this.signUp}/>
         </form>
       </div>
     )
