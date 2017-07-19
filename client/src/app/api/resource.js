@@ -60,13 +60,13 @@ class Resource {
 
   update(resource) {
     var url = this.url + '/' + resource.id
-    var request = Resource.createRequest(this.url, 'PATCH', resource);
+    var request = Resource.createRequest(url, 'PATCH', resource);
     return Resource.fetchRequest(request);
   }
 
   delete(id){
     var url = this.url + '/' + id
-    var request = Resource.createRequest(this.url, 'DELETE', null);
+    var request = Resource.createRequest(url, 'DELETE', null);
     return Resource.fetchRequest(request)
   }
 

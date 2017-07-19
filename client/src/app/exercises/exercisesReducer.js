@@ -2,13 +2,24 @@ import initialState from '../store/initialState'
 import {browserHistory} from 'react-router';
 import Exercise from './exerciseResource'
 
+const types = Exercise.actionTypes;
+
 export default function exercisesReducer(state = initialState.exercises, action) {
   switch(action.type){
-    case "QUERY_EXERCISE_SUCCESS":
+    case types.query:
       return action.data;
-    case Exercise.actionTypes.create:
+    case types.create:
       browserHistory.push(`/exercises/${action.data.id}`);
       return addExercise(state, action);
+    case types.delete:
+      // expect one Cat object
+      const newState = Object.assign([], state);
+      const indexToDelete = state.findIndex(exercise => {
+        return exercise.id == action.data.id
+      })
+      newState.splice(indexToDelete, 1);
+      browserHistory.push('/exercises');
+      return newState;
     default:
       return state;
   }
