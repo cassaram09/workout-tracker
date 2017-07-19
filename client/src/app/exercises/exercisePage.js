@@ -10,6 +10,7 @@ import Exercise from './exerciseResource'
 class ExercisePage extends Component {
   constructor(props){
     super(props)
+    this.exercise = Exercise;
     this.state = {
       exercise: this.props.exercise,
     }
@@ -23,18 +24,29 @@ class ExercisePage extends Component {
     }
   }
 
-
+  componentDidMount(){
+    if (!this.state.exercise){
+      // this.props.actions.dispatchAction(Exercise, 'get', this.props.params.id );
+      this.exercise.get(this.props.params.id).then( (response) => {
+        this.setState({exercise: response })
+        console.log("GET EXERCISE", response)
+      })
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.exercise.id != nextProps.exercise.id) {
-      this.setState({exercise: nextProps.exercise});
+    if (this.props.exercise) {
+      if (this.props.exercise.id != nextProps.exercise.id) {
+        this.setState({exercise: nextProps.exercise});
+      }
     }
   }
 
   render() {
+    var name = this.state.exercise ? this.state.exercise.name : "Loading..."
     return (
       <div id="exercisesPage">
-        {this.state.exercise.name}
+        {name}
         <button onClick={this.delete} className='btn btn-danger'>Delete</button>
         <button onClick={this.save} className='btn btn-danger'>Save</button>
       </div>
