@@ -25,6 +25,9 @@ export default function exercisesReducer(state = initialState.exercises, action)
       newState.splice(indexToDelete, 1);
       browserHistory.push('/exercises');
       return newState;
+    case types.myCustomAction:
+      console.log("it worked!")
+      return state;
     default:
       return state;
   }

@@ -22,7 +22,7 @@ class ExercisePage extends Component {
     }
 
     this.save = (event) => {
-      this.props.actions.dispatchAction(Exercise, 'update', this.state);
+      this.props.actions.dispatchAction(Exercise, 'myCustomAction', this.state);
     }
   }
 

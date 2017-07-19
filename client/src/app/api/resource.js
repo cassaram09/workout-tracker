@@ -41,6 +41,11 @@ class Resource {
     })
   }
 
+  addAction(name, callback){
+    this.actionTypes[name] = `${this.name.toUpperCase()}_SUCCESS`;
+    this[name] = callback;
+  }
+
   // CRUD Resource actions
   query() {
     var request = Resource.createRequest(this.url, 'GET', null)
