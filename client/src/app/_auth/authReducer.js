@@ -7,13 +7,16 @@ export default function sessionReducer(state = initialState.session, action) {
     case Auth.actionTypes.signup:
       sessionStorage.setItem('jwt', action.jwt)
       browserHistory.push('/');
+      console.log(`%c SIGNUP SUCCESSFUL`, 'color: blue')
       return !!sessionStorage.jwt
     case Auth.actionTypes.login:
       sessionStorage.setItem('jwt', action.jwt)
       browserHistory.push('/');
+      console.log(`%c LOGIN SUCCESSFUL`, 'color: blue')
       return !!sessionStorage.jwt
     case Auth.actionTypes.logout:
       browserHistory.push('/')
+      console.log(`%c LOGOUT SUCCESSFUL`, 'color: blue')
       return !!sessionStorage.jwt
     default:
       return state;

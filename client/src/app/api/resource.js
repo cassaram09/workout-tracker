@@ -14,8 +14,10 @@ class Resource extends HTTP {
       update: `UPDATE_${this.name}_SUCCESS`,
       delete: `DELETE_${this.name}_SUCCESS`
     }
+  }
 
-    this.headers = new Headers({
+  createHeaders(){
+    return new Headers({
       'Content-Type': 'application/json',
       'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
     })
@@ -28,30 +30,30 @@ class Resource extends HTTP {
 
   // CRUD HTTP actions
   query() {
-    var request = HTTP.createRequest(this.url, 'GET', null, this.headers)
+    var request = HTTP.createRequest(this.url, 'GET', null, this.createHeaders())
     return HTTP.fetchRequest(request)
   }
 
   get(id) {
     var url = this.url + '/' + id
-    var request = HTTP.createRequest(url , 'GET', null, this.headers);
+    var request = HTTP.createRequest(url , 'GET', null, this.createHeaders());
     return HTTP.fetchRequest(request);
   }
 
   create(data){
-    var request = HTTP.createRequest(this.url, 'POST', data, this.headers);
+    var request = HTTP.createRequest(this.url, 'POST', data, this.createHeaders());
     return HTTP.fetchRequest(request)
   }
 
   update(data) {
     var url = this.url + '/' + data.id
-    var request = HTTP.createRequest(url, 'PATCH', data, this.headers);
+    var request = HTTP.createRequest(url, 'PATCH', data, this.createHeaders());
     return HTTP.fetchRequest(request);
   }
 
   delete(id){
     var url = this.url + '/' + id
-    var request = HTTP.createRequest(url, 'DELETE', null, this.headers);
+    var request = HTTP.createRequest(url, 'DELETE', null, this.createHeaders());
     return HTTP.fetchRequest(request)
   }
 

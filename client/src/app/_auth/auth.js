@@ -23,7 +23,7 @@ class Authorization {
   logout(){
     var promise = new Promise((resolve, reject) => {
       sessionStorage.removeItem('jwt');
-      !sessionStorage.jwt ? resolve(true) : reject(Error("Error"));
+      !sessionStorage.jwt ? resolve({jwt: 'deleted'}) : reject(Error("Error"));
     });
     return promise; 
   }
