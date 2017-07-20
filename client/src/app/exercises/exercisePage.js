@@ -22,25 +22,21 @@ class ExercisePage extends Component {
 
     this.delete = (event) => {
       event.preventDefault();
-      this.props.actions.dispatchAction(Exercise, 'delete', this.state.exercise.id);
+      return this.props.actions.dispatchAction(Exercise, 'delete', this.state.exercise.id);
     }
 
-    this.save = (event) => {
+    this.saveExercise = (event) => {
       event.preventDefault();
-      this.props.actions.dispatchAction(Exercise, 'update', this.state);
-      this.setState({editing: !this.state.editing})
+      var state = Object.assign({}, this.state)
+      state.exercise.exercise_sets_attributes = state.exercise.exercise_sets
+      delete state.exercise.exercise_sets;
+      return this.props.actions.dispatchAction(Exercise, 'update', state)
     }
 
-     this.toggleEdit = () => {
-      this.setState({editing: !this.state.editing})
+    this.toggleEdit = () => {
+      return this.setState({editing: !this.state.editing})
     }
 
-     this.updateExerciseState = (event) => {
-      const field = event.target.name;
-      const exercise = this.state.exercise;
-      exercise[field] = event.target.value;
-      return this.setState({exercise: exercise});
-    }
   }
 
   componentDidMount(){
@@ -48,7 +44,7 @@ class ExercisePage extends Component {
       // this.props.actions.dispatchAction(Exercise, 'get', this.props.params.id );
       this.exercise.get(this.props.params.id).then( (response) => {
         this.setState({exercise: response })
-        console.log("GET EXERCISE ON LOAD", response)
+        return console.log("GET EXERCISE ON LOAD", response)
       })
     }
   }
@@ -56,27 +52,30 @@ class ExercisePage extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.exercise) {
       if (this.props.exercise.id != nextProps.exercise.id) {
-        this.setState({exercise: nextProps.exercise});
+        return this.setState({exercise: nextProps.exercise});
       }
     }
   }
 
   render() {
-    var exercise = this.state.exercise ? this.state.exercise :  {name: "Loading..."}
+    var exercise = this.state.exercise ? this.state.exercise :  {name: "Loading...", exercise_sets: []}
 
     if (this.state.editing) {
       return (
       <div className="exercisesPage">
-        <ExerciseForm 
-        exercise={this.state.exercise} 
-        onSave={this.save} 
-        onChange={this.updateExerciseState} />
+        <ExerciseForm exercise={exercise} saveExercise={this.saveExercise} />
       </div>
       )
     } else {
+      var sets = exercise.exercise_sets.map(set => (
+        <div>
+          {set.id + 1} {set.repititions} {set.weight}
+        </div>
+      ))
       return (
         <div id="exercisesPage">
           <h1>{exercise.name}</h1>
+          <p>{sets}</p>
           <button onClick={this.toggleEdit} 
             className="btn btn-default">edit
           </button>

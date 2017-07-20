@@ -18,16 +18,14 @@ class ExerciseForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = this.props.exercise;
-
-    this.createExercise = (event) => {
-      event.preventDefault();
-      this.props.actions.dispatchAction(Exercise, 'create', this.state)
+    this.state = {
+      exercise: this.props.exercise
     }
 
     this.updateExerciseState = (event) => {
-      const field = {name: event.target.value};
-      return this.setState({exercise: Object.assign({}, this.state.exercise, field)});
+      var state = Object.assign({}, this.state)
+      state.exercise.name = event.target.value
+      return this.setState(state);
     }
 
     this.selectExercise = (name) => {
@@ -43,14 +41,14 @@ class ExerciseForm extends Component {
 
     this.addSet = () => {
       var state = Object.assign({}, this.state)
-      var sets = state.exercise.exercise_sets_attributes
+      var sets = state.exercise.exercise_sets
       sets.push({repititions: 0, id: sets.length, weight: 0 });
       return this.setState(state);
     }
 
     this.removeSet = () => {
       var state = Object.assign({}, this.state)
-      state.exercise.exercise_sets_attributes.pop()
+      state.exercise.exercise_sets.pop()
       return this.setState(state);
     }
 
@@ -59,7 +57,7 @@ class ExerciseForm extends Component {
       var name = event.target.name
       var value = event.target.value
       var state = Object.assign({}, this.state)
-      state.exercise.exercise_sets_attributes[id][name] = value
+      state.exercise.exercise_sets[id][name] = value
       return this.setState(state);
     }
     
@@ -93,7 +91,7 @@ class ExerciseForm extends Component {
           <input
             type="submit"
             className="btn btn-primary"
-            onClick={this.createExercise}
+            onClick={this.props.saveExercise}
           />
         </p>
 

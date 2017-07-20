@@ -5,7 +5,7 @@ class ExerciseSet extends Component {
 
   render(){
 
-    var sets = this.props.exercise.exercise_sets_attributes.map(set => { 
+    var sets = this.props.exercise.exercise_sets.map(set => { 
       return (
         <div className='exercise-set' style={ {display: 'inline-block'} }>
           <h3>Set {set.id + 1}</h3>
