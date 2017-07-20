@@ -13,3 +13,16 @@ export function dispatchAuthorization(type, credentials){
     })
   }
 }
+
+
+export function dispatchPasswordChange(credentials){
+   return function(dispatch) {
+    return Auth.changePassword(credentials).then(response =>{
+      dispatch({type: "CHANGE_PASSWORD"})
+    }).catch(error => {
+      throw(error);
+    })
+  }
+}
+
+

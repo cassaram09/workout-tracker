@@ -15,6 +15,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def password
+    @user = User.find_by(id: current_user.id)
+    if user_params[:password] == user_params[:password_confirmation] && @user == current_user
+      @user.update(user_params)
+      render json: {updated: true}
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)

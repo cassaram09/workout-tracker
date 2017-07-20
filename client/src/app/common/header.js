@@ -56,6 +56,9 @@ class Header extends React.Component {
               <Link to="/routines" activeClassName="active">Routines</Link>
             </MenuItem>
             <MenuItem eventKey={4}>
+              <Link to="/profile" activeClassName="active">Profile</Link>
+            </MenuItem>
+            <MenuItem eventKey={5}>
               <a href="/logout" onClick={this.logOut}>Log Out</a>
             </MenuItem>
           </Nav>      
