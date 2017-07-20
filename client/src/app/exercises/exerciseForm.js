@@ -12,7 +12,9 @@ class ExerciseForm extends Component {
     this.state = {
       exercise:{
         name: '',
-        sets: ''
+        sets: [
+          {repititions: 0, id: 0},
+        ]
       }
     }
 
@@ -27,21 +29,38 @@ class ExerciseForm extends Component {
     }
 
     this.shouldItemRender = (item, value) => {
-      return item.label.match(value) ? true : false ;
+      var convertedItem = item.label.toLowerCase()
+      var convertedValue = value.toLowerCase()
+      return convertedItem.match(convertedValue) ? true : false ;
+    }
+
+    this.addSet = () => {
+        var length = this.state.exercise.sets.length
+        var sets = this.state.exercise.sets
+        sets = {sets: [...sets]}
+        sets.sets.push({repititions: 0, id: length });
+        this.setState({exercise: Object.assign({}, this.state.exercise, sets)});
+    }
+
+     this.removeSet = () => {
+        var sets = this.state.exercise.sets
+        sets =  {sets: [...sets]}
+        sets.sets.pop();
+        this.setState({exercise: Object.assign({}, this.state.exercise, sets)});
+    }
+
+    this.updateSet = (event) =>{
+      var id = event.target.id.substr(event.target.id.length - 1);
+      var value = event.target.value
+      var sets = {sets: [...this.state.exercise.sets]}
+      sets.sets[id] = {repititions: value, id: id}
+      this.setState({exercise: Object.assign({}, this.state.exercise, sets)});
     }
   }
 
   render(){
     return (
       <div>
-        <DropdownButton>
-          <MenuItem eventKey="1">Bench Press</MenuItem>
-          <MenuItem eventKey="2">Another action</MenuItem>
-          <MenuItem eventKey="3" active>Active Item</MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey="4">Separated link</MenuItem>
-        </DropdownButton>
-
         <Autocomplete
           getItemValue={(item) => item.label}
           items={[
@@ -63,18 +82,19 @@ class ExerciseForm extends Component {
           onSelect={this.selectExercise.bind(this)}
         />
    
-        <form>
-          <TextInput
-            name="name"
-            label="name"
-            value={this.props.exercise.name}
-            onChange={this.props.onChange}/>
-
+        <p>
           <input
             type="submit"
             className="btn btn-primary"
             onClick={this.props.onSave}/>
-        </form>
+        </p>
+
+        <div id="dynamicInput">
+                       {this.state.exercise.sets.map(set => <input type='text' value={set.repititions} id={`set_${set.id}`} onChange={this.updateSet.bind(this)}/> )}
+                   </div>
+
+        <button onClick={this.addSet}>Add Set</button>
+        <button onClick={this.removeSet}>Remove Set</button>
       </div>
     )
   }
