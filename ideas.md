@@ -167,5 +167,11 @@ A simple browser based application that allows users to track their workouts. It
     - belongs_to meal
 
 
+##### TO DO
+
+- user roles / authorization using pundit
+- 
+
+
 
 
