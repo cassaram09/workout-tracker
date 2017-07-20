@@ -43,7 +43,7 @@ class ExerciseForm extends Component {
     this.addSet = () => {
       var state = Object.assign({}, this.state)
       var sets = state.exercise.exercise_sets
-      sets.push({repititions: 0, id: sets.length, weight: 0 });
+      sets.push({repititions: 0, set_id: sets.length, weight: 0 });
       return this.setState(state);
     }
 
@@ -55,6 +55,7 @@ class ExerciseForm extends Component {
 
     this.updateSet = (event) =>{
       var id = event.target.id.substr(event.target.id.length - 1);
+      id = parseInt(id, 10) - 1
       var name = event.target.name
       var value = event.target.value
       var state = Object.assign({}, this.state)
@@ -64,8 +65,15 @@ class ExerciseForm extends Component {
     
   }
 
-  render(){
+  componentWillReceiveProps(nextProps) {
+    if (this.props.exercise) {
+      if (this.props.exercise.name != nextProps.exercise.name) {
+        return this.setState({exercise: nextProps.exercise});
+      }
+    }
+  }
 
+  render(){
     return (
       <div>
         <Autocomplete

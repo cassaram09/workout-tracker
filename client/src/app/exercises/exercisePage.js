@@ -15,6 +15,7 @@ class ExercisePage extends Component {
   constructor(props){
     super(props)
     this.exercise = Exercise;
+
     this.state = {
       exercise: this.props.exercise,
       editing: false
@@ -29,8 +30,9 @@ class ExercisePage extends Component {
       event.preventDefault();
       var state = Object.assign({}, this.state)
       state.exercise.exercise_sets_attributes = state.exercise.exercise_sets
-      delete state.exercise.exercise_sets;
-      return this.props.actions.dispatchAction(Exercise, 'update', state)
+      this.props.actions.dispatchAction(Exercise, 'update', state)
+      delete state.exercise.exercise_sets_attributes;
+      return this.toggleEdit();
     }
 
     this.toggleEdit = () => {
@@ -64,6 +66,7 @@ class ExercisePage extends Component {
       return (
       <div className="exercisesPage">
         <ExerciseForm exercise={exercise} saveExercise={this.saveExercise} />
+        <button onClick={this.toggleEdit} className="btn btn-default">Close</button>
       </div>
       )
     } else {
@@ -76,10 +79,8 @@ class ExercisePage extends Component {
         <div id="exercisesPage">
           <h1>{exercise.name}</h1>
           <p>{sets}</p>
-          <button onClick={this.toggleEdit} 
-            className="btn btn-default">edit
-          </button>
-           <button onClick={this.delete} className='btn btn-danger'>Delete</button>
+          <button onClick={this.toggleEdit} className="btn btn-default">Edit</button>
+          <button onClick={this.delete} className='btn btn-danger'>Delete</button>
         </div>
       )
     }

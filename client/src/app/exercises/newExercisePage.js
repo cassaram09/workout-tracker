@@ -16,7 +16,7 @@ class NewExercisePage extends Component {
       exercise: {
         name: '', 
         exercise_sets: [
-          {repititions: 0, id: 0, weight: 0},
+          {repititions: 0, set_id: 0, weight: 0},
         ]
       }
     }
@@ -26,7 +26,7 @@ class NewExercisePage extends Component {
       var state = Object.assign({}, this.state)
       state.exercise.exercise_sets_attributes = state.exercise.exercise_sets
       delete state.exercise.exercise_sets;
-      this.props.actions.dispatchAction(Exercise, 'create', state)
+      return this.props.actions.dispatchAction(Exercise, 'create', state)
     }
 
   }

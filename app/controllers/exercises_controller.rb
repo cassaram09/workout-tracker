@@ -6,7 +6,7 @@ class ExercisesController < ApplicationController
 
   def create
     @exercise = Exercise.new(exercise_params)
-    if @exercise.save()
+    if @exercise.save
       render json: @exercise
     end
   end
@@ -18,20 +18,26 @@ class ExercisesController < ApplicationController
 
   def update
     @exercise = Exercise.find(exercise_params[:id])
+
+    param_ids = exercise_params[:exercise_sets_attributes].collect {|set| set[:id]}
+    ids = ExerciseSet.where(exercise_id: @exercise.id).pluck(:id)
+    to_delete = ids.select {|id| !param_ids.include?(id) }
+   
     if @exercise.update(exercise_params)
+      ExerciseSet.where(id: to_delete).destroy_all
       render json: @exercise
     end
   end
 
   def destroy
     @exercise = Exercise.find(params[:id])
-    if @exercise.delete
+    if @exercise.destroy
       render json: @exercise
     end
   end
 
   private
   def exercise_params
-    params.require(:exercise).permit(:id, :name, :rest_time, exercise_sets_attributes: [:repititions, :weight])
+    params.require(:exercise).permit(:id, :name, :rest_time, exercise_sets_attributes: [:repititions, :weight, :id])
   end
 end
