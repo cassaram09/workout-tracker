@@ -4,5 +4,6 @@
 export default {  
   exercises: [],
   workouts: [],
+  routines: [],
   session: !!sessionStorage.jwt
 }
