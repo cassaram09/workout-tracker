@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import {Button} from 'react-bootstrap'
-import * as actions from '../store/actions'
+import * as actions from '../_store/actions'
 import Workout from './workoutResource'
 import WorkoutsList from './workoutsList'
 

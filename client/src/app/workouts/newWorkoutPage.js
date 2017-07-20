@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import WorkoutForm from './workoutForm'
-import * as actions from '../store/actions'
+import * as actions from '../_store/actions'
 import Workout from './workoutResource'
 
 class NewWorkoutPage extends Component {

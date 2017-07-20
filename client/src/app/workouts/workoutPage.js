@@ -4,9 +4,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 import { Link, IndexLink } from 'react-router';
 
-import * as actions from '../store/actions'
+import * as actions from '../_store/actions'
 import Workout from './workoutResource'
-import StoreHelpers from '../store/storeHelpers'
+import StoreHelpers from '../_store/storeHelpers'
 import WorkoutForm from './workoutForm'
 
 

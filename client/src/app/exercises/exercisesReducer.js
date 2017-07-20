@@ -1,4 +1,4 @@
-import initialState from '../store/initialState'
+import initialState from '../_store/initialState'
 import {browserHistory} from 'react-router';
 import Exercise from './exerciseResource'
 
