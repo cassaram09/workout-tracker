@@ -6,25 +6,26 @@ class WorkoutsController < ApplicationController
 
   def create
     @workout = Workout.new(workout_params)
-    if @workout.save()
+    @workout.user = current_user
+    if @workout.save
       render json: @workout
     end
   end
 
   def show
-    @workout = Workout.find(params[:id])
+    @workout = Workout.find(params[:id], user_id: current_user.id)
     render json: @workout
   end
 
   def update
-    @workout = Workout.find(workout_params[:id])
+    @workout = Workout.find(id: workout_params[:id], user_id: current_user.id)
     if @workout.update(workout_params)
       render json: @workout
     end
   end
 
   def destroy
-    @workout = Workout.find(params[:id])
+    @workout = Workout.find(params[:id], user_id: current_user.id)
     if @workout.delete
       render json: @workout
     end
