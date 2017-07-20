@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class ExerciseSet extends Component {
 
   render(){
-
     var sets = this.props.exercise.exercise_sets.map((set, index) => { 
       return (
         <div className='exercise-set' style={ {display: 'inline-block'} }>
