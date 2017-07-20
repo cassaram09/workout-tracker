@@ -34,8 +34,6 @@ class Header extends React.Component {
               <Link to="/signup" activeClassName="active">SignUp</Link>
             </NavItem>
           </Nav>
-          <a href="/logout" onClick={this.logOut}>log out</a>
-          <p>{this.props.session}</p>
         </Navbar>
       )
     } else {
@@ -51,14 +49,13 @@ class Header extends React.Component {
             <MenuItem eventKey={1}>
               <Link to="/exercises" activeClassName="active">Exercises</Link>
             </MenuItem>
-          </Nav>
-          <Nav>
             <MenuItem eventKey={2}>
               <Link to="/workouts" activeClassName="active">Workouts</Link>
             </MenuItem>
-          </Nav>
-          <p>{this.props.logged_in}</p>
-          <a href="/logout" onClick={this.logOut}>log out</a>
+            <MenuItem eventKey={3}>
+              <a href="/logout" onClick={this.logOut}>log out</a>
+            </MenuItem>
+          </Nav>      
         </Navbar>
       )
     }
