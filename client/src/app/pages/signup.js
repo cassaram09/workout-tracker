@@ -36,25 +36,25 @@ class SignUpPage extends Component {
   render(){
     return(
       <div>
-
         <form>
           <TextInput
             name="email"
-            label="email"
+            label="Email"
+            type="email"
             value={this.state.credentials.email}
             onChange={this.onChange}/>
 
           <TextInput
             name="password"
-            label="password"
+            label="Password"
             type="password"
             value={this.state.credentials.password}
             onChange={this.onChange}/>
 
           <TextInput
             name="password_confirmation"
-            label="password_confirmation"
-            type="password_confirmation"
+            label="Confirm Password"
+            type="password"
             value={this.state.credentials.password_confirmation}
             onChange={this.onChange}/>
 

@@ -39,13 +39,14 @@ class LoginPage extends Component {
         <form>
           <TextInput
             name="email"
-            label="email"
+            label="Email"
+            type="email"
             value={this.state.credentials.email}
             onChange={this.onChange}/>
 
           <TextInput
             name="password"
-            label="password"
+            label="Password"
             type="password"
             value={this.state.credentials.password}
             onChange={this.onChange}/>
