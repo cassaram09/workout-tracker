@@ -6,6 +6,7 @@ import HomePage from './pages/homePage'
 
 import * as exercises from './exercises/index'
 import * as workouts from './workouts/index'
+import * as routines from './routines/index'
 
 import LoginPage from './pages/loginPage'
 import SignUpPage from './pages/signup'
@@ -24,6 +25,10 @@ export default(
     <Route path='/workouts' component={workouts.WorkoutsPage} onEnter={requireAuth} >
       <Route name='newWorkout' path='/workouts/new' component={workouts.NewWorkoutPage} />
        <Route name='workout' path='/workouts/:id' component={workouts.WorkoutPage} />
+    </Route>
+    <Route path='/routines' component={routines.RoutinesPage} onEnter={requireAuth} >
+      <Route name='newRoutine' path='/routines/new' component={routines.NewRoutinePage} />
+       <Route name='routine' path='/routines/:id' component={routines.RoutinePage} />
     </Route>
   </Route>
 )
