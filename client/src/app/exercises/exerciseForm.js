@@ -1,21 +1,28 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import TextInput from '../common/textInput';
 
 import {DropdownButton, MenuItem} from 'react-bootstrap'
 import Autocomplete from 'react-autocomplete'
 
+import * as actions from '../_store/actions'
+
+import Exercise from './exerciseResource'
+import ExerciseSet from './exerciseSet'
+
+
+
 class ExerciseForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      exercise:{
-        name: '',
-        sets: [
-          {repititions: 0, id: 0},
-        ]
-      }
+    this.state = this.props.exercise;
+
+    this.createExercise = (event) => {
+      event.preventDefault();
+      this.props.actions.dispatchAction(Exercise, 'create', this.state)
     }
 
     this.updateExerciseState = (event) => {
@@ -35,30 +42,31 @@ class ExerciseForm extends Component {
     }
 
     this.addSet = () => {
-        var length = this.state.exercise.sets.length
-        var sets = this.state.exercise.sets
-        sets = {sets: [...sets]}
-        sets.sets.push({repititions: 0, id: length });
-        this.setState({exercise: Object.assign({}, this.state.exercise, sets)});
+      var state = Object.assign({}, this.state)
+      var sets = state.exercise.exercise_sets_attributes
+      sets.push({repititions: 0, id: sets.length, weight: 0 });
+      return this.setState(state);
     }
 
-     this.removeSet = () => {
-        var sets = this.state.exercise.sets
-        sets =  {sets: [...sets]}
-        sets.sets.pop();
-        this.setState({exercise: Object.assign({}, this.state.exercise, sets)});
+    this.removeSet = () => {
+      var state = Object.assign({}, this.state)
+      state.exercise.exercise_sets_attributes.pop()
+      return this.setState(state);
     }
 
     this.updateSet = (event) =>{
       var id = event.target.id.substr(event.target.id.length - 1);
+      var name = event.target.name
       var value = event.target.value
-      var sets = {sets: [...this.state.exercise.sets]}
-      sets.sets[id] = {repititions: value, id: id}
-      this.setState({exercise: Object.assign({}, this.state.exercise, sets)});
+      var state = Object.assign({}, this.state)
+      state.exercise.exercise_sets_attributes[id][name] = value
+      return this.setState(state);
     }
+    
   }
 
   render(){
+
     return (
       <div>
         <Autocomplete
@@ -68,13 +76,10 @@ class ExerciseForm extends Component {
             { label: 'Deadlift' },
             { label: 'Squat' }
           ]}
-          renderItem={(item, isHighlighted) => {
-            return (
-              <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-                {item.label}
-              </div>
-              )
-            }
+          renderItem={(item, isHighlighted) => 
+            <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+              {item.label}
+            </div>
           }
           shouldItemRender={this.shouldItemRender.bind(this)}
           value={this.state.exercise.name}
@@ -82,19 +87,16 @@ class ExerciseForm extends Component {
           onSelect={this.selectExercise.bind(this)}
         />
    
+        <ExerciseSet exercise={this.state.exercise} updateSet={this.updateSet} removeSet={this.removeSet} addSet={this.addSet} />
+
         <p>
           <input
             type="submit"
             className="btn btn-primary"
-            onClick={this.props.onSave}/>
+            onClick={this.createExercise}
+          />
         </p>
 
-        <div id="dynamicInput">
-                       {this.state.exercise.sets.map(set => <input type='text' value={set.repititions} id={`set_${set.id}`} onChange={this.updateSet.bind(this)}/> )}
-                   </div>
-
-        <button onClick={this.addSet}>Add Set</button>
-        <button onClick={this.removeSet}>Remove Set</button>
       </div>
     )
   }
@@ -106,4 +108,10 @@ ExerciseForm.propTypes = {
   onChange: React.PropTypes.func.isRequired,
 }
 
-export default ExerciseForm;
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ExerciseForm);
