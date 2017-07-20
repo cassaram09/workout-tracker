@@ -53,7 +53,7 @@ class Header extends React.Component {
               <Link to="/workouts" activeClassName="active">Workouts</Link>
             </MenuItem>
             <MenuItem eventKey={3}>
-              <a href="/logout" onClick={this.logOut}>log out</a>
+              <a href="/logout" onClick={this.logOut}>Log Out</a>
             </MenuItem>
           </Nav>      
         </Navbar>
