@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20170720134917) do
     t.integer  "repititions"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["exercise_id"], name: "index_exercise_sets_on_exercise_id", using: :btree
   end
 
   create_table "exercises", force: :cascade do |t|
