@@ -22,15 +22,16 @@ class ExerciseForm extends Component {
       exercise: this.props.exercise
     }
 
-    this.updateExerciseState = (event) => {
+    this.updateExerciseName = (event) => {
       var state = Object.assign({}, this.state)
       state.exercise.name = event.target.value
       return this.setState(state);
     }
 
-    this.selectExercise = (name) => {
-      const field = {name: name};
-      return this.setState({exercise: Object.assign({}, this.state.exercise, field)});
+    this.selectExerciseName = (name) => {
+      var state = Object.assign({}, this.state)
+      state.exercise.name = name
+      return this.setState(state);
     }
 
     this.shouldItemRender = (item, value) => {
@@ -79,10 +80,10 @@ class ExerciseForm extends Component {
               {item.label}
             </div>
           }
-          shouldItemRender={this.shouldItemRender.bind(this)}
+          shouldItemRender={this.shouldItemRender}
           value={this.state.exercise.name}
-          onChange={this.updateExerciseState.bind(this)}
-          onSelect={this.selectExercise.bind(this)}
+          onChange={this.updateExerciseName}
+          onSelect={this.selectExerciseName}
         />
    
         <ExerciseSet exercise={this.state.exercise} updateSet={this.updateSet} removeSet={this.removeSet} addSet={this.addSet} />

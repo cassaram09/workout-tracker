@@ -3,6 +3,7 @@ class CreateExerciseSets < ActiveRecord::Migration[5.0]
     create_table :exercise_sets do |t|
       t.integer :exercise_id
       t.integer :repititions
+      t.integer :weight
       
       t.timestamps
     end

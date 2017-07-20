@@ -67,9 +67,9 @@ class ExercisePage extends Component {
       </div>
       )
     } else {
-      var sets = exercise.exercise_sets.map(set => (
+      var sets = exercise.exercise_sets.map((set, index) => (
         <div>
-          {set.id + 1} {set.repititions} {set.weight}
+          {index + 1} {set.repititions} {set.weight}
         </div>
       ))
       return (
