@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170718170549) do
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
