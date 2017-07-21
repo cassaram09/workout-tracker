@@ -16,6 +16,22 @@ class Resource extends HTTP {
     }
 
     this.headers = headers;
+
+    this.dispatchAction = (action, data) => {
+      const resource = this;
+      return (dispatch) => {
+        return resource[action](data).then( response => {
+          dispatch(resource.reducerAction(action, response))
+        }).catch(error =>{
+          throw(error);
+        })
+      }
+    }
+
+    this.reducerAction = (action, data) => { 
+      return {
+        type: this.actionTypes[action], data};
+    }
   }
 
   createHeaders(){
