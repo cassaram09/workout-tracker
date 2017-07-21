@@ -3,7 +3,12 @@ import API from '../api/api'
 
 const url = '/users'
 
-const User = new Resource('user', url);
+const headers = {
+  'Content-Type': 'application/json',
+  'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
+}
+
+const User = new Resource('user', url, headers);
 
 // register our custom actions
 

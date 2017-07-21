@@ -14,13 +14,12 @@ class Resource extends HTTP {
       update: `UPDATE_${this.name}_SUCCESS`,
       delete: `DELETE_${this.name}_SUCCESS`
     }
+
+    this.headers = headers;
   }
 
   createHeaders(){
-    return new Headers({
-      'Content-Type': 'application/json',
-      'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
-    })
+    return new Headers(this.headers)
   }
 
   addAction(name, callback){
