@@ -72,7 +72,6 @@ LoginPage.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     auth: bindActionCreators(authActions, dispatch),
-    actions: bindActionCreators(actions, dispatch)
   }
 }
 

@@ -41,10 +41,6 @@ class PasswordReset extends Component {
 
   }
 
-  componentWillUpdate(nextProps, nextState){
-    debugger
-  }
-
   render(){
     if (this.state.edit){
       return (

@@ -19,18 +19,6 @@ class Header extends React.Component {
       }
   }
 
-  componentDidMount(){
-    if (sessionStorage.jwt) {
-      this.props.actions.dispatchAction(User, 'getCurrentUser', null)
-    }
-  }
-
-  componentWillUpdate(){
-    if (sessionStorage.jwt) {
-      this.props.actions.dispatchAction(User, 'getCurrentUser', null)
-    }
-  }
-
   render() {
 
      if (!this.props.session) {
@@ -95,7 +83,6 @@ function mapStateToProps(state, ownProps){
 function mapDispatchToProps(dispatch){
   return {
     auth: bindActionCreators(authActions, dispatch),
-    actions: bindActionCreators(actions, dispatch)
   }
 }
 

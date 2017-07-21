@@ -32,7 +32,6 @@ class SignUpPage extends Component {
     this.signUp = (event) => {
       event.preventDefault();
       this.props.auth.dispatchAuthorization('signup', this.state.credentials);
-      this.props.actions.dispatchAction(User, 'getCurrentUser', null)
     }
   }
 
@@ -80,7 +79,6 @@ SignUpPage.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     auth: bindActionCreators(authActions, dispatch),
-    actions: bindActionCreators(actions, dispatch)
   }
 }
 
