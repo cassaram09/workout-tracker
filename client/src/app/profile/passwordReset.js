@@ -94,7 +94,6 @@ PasswordReset.propTypes = {
 
 }
 
-// map our sessionActions to class props
 function mapDispatchToProps(dispatch) {
   return {
     auth: bindActionCreators(authActions, dispatch)

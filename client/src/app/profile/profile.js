@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Grid, Row, Col } from 'react-bootstrap'
 import PasswordReset from './passwordReset'
+import ProfileImage from './profileImage'
 
 class Profile extends Component {
 
@@ -11,6 +12,9 @@ class Profile extends Component {
         <Row>
           <Col xs={8} sm={6} md={4} >
             <PasswordReset />
+          </Col>
+          <Col xs={8} sm={6} md={4} >
+            <ProfileImage />
           </Col>
         </Row>
       </Grid>
