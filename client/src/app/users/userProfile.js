@@ -27,7 +27,8 @@ class UserProfile extends Component {
       event.preventDefault();
       var state = Object.assign({}, this.state)
       delete state.user.avatar;
-      return this.props.actions.dispatchAction(User, 'update', state )
+      this.props.actions.dispatchAction(User, 'update', state )
+      return this.toggleEdit();
     }
 
   }
