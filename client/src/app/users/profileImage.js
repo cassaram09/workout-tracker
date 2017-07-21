@@ -28,7 +28,7 @@ class ProfileImage extends Component {
             req.attach('user[avatar]', file);
         });
         req.end(function(){
-          alert('done!')
+         console.log('image uploaded')
         });
     }
   }
