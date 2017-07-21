@@ -67,10 +67,6 @@ ActiveRecord::Schema.define(version: 20170720222444) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.string   "string_file_name"
-    t.string   "string_content_type"
-    t.integer  "string_file_size"
-    t.datetime "string_updated_at"
   end
 
   create_table "workouts", force: :cascade do |t|

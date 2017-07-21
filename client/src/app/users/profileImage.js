@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import * as actions from '../_store/actions'
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux';
+import Dropzone from 'react-dropzone'
+import request from 'superagent';
 
 import ReactUploadFile from 'react-upload-file';
 
@@ -17,8 +19,17 @@ class ProfileImage extends Component {
       var file = event.target.files[0]
      
       var data = {user: {avatar: file, email: ''}}
-      debugger
       return this.props.actions.dispatchAction(User, 'uploadImage', data)
+    }
+
+    this.onDrop = (acceptedFiles) => {
+      const req = request.post('/users').set('AUTHORIZATION', `Bearer ${sessionStorage.jwt}`)
+        acceptedFiles.forEach(file => {
+            req.attach('user[avatar]', file);
+        });
+        req.end(function(){
+          alert('done!')
+        });
     }
   }
 
@@ -26,7 +37,13 @@ class ProfileImage extends Component {
 
     return (
       <div id="profileImage">
-        <input type='file' className='btn'  onChange={this.uploadFile}/>
+       
+        <Dropzone
+          multiple={false}
+          accept="image/*"
+          onDrop={this.onDrop}>
+          <p>Drop an image or click to select a file to upload.</p>
+        </Dropzone>
       </div>
     )
   }
@@ -46,3 +63,4 @@ function mapDispatchToProps(dispatch){
 
 
 export default connect(null, mapDispatchToProps)(ProfileImage);
+
