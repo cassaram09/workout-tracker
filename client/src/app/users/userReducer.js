@@ -19,11 +19,11 @@ export default function userReducer(state = initialState.user, action) {
       // return addUser(state, action);
     case types.update:
       console.log(`%c ${message}`, 'color: blue')
-      return addUser(state, action);
+      return state;
     case types.create:
       // console.log(`%c ${message}`, 'color: blue')
       // browserHistory.push(`/users/${action.data.id}`);
-      return addUser(state, action);
+      return state;
     case types.delete:
       // console.log(`%c ${message}`, 'color: blue')
       // const newState = Object.assign([], state);
