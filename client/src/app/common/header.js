@@ -6,13 +6,28 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';  
 import * as authActions from '../_auth/authActions';
 
+import User from '../users/userResource'
+import * as actions from '../_store/actions'
+
 class Header extends React.Component {
   constructor(props){
     super()
 
     this.logOut = (event) =>{
       event.preventDefault();
-      this.props.auth.dispatchAuthorization('logout');
+        this.props.auth.dispatchAuthorization('logout');
+      }
+  }
+
+  componentDidMount(){
+    if (sessionStorage.jwt) {
+      this.props.actions.dispatchAction(User, 'getCurrentUser', null)
+    }
+  }
+
+  componentWillUpdate(){
+    if (sessionStorage.jwt) {
+      this.props.actions.dispatchAction(User, 'getCurrentUser', null)
     }
   }
 
@@ -79,7 +94,8 @@ function mapStateToProps(state, ownProps){
 
 function mapDispatchToProps(dispatch){
   return {
-    auth: bindActionCreators(authActions, dispatch)
+    auth: bindActionCreators(authActions, dispatch),
+    actions: bindActionCreators(actions, dispatch)
   }
 }
 

@@ -5,6 +5,9 @@ import {connect} from 'react-redux'
 import * as authActions from '../_auth/authActions'
 import TextInput from '../common/textInput'
 
+import User from '../users/userResource'
+import * as actions from '../_store/actions'
+
 class SignUpPage extends Component {
   constructor(){
     super()
@@ -29,6 +32,7 @@ class SignUpPage extends Component {
     this.signUp = (event) => {
       event.preventDefault();
       this.props.auth.dispatchAuthorization('signup', this.state.credentials);
+      this.props.actions.dispatchAction(User, 'getCurrentUser', null)
     }
   }
 
@@ -73,10 +77,10 @@ SignUpPage.propTypes = {
 
 }
 
-// map our sessionActions to class props
 function mapDispatchToProps(dispatch) {
   return {
-    auth: bindActionCreators(authActions, dispatch)
+    auth: bindActionCreators(authActions, dispatch),
+    actions: bindActionCreators(actions, dispatch)
   }
 }
 

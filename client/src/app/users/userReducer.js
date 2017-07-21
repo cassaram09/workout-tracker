@@ -40,6 +40,9 @@ export default function userReducer(state = initialState.user, action) {
     case types.changePassword:
       console.log(`%c ${message}`, 'color: blue')
       return {user: {credentials: {old_password: 'hello'}}};
+    case types.getCurrentUser:
+      console.log(`%c ${message}`, 'color: blue')
+      return action.data;
     default:
       return state;
   }

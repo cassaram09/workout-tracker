@@ -22,6 +22,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_current_user
+    @user = User.find_by(id: current_user.id)
+    render json: @user
+    return
+  end
+
   def password
     @user = User.find_by(id: current_user.id)
     if user_params[:password] == user_params[:password_confirmation] && @user == current_user

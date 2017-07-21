@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
   post '/users' => 'users#update'
+  get '/current-user' => 'users#get_current_user'
   post '/password-reset' => 'users#password'
   post '/signup' => 'users#create'
   resources :users, except: [:new, :create]

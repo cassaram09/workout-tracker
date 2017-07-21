@@ -5,6 +5,8 @@ import {connect} from 'react-redux'
 import * as authActions from '../_auth/authActions'
 import TextInput from '../common/textInput'
 
+import User from '../users/userResource'
+import * as actions from '../_store/actions'
 
 class LoginPage extends Component {
   constructor(){
@@ -69,7 +71,8 @@ LoginPage.propTypes = {
 // map our sessionActions to class props
 function mapDispatchToProps(dispatch) {
   return {
-    auth: bindActionCreators(authActions, dispatch)
+    auth: bindActionCreators(authActions, dispatch),
+    actions: bindActionCreators(actions, dispatch)
   }
 }
 

@@ -4,7 +4,7 @@ export function dispatchAuthorization(type, credentials){
   return function(dispatch) {
     return Auth[type](credentials).then(response =>{
       if (response.jwt) {
-        dispatch({type: Auth.actionTypes[type], jwt: response.jwt})
+        dispatch({type: Auth.actionTypes[type], data: response})
       } else {
         console.log('error')
       }

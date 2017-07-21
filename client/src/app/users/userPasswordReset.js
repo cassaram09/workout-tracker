@@ -41,6 +41,10 @@ class PasswordReset extends Component {
 
   }
 
+  componentWillUpdate(nextProps, nextState){
+    debugger
+  }
+
   render(){
     if (this.state.edit){
       return (
@@ -100,7 +104,7 @@ function mapStateToProps(state, ownProps) {
         password_confirmation: '',
       }})
   return {
-    credentials: credentials
+    credentials: credentials,
   }
 }
 

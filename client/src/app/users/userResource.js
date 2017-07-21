@@ -17,4 +17,9 @@ User.addAction("uploadImage", function(data) {
   return Resource.fetchRequest(request)
 })
 
+User.addAction("getCurrentUser", function(data) {
+  var request = Resource.createRequest('/current-user', 'GET', data, User.createHeaders())
+  return Resource.fetchRequest(request)
+})
+
 export default User;
