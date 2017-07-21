@@ -4,6 +4,8 @@ import * as actions from '../_store/actions'
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux';
 
+import ReactUploadFile from 'react-upload-file';
+
 import User from './userResource'
 
 class ProfileImage extends Component {
@@ -12,12 +14,16 @@ class ProfileImage extends Component {
 
     this.uploadFile = (event) =>{
       event.preventDefault();
-      var data = {user: {avatar: event.target.files[0]}}
+      var file = event.target.files[0]
+     
+      var data = {user: {avatar: file, email: ''}}
+      debugger
       return this.props.actions.dispatchAction(User, 'uploadImage', data)
     }
   }
 
   render(){
+
     return (
       <div id="profileImage">
         <input type='file' className='btn'  onChange={this.uploadFile}/>
