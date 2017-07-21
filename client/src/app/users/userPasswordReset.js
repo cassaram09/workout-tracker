@@ -5,18 +5,16 @@ import {bindActionCreators} from 'redux';
 import {Grid, Row, Col } from 'react-bootstrap'
 
 import TextInput from '../common/textInput'
-import * as authActions from '../_auth/authActions'
+import * as actions from '../_store/actions'
+
+import User from './userResource'
 
 class PasswordReset extends Component {
   constructor(props){
     super(props);
 
-    this.state={
-      credentials: {
-        old_password: '',
-        password: '',
-        password_confirmation: '',
-      },
+    this.state = {
+      credentials: this.props.credentials,
       edit: false
     }
 
@@ -32,7 +30,8 @@ class PasswordReset extends Component {
     this.onSave = (event) => {
       event.preventDefault();
       if (this.state.credentials.password == this.state.credentials.password_confirmation){
-        return this.props.auth.dispatchPasswordChange(this.state.credentials);
+        var data = {user: this.state.credentials}
+        this.props.auth.dispatchAction(User, 'changePassword', data )
       }
     }
 
@@ -94,10 +93,21 @@ PasswordReset.propTypes = {
 
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state, ownProps) {
+  var credentials = Object.assign({}, state.user, {credentials: {
+        old_password: '',
+        password: '',
+        password_confirmation: '',
+      }})
   return {
-    auth: bindActionCreators(authActions, dispatch)
+    credentials: credentials
   }
 }
 
-export default connect(null, mapDispatchToProps)(PasswordReset);
+function mapDispatchToProps(dispatch) {
+  return {
+    auth: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PasswordReset);

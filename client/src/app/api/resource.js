@@ -24,7 +24,7 @@ class Resource extends HTTP {
   }
 
   addAction(name, callback){
-    this.actionTypes[name] = `${this.name.toUpperCase()}_SUCCESS`;
+    this.actionTypes[name] = `${name.toUpperCase()}_SUCCESS`;
     this[name] = callback;
   }
 

@@ -28,14 +28,6 @@ class Authorization {
     return promise; 
   }
 
-  changePassword(credentials) {
-    var headers = new Headers({
-      'Content-Type': 'application/json',
-      'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
-    })
-    return HTTP.$post('/password-reset', {user: credentials}, headers );
-  }
-
 }
 
 const Auth = new Authorization({'Content-Type': "application/json"})

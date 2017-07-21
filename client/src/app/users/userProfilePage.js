@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Grid, Row, Col } from 'react-bootstrap'
-import PasswordReset from './passwordReset'
+import PasswordReset from './userPasswordReset'
 import ProfileImage from './profileImage'
 
 class Profile extends Component {
