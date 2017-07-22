@@ -15,7 +15,10 @@ User.registerAction('/password-reset', 'changePassword', 'POST')
 User.registerAction(url, 'uploadImage', 'GET')
 
 User.registerAction('/current-user', 'getCurrentUser', 'GET', function(state, action){
-  console.log('it worked!')
+  return action.data;
+})
+
+User.updateReducerAction('user_update', function(state, action){
   return action.data;
 })
 

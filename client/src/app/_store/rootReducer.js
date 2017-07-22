@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   exercises: Exercise.reducer, 
   workouts: Workout.reducer,
   routines: Routine.reducer,
-  user: User.Reducer,
+  user: User.reducer,
   session
 })
 

@@ -12,7 +12,7 @@ class App extends Component {
   super()
 
   this.getCurrentUser = () => {
-    User.dispatchAction('getCurrentUser', null)(Store.dispatch)
+    User.dispatchAction('getCurrentUser')(Store.dispatch)
    }
   }  
 

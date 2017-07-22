@@ -29,7 +29,7 @@ class ExercisePage extends Component {
       event.preventDefault();
       var state = Object.assign({}, this.state)
       state.exercise.exercise_sets_attributes = state.exercise.exercise_sets
-      this.props.actions.dispatchAction(Exercise, 'update', state)
+      this.props.actions.dispatchAction('update', state)
       delete state.exercise.exercise_sets_attributes;
       return this.toggleEdit();
     }

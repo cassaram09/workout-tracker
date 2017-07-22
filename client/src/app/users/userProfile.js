@@ -11,7 +11,7 @@ import UserForm from './userForm'
 
 class UserProfile extends Component {
   constructor(props){
-    super(props)
+    super(props) 
 
     this.state = {
       user: this.props.user,
@@ -26,7 +26,7 @@ class UserProfile extends Component {
       event.preventDefault();
       var state = Object.assign({}, this.state)
       delete state.user.avatar;
-      this.props.actions.dispatchAction('update', state )
+      this.props.actions.dispatchAction('update', state)
       return this.toggleEdit();
     }
 
