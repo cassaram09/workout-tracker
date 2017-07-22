@@ -5,9 +5,6 @@ import {bindActionCreators} from 'redux';
 
 import ExerciseForm from './exerciseForm'
 import Exercise from './exerciseResource'
-import * as actions from '../_store/actions'
-
-
 
 class NewExercisePage extends Component {
   constructor(){
@@ -26,7 +23,7 @@ class NewExercisePage extends Component {
       var state = Object.assign({}, this.state)
       state.exercise.exercise_sets_attributes = state.exercise.exercise_sets
       delete state.exercise.exercise_sets;
-      return this.props.actions.dispatchAction(Exercise, 'create', state)
+      return this.props.actions.dispatchAction('create', state)
     }
 
   }
@@ -42,7 +39,7 @@ class NewExercisePage extends Component {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({dispatchAction: Exercise.dispatchAction}, dispatch)
   }
 }
 

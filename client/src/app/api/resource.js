@@ -1,4 +1,5 @@
 import HTTP from './http'
+import * as reducer from './defaultReducerActions'
 
 class Resource extends HTTP {
   constructor(name, url, headers){
@@ -8,35 +9,13 @@ class Resource extends HTTP {
     this.url = url;
     this.headers = headers;
   
-    this.reducerActions = {
-      query: (state, action) =>{
-        console.log('query successful worked')
-        return state;
-      },
-      get: (state, action) =>{
-        console.log('getsuccessful worked')
-        return state;
-      },
-      create: (state, action) =>{
-        console.log('create successful worked')
-        return state;
-      },
-      update: (state, action) =>{
-        console.log('update successful worked')
-        return state;
-      },
-      delete: (state, action) =>{
-        console.log('delete successful worked')
-        return state;
-      },
-     
-    }
+    this.reducerActions = reducer.actions;
 
     this.dispatchAction = (action, data) => {
       const resource = this;
       return (dispatch) => {
         return resource[action](data).then( response => {
-          dispatch({type: action, response})
+          dispatch({type: action, data: response})
         }).catch(error =>{
           throw(error);
         })
@@ -56,7 +35,6 @@ class Resource extends HTTP {
     }
 
     this.registerAction = (url, name, method, reducerFn) => {
-      // this.actions[name] = `${name.toUpperCase()}_SUCCESS`;
       this[name] = (data) => {
         var request = HTTP.createRequest(url, method, data, this.createHeaders())
         return HTTP.fetchRequest(request)
@@ -66,12 +44,10 @@ class Resource extends HTTP {
 
   }
 
-
   createHeaders(){
     return new Headers(this.headers)
   }
 
-  // CRUD HTTP actions
   query() {
     var request = HTTP.createRequest(this.url, 'GET', null, this.createHeaders())
     return HTTP.fetchRequest(request)
