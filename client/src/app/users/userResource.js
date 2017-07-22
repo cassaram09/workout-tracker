@@ -3,12 +3,7 @@ import API from '../api/api'
 
 const url = '/users'
 
-const headers = {
-  'Content-Type': 'application/json',
-  'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
-}
-
-const User = new Resource('user', url, headers);
+const User = new Resource('user', url, API.headers);
 
 User.registerAction('/password-reset', 'changePassword', 'POST')
 

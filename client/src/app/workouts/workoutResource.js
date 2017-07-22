@@ -3,11 +3,6 @@ import API from '../api/api'
 
 const url = API.base + '/workouts'
 
-const headers = {
-  'Content-Type': 'application/json',
-  'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`
-}
-
-const Workout = new Resource('workout', url, headers);
+const Workout = new Resource('workout', url, API.headers);
 
 export default Workout;
