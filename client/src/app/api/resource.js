@@ -8,7 +8,6 @@ class Resource extends HTTP {
     this.name = name
     this.url = url;
     this.headers = headers;
-  
     this.reducerActions = reducer.actions;
 
     this.dispatchAction = (action, data) => {
@@ -23,7 +22,7 @@ class Resource extends HTTP {
     }
 
     this.addReducerAction = (name, callback) => {
-      this.actionTypes[name] = this.actionTypes[name] || callback;
+      this.reducerActions[name] = this.reducerActions[name] || callback;
     }
 
     this.reducer = (state = [], action) => {
@@ -39,7 +38,11 @@ class Resource extends HTTP {
         var request = HTTP.createRequest(url, method, data, this.createHeaders())
         return HTTP.fetchRequest(request)
       };
-      this.reducerActions[name] = reducerFn
+      this.addReducerAction(name, reducerFn);
+    }
+
+    this.updateReducerAction = (name, callback) => {
+      this.reducerActions[name] = callback;
     }
 
   }
