@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';  
 
 import User from './users/userResource'
-import * as actions from './_store/actions'
 import Store from './_store/store'
 
 import Header from './common/header'
@@ -13,7 +12,7 @@ class App extends Component {
   super()
 
   this.getCurrentUser = () => {
-    actions.dispatchAction(User, 'getCurrentUser', null)(Store.dispatch)
+    User.dispatchAction('getCurrentUser', null)(Store.dispatch)
    }
   }  
 

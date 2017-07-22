@@ -4,7 +4,6 @@ import {Grid, Row, Col } from 'react-bootstrap'
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux'; 
 
-import * as actions from '../_store/actions'
 import User from './userResource'
 import StoreHelpers from '../_store/storeHelpers'
 import UserForm from './userForm'
@@ -27,7 +26,7 @@ class UserProfile extends Component {
       event.preventDefault();
       var state = Object.assign({}, this.state)
       delete state.user.avatar;
-      this.props.actions.dispatchAction(User, 'update', state )
+      this.props.actions.dispatchAction('update', state )
       return this.toggleEdit();
     }
 
@@ -75,7 +74,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({dispatchAction: User.dispatchAction}, dispatch)
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

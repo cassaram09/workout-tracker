@@ -38,9 +38,12 @@ class Resource extends HTTP {
     return new Headers(this.headers)
   }
 
-  addAction(name, callback){
+  registerAction(url, name, method){
     this.actionTypes[name] = `${name.toUpperCase()}_SUCCESS`;
-    this[name] = callback;
+    this[name] = (data) => {
+      var request = HTTP.createRequest(url, method, data, this.createHeaders())
+      return HTTP.fetchRequest(request)
+    };
   }
 
   // CRUD HTTP actions

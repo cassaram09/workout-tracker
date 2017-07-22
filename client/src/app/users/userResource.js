@@ -10,21 +10,10 @@ const headers = {
 
 const User = new Resource('user', url, headers);
 
-// register our custom actions
+User.registerAction('/password-reset', 'changePassword', 'POST')
 
-User.addAction("changePassword", function(data) {
-  var request = Resource.createRequest('/password-reset', 'POST', data, User.createHeaders())
-  return Resource.fetchRequest(request)
-})
+User.registerAction(url, 'uploadImage', 'GET')
 
-User.addAction("uploadImage", function(data) {
-  var request = Resource.createRequest(url, 'POST', data, User.createHeaders())
-  return Resource.fetchRequest(request)
-})
-
-User.addAction("getCurrentUser", function(data) {
-  var request = Resource.createRequest('/current-user', 'GET', data, User.createHeaders())
-  return Resource.fetchRequest(request)
-})
+User.registerAction('/current-user', 'getCurrentUser', 'GET')
 
 export default User;

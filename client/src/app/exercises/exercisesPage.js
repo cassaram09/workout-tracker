@@ -10,7 +10,8 @@ import ExercisesList from './exercisesList'
 
 class ExercisesPage extends Component {
   componentWillMount(){
-    this.props.actions.dispatchAction('query', null)
+    this.props.actions.dispatchAction('query')
+    this.props.actions.dispatchAction('getExercise', {id: 1})
   }
 
   render() {

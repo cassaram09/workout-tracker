@@ -10,10 +10,7 @@ const headers = {
 
 const Exercise = new Resource('exercise', url, headers);
 
-Exercise.addAction("myCustomAction", function() {
-  var request = Resource.createRequest(url, 'GET', null)
-  return Resource.fetchRequest(request)
-})
+Exercise.registerAction(url + '/:id', 'getExercise', 'GET')
 
 export default Exercise;
 

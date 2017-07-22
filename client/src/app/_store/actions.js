@@ -1,4 +1,5 @@
 export function dispatchAction(resource, action, data) {
+  debugger
   return function(dispatch){
     return resource[action](data).then( response => {
       console.log(`%c ${resource.name} ${action.toUpperCase()} RESPONSE`, 'color: green', response)
