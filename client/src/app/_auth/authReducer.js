@@ -4,9 +4,7 @@ import Auth from './auth'
 export default function sessionReducer(state = !!sessionStorage.jwt, action) {
   switch(action.type){
     case Auth.actionTypes.signup:
-      sessionStorage.setItem('jwt', action.data.jwt)
-      browserHistory.push('/');
-      console.log(`%c SIGNUP SUCCESSFUL`, 'color: blue')
+      
       return !!sessionStorage.jwt
     case Auth.actionTypes.login:
       sessionStorage.setItem('jwt', action.data.jwt)

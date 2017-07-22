@@ -1,8 +1,8 @@
-import Resource from 'r3-library'
+import Resource from '../api/resource'
 import API from '../api/api'
 
 const url = API.base + '/workouts'
 
-const Workout = new Resource('workout', url, API.headers);
+const Workout = new Resource('workout', url, API.headers).registerDefaults();
 
 export default Workout;

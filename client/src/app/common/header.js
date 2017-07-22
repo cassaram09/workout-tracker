@@ -4,9 +4,10 @@ import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';  
-import * as authActions from '../_auth/authActions';
 
 import User from '../users/userResource'
+import Auth from '../_auth/authResource'
+
 
 class Header extends React.Component {
   constructor(props){
@@ -14,7 +15,7 @@ class Header extends React.Component {
 
     this.logOut = (event) =>{
       event.preventDefault();
-        this.props.auth.dispatchAuthorization('logout');
+        this.props.actions.dispatchAction('logout');
       }
   }
 
@@ -81,7 +82,7 @@ function mapStateToProps(state, ownProps){
 
 function mapDispatchToProps(dispatch){
   return {
-    auth: bindActionCreators(authActions, dispatch),
+    actions: bindActionCreators({dispatchAction: Auth.dispatchAction}, dispatch)
   }
 }
 

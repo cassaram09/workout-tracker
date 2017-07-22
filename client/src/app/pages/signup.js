@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
-import * as authActions from '../_auth/authActions'
+import Auth from '../_auth/authResource'
 import TextInput from '../common/textInput'
 
 import User from '../users/userResource'
@@ -12,7 +12,7 @@ class SignUpPage extends Component {
     super()
 
     this.state={
-      credentials: {
+      auth: {
         email: '',
         password: '',
         password_confirmation: ''
@@ -22,15 +22,15 @@ class SignUpPage extends Component {
     // handle field changes
     this.onChange = (event) =>{
       const field = event.target.name;
-      const credentials = this.state.credentials;
-      credentials[field] = event.target.value
-      return this.setState({credentials: credentials})
+      const auth = this.state.auth;
+      auth[field] = event.target.value
+      return this.setState({auth: auth})
     }
 
     // dispatches the API call action
     this.signUp = (event) => {
       event.preventDefault();
-      this.props.auth.dispatchAuthorization('signup', this.state.credentials);
+      this.props.actions.dispatchAction('signup', this.state);
     }
   }
 
@@ -43,21 +43,21 @@ class SignUpPage extends Component {
             name="email"
             label="Email"
             type="email"
-            value={this.state.credentials.email}
+            value={this.state.auth.email}
             onChange={this.onChange}/>
 
           <TextInput
             name="password"
             label="Password"
             type="password"
-            value={this.state.credentials.password}
+            value={this.state.auth.password}
             onChange={this.onChange}/>
 
           <TextInput
             name="password_confirmation"
             label="Confirm Password"
             type="password"
-            value={this.state.credentials.password_confirmation}
+            value={this.state.auth.password_confirmation}
             onChange={this.onChange}/>
 
           <input
@@ -77,7 +77,7 @@ SignUpPage.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    auth: bindActionCreators(authActions, dispatch),
+    actions: bindActionCreators({dispatchAction: Auth.dispatchAction}, dispatch)
   }
 }
 

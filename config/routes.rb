@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
-  post '/users' => 'users#update'
+  patch '/users' => 'users#update'
   get '/current-user' => 'users#get_current_user'
   post '/password-reset' => 'users#password'
   post '/signup' => 'users#create'

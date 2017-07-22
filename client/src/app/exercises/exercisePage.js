@@ -40,15 +40,15 @@ class ExercisePage extends Component {
 
   }
 
-  componentDidMount(){
-    if (!this.state.exercise){
-      // this.props.actions.dispatchAction(Exercise, 'get', this.props.params.id );
-      this.exercise.get(this.props.params.id).then( (response) => {
-        this.setState({exercise: response })
-        return console.log("GET EXERCISE ON LOAD", response)
-      })
-    }
-  }
+  // componentDidMount(){
+  //   if (!this.state.exercise){
+  //     // this.props.actions.dispatchAction(Exercise, 'get', this.props.params.id );
+  //     this.exercise.get(this.props.params.id).then( (response) => {
+  //       this.setState({exercise: response })
+  //       return console.log("GET EXERCISE ON LOAD", response)
+  //     })
+  //   }
+  // }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.exercise) {
