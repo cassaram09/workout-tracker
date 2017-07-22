@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import RoutineForm from './routineForm'
-import * as actions from '../_store/actions'
 import Routine from './routineResource'
 
 class NewRoutinePage extends Component {
@@ -25,7 +24,7 @@ class NewRoutinePage extends Component {
 
     this.saveRoutine = (event) => {
       event.preventDefault();
-      this.props.actions.dispatchAction(Routine, 'create', this.state)
+      this.props.actions.dispatchAction('create', this.state)
     }
   }
 
@@ -45,7 +44,7 @@ class NewRoutinePage extends Component {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({dispatchAction: Routine.dispatchAction}, dispatch)
   }
 }
 

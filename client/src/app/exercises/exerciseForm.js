@@ -7,8 +7,6 @@ import TextInput from '../common/textInput';
 import {DropdownButton, MenuItem} from 'react-bootstrap'
 import Autocomplete from 'react-autocomplete'
 
-import * as actions from '../_store/actions'
-
 import Exercise from './exerciseResource'
 import ExerciseSet from './exerciseSet'
 
@@ -117,7 +115,7 @@ ExerciseForm.propTypes = {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({dispatchAction: Exercise.dispatchAction}, dispatch)
   }
 }
 

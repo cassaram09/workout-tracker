@@ -5,14 +5,14 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import {Button} from 'react-bootstrap'
-import * as actions from '../_store/actions'
+
 import Routine from './routineResource'
 import RoutinesList from './routinesList'
 
 
 class RoutinesPage extends Component {
   componentWillMount(){
-    this.props.actions.dispatchAction(Routine, 'query', null)
+    this.props.actions.dispatchAction('query')
   }
 
   render() {
@@ -34,7 +34,7 @@ class RoutinesPage extends Component {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({dispatchAction: Routine.dispatchAction}, dispatch)
   }
 }
 

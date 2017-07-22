@@ -5,14 +5,13 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import {Button} from 'react-bootstrap'
-import * as actions from '../_store/actions'
 import Workout from './workoutResource'
 import WorkoutsList from './workoutsList'
 
 
 class WorkoutsPage extends Component {
   componentWillMount(){
-    this.props.actions.dispatchAction(Workout, 'query', null)
+    this.props.actions.dispatchAction('query')
   }
 
   render() {
@@ -34,7 +33,7 @@ class WorkoutsPage extends Component {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({dispatchAction: Workout.dispatchAction}, dispatch)
   }
 }
 

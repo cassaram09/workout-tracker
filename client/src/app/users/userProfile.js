@@ -39,6 +39,7 @@ class UserProfile extends Component {
   }
 
   render(){
+
     var {name, email, height, weight, age, gender } = this.state.user;
 
     if ( !this.state.editing ){

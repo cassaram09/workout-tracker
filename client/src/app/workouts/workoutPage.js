@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 import { Link, IndexLink } from 'react-router';
 
-import * as actions from '../_store/actions'
 import Workout from './workoutResource'
 import StoreHelpers from '../_store/storeHelpers'
 import WorkoutForm from './workoutForm'
@@ -22,12 +21,12 @@ class WorkoutPage extends Component {
 
     this.delete = (event) => {
       event.preventDefault();
-      this.props.actions.dispatchAction(Workout, 'delete', this.state.workout.id);
+      this.props.actions.dispatchAction('delete', this.state.workout.id);
     }
 
     this.save = (event) => {
       event.preventDefault();
-      this.props.actions.dispatchAction(Workout, 'update', this.state);
+      this.props.actions.dispatchAction('update', this.state);
       this.setState({editing: !this.state.editing})
     }
 
@@ -99,7 +98,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({dispatchAction: Workout.dispatchAction}, dispatch)
   }
 }
 

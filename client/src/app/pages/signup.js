@@ -6,7 +6,6 @@ import * as authActions from '../_auth/authActions'
 import TextInput from '../common/textInput'
 
 import User from '../users/userResource'
-import * as actions from '../_store/actions'
 
 class SignUpPage extends Component {
   constructor(){

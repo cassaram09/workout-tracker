@@ -1,4 +1,4 @@
-import Resource from '../api/resource'
+import Resource from 'r3-library'
 import API from '../api/api'
 
 const url = '/users'
@@ -14,6 +14,9 @@ User.registerAction('/password-reset', 'changePassword', 'POST')
 
 User.registerAction(url, 'uploadImage', 'GET')
 
-User.registerAction('/current-user', 'getCurrentUser', 'GET')
+User.registerAction('/current-user', 'getCurrentUser', 'GET', function(state, action){
+  console.log('it worked!')
+  return action.data;
+})
 
 export default User;

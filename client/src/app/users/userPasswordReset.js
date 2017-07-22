@@ -5,7 +5,6 @@ import {bindActionCreators} from 'redux';
 import {Grid, Row, Col } from 'react-bootstrap'
 
 import TextInput from '../common/textInput'
-import * as actions from '../_store/actions'
 
 import User from './userResource'
 
@@ -31,7 +30,7 @@ class PasswordReset extends Component {
       event.preventDefault();
       if (this.state.credentials.password == this.state.credentials.password_confirmation){
         var data = {user: this.state.credentials}
-        this.props.auth.dispatchAction(User, 'changePassword', data )
+        this.props.auth.dispatchAction('changePassword', data )
       }
     }
 
@@ -106,7 +105,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    auth: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({dispatchAction: User.dispatchAction}, dispatch)
   }
 }
 

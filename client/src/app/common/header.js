@@ -7,7 +7,6 @@ import {bindActionCreators} from 'redux';
 import * as authActions from '../_auth/authActions';
 
 import User from '../users/userResource'
-import * as actions from '../_store/actions'
 
 class Header extends React.Component {
   constructor(props){

@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import WorkoutForm from './workoutForm'
-import * as actions from '../_store/actions'
 import Workout from './workoutResource'
 
 class NewWorkoutPage extends Component {
@@ -25,7 +24,7 @@ class NewWorkoutPage extends Component {
 
     this.saveWorkout = (event) => {
       event.preventDefault();
-      this.props.actions.dispatchAction(Workout, 'create', this.state)
+      this.props.actions.dispatchAction('create', this.state)
     }
   }
 
@@ -45,7 +44,7 @@ class NewWorkoutPage extends Component {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({dispatchAction: Workout.dispatchAction}, dispatch)
   }
 }
 
