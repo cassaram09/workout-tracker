@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import Exercise from '../exercises/exerciseResource';
 import Workout from '../workouts/workoutResource';
-import Auth from '../_auth/authResource';
+import Auth from '../auth/authResource';
 import Routine from '../routines/routineResource';
 import User from '../users/userResource';
 

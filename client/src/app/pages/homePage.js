@@ -3,10 +3,8 @@ import {Grid, Row, Col} from 'react-bootstrap'
 import PropTypes from 'prop-types';
 import { Link, IndexLink } from 'react-router';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
-
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';  
-import * as authActions from '../_auth/authActions';
 
 class HomePage extends Component {
 
@@ -53,10 +51,4 @@ function mapStateToProps(state, ownProps){
   return {session: state.session}
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    auth: bindActionCreators(authActions, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps)(HomePage);

@@ -8,6 +8,6 @@ const User = new Resource('user', url, API.headers)
   .registerNewAction(url, 'uploadImage', 'GET')
   .registerNewAction('/current-user', 'getCurrentUser', 'GET', (state, action) => {return action.data})
   .addReducerAction('update', (state, action) => {return action.data})
-  .addResourceAction('/users', 'update', 'PATCH')
+  .addResourceAction('/users', 'update', 'PATCH');
 
 export default User;
