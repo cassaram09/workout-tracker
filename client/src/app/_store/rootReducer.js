@@ -5,8 +5,6 @@ import Auth from '../auth/authResource';
 import Routine from '../routines/routineResource';
 import User from '../users/userResource';
 
-console.log(Auth)
-
 const rootReducer = combineReducers({
   exercises: Exercise.reducer, 
   workouts: Workout.reducer,
