@@ -16,13 +16,9 @@ class HTTP {
       body = JSON.stringify(body);
     }
 
-    if (!headers){
-      headers = new Headers();
-    }
-
     var request = new Request(url, {
       method: method,
-      headers: headers,
+      headers: new Headers(headers),
       body: body
     });
 
