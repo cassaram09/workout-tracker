@@ -2,7 +2,7 @@ import HTTP from './http'
 import Defaults from './defaults'
 
 class Resource extends HTTP {
-  constructor(name, url, headers){
+  constructor(name, url, headers, state){
     super();
 
     //  set the name, base url, and headers for this instance
@@ -10,6 +10,7 @@ class Resource extends HTTP {
     this.url = url;
     this.headers = headers;
     this.prefix = name + '_'
+    this.state = state || []
 
     //  declare our reducer and resource action holders
     this.reducerActions = {};
@@ -25,6 +26,7 @@ class Resource extends HTTP {
     */
     this.dispatchAction = (action, data) => {
       const name = this.prefix + action
+      const res = this
       return (dispatch) => {
         return this.resourceActions[name](data).then( response => {
           dispatch({type: name, data: response})
@@ -40,7 +42,7 @@ class Resource extends HTTP {
         current Resource's listed reducer actions - if so, execute that
         reducer action (etiher a default or custom action).
     */
-    this.reducer = (state = [], action) => {
+    this.reducer = (state = this.state, action) => {
       var resource = this;
       if (resource.reducerActions[action.type]) {
         return resource.reducerActions[action.type](state, action)  

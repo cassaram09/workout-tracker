@@ -18,7 +18,7 @@ class ExercisesController < ApplicationController
 
   def update
     @exercise = Exercise.find(exercise_params[:id])
-
+    
     param_ids = exercise_params[:exercise_sets_attributes].collect {|set| set[:id]}
     ids = ExerciseSet.where(exercise_id: @exercise.id).pluck(:id)
     to_delete = ids.select {|id| !param_ids.include?(id) }
@@ -38,6 +38,6 @@ class ExercisesController < ApplicationController
 
   private
   def exercise_params
-    params.require(:exercise).permit(:id, :name, :rest_time, exercise_sets_attributes: [:repititions, :weight, :id])
+    params.require(:exercise).permit(:id, :name, :rest_time, exercise_sets_attributes: [:repititions, :weight, :id, :exercise_id])
   end
 end

@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';  
 
 import User from '../users/userResource'
-import Auth from '../_auth/authResource'
+import Auth from '../auth/authResource'
 
 
 class Header extends React.Component {

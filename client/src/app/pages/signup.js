@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
-import Auth from '../_auth/authResource'
+import Auth from '../auth/authResource'
 import TextInput from '../common/textInput'
 
 import User from '../users/userResource'

@@ -1,4 +1,4 @@
-import Resource from 'r3-library'
+import Resource from '../api/resource'
 import API from '../api/api'
 
 const url = API.base + '/exercises'
