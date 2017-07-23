@@ -3,19 +3,11 @@ import API from '../api/api'
 
 const url = '/users'
 
-const User = new Resource('user', url, API.headers).registerDefaults();
-
-User.registerNewAction('/password-reset', 'changePassword', 'POST')
-
-User.registerNewAction(url, 'uploadImage', 'GET')
-
-User.registerNewAction('/current-user', 'getCurrentUser', 'GET', (state, action) => {return action.data})
-
-User.updateReducerAction('update', (state, action) => {return action.data})
-
-User.updateResourceAction('update', (data) => {
-  var request = Resource.createRequest('/users', 'PATCH', data, User.createHeaders())
-  return Resource.fetchRequest(request)
-})
+const User = new Resource('user', url, API.headers)
+  .registerNewAction('/password-reset', 'changePassword', 'POST')
+  .registerNewAction(url, 'uploadImage', 'GET')
+  .registerNewAction('/current-user', 'getCurrentUser', 'GET', (state, action) => {return action.data})
+  .addReducerAction('update', (state, action) => {return action.data})
+  .addResourceAction('/users', 'update', 'PATCH')
 
 export default User;

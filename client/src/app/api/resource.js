@@ -17,6 +17,8 @@ class Resource extends HTTP {
       const name = this.name + '_' + action
       return (dispatch) => {
         return resource.resourceActions[name](data).then( response => {
+          var res = resource
+          
           dispatch({type: name, data: response})
         }).catch(error =>{
           throw(error);
@@ -35,6 +37,7 @@ class Resource extends HTTP {
     this.registerNewAction = (url, name, method, reducerFn) => {
       this.addResourceAction(url, name, method)
       this.addReducerAction(name, reducerFn);
+      return this;
     }
 
     this.addResourceAction = (url, name, method) => {
@@ -43,21 +46,25 @@ class Resource extends HTTP {
         var request = HTTP.createRequest(url, method, data, this.createHeaders())
         return HTTP.fetchRequest(request)
       };
+      return this;
     }
 
     this.addReducerAction = (name, callback) => {
       var actionName = this.name + '_' + name
       this.reducerActions[actionName] = this.reducerActions[actionName] || callback;
+      return this;
     }
 
     this.updateReducerAction = (name, callback) => {
       var actionName = this.name + '_' + name
       this.reducerActions[actionName] = callback;
+      return this;
     }
 
     this.updateResourceAction = (name, callback) => {
       var actionName = this.name + '_' + name
       this.reducerActions[actionName] = callback;
+      return this;
     }
 
 
