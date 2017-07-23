@@ -1,9 +1,5 @@
 import {combineReducers} from 'redux';
-import Exercise from '../exercises/exerciseResource';
-import Workout from '../workouts/workoutResource';
-import Auth from '../auth/authResource';
-import Routine from '../routines/routineResource';
-import User from '../users/userResource';
+import {Exercise, Workout, Routine, User, Auth} from './index'
 
 const rootReducer = combineReducers({
   exercises: Exercise.reducer, 

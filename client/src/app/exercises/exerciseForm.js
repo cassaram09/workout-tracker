@@ -7,7 +7,7 @@ import TextInput from '../common/textInput';
 import {DropdownButton, MenuItem} from 'react-bootstrap'
 import Autocomplete from 'react-autocomplete'
 
-import Exercise from './exerciseResource'
+import {Exercise} from '../_store/index'
 import ExerciseSet from './exerciseSet'
 
 

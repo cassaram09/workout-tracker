@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import ExerciseForm from './exerciseForm'
-import Exercise from './exerciseResource'
+import {Exercise} from '../_store/index'
 
 class NewExercisePage extends Component {
   constructor(){

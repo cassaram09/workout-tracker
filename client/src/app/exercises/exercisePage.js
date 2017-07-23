@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 import { Link, IndexLink } from 'react-router';
 
-import Exercise from './exerciseResource'
+import {Exercise} from '../_store/index'
 import StoreHelpers from '../_store/storeHelpers'
 import ExerciseForm from './exerciseForm'
 
