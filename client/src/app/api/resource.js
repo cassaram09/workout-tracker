@@ -24,7 +24,7 @@ class Resource extends HTTP {
         dispatch function with the type set to the prefixed action name, plus 
         the response data.
     */
-    this.dispatchAction = (action, data) => {
+    Resource.prototype.dispatchAction = (action, data) => {
       const name = this.prefix + action
       const res = this
       return (dispatch) => {
@@ -42,7 +42,7 @@ class Resource extends HTTP {
         current Resource's listed reducer actions - if so, execute that
         reducer action (etiher a default or custom action).
     */
-    this.reducer = (state = this.state, action) => {
+    Resource.prototype.reducer = (state = this.state, action) => {
       var resource = this;
       if (resource.reducerActions[action.type]) {
         return resource.reducerActions[action.type](state, action)  
@@ -51,14 +51,14 @@ class Resource extends HTTP {
     }
 
     //  Register a custom resource action and reducer action. 
-    this.registerNewAction = (url, name, method, reducerFn) => {
+    Resource.prototype.registerNewAction = (url, name, method, reducerFn) => {
       this.addResourceAction(url, name, method)
       this.addReducerAction(name, reducerFn);
       return this;
     }
 
     //  create a new reducer action (more flexible)
-    this.addResourceAction = (url, name, method) => {
+    Resource.prototype.addResourceAction = (url, name, method) => {
       var actionName = this.prefix + name
       this.resourceActions[actionName] = (data) => {
         var request = HTTP.createRequest(url, method, data, this.headers)
@@ -68,21 +68,21 @@ class Resource extends HTTP {
     }
 
     //  create a new reducer action (more flexible)
-    this.addReducerAction = (name, callback) => {
+    Resource.prototype.addReducerAction = (name, callback) => {
       var actionName = this.prefix + name
       this.reducerActions[actionName] = this.reducerActions[actionName] || callback;
       return this;
     }
 
     //  Upadate/overwrrite a reducer action (such as a default action. 
-    this.updateReducerAction = (name, callback) => {
+    Resource.prototype.updateReducerAction = (name, callback) => {
       var actionName = this.prefix + name
       this.reducerActions[actionName] = callback;
       return this;
     }
 
     //  Upadate/overwrrite a resource action (such as a default action. 
-    this.updateResourceAction = (name, callback) => {
+    Resource.prototype.updateResourceAction = (name, callback) => {
       var actionName = this.prefix + name
       this.reducerActions[actionName] = callback;
       return this;
@@ -92,7 +92,7 @@ class Resource extends HTTP {
         Registers the default action/reducers for CRUD operations: query(index),
         get(individual resource), create, update, and delete.
     */
-    this.registerDefaults = () => {
+    Resource.prototype.registerDefaults = () => {
       const obj =  Defaults
       for ( let name in obj) {
         var url = this.url + obj[name].url;
