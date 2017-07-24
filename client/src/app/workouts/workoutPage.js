@@ -27,7 +27,6 @@ class WorkoutPage extends Component {
     this.save = (event) => {
       event.preventDefault();
       var state = this.state
-      debugger
       this.props.actions.dispatchAction('update', this.state);
       this.setState({editing: !this.state.editing})
     }
@@ -40,6 +39,28 @@ class WorkoutPage extends Component {
       state.editing = true;
       return this.setState(state);
     }
+
+    this.changeDate = (date) => {
+      var state = Object.assign({}, this.state)
+      state.workout.date = date
+      state.editing = true;
+      return this.setState(state);
+    }
+
+    this.changeStartTime = (time) => {
+      var state = Object.assign({}, this.state)
+      state.workout.start_time = time
+      state.editing = true;
+      return this.setState(state);
+    }
+
+    this.changeEndTime = (time) => {
+      var state = Object.assign({}, this.state)
+      state.workout.end_time = time
+      state.editing = true;
+      return this.setState(state);
+    }
+
   }
 
   componentDidMount(){
@@ -59,15 +80,27 @@ class WorkoutPage extends Component {
   }
 
   render() {
-    var workout = this.state.workout ? this.state.workout :  {name: "Loading..."}
-    return (
-      <div className="workoutsPage">
-        <WorkoutForm 
-        workout={workout} 
-        updateField={this.updateField} />
-        {this.state.editing ? <button onClick={this.save} >Save</button> : null}
-      </div>
-    )
+    if (this.state.workout) {
+      return (
+        <div className="workoutsPage">
+          <WorkoutForm 
+          workout={this.state.workout} 
+          updateField={this.updateField} 
+          changeDate={this.changeDate}
+          changeStartTime={this.changeStartTime}
+          changeEndTime={this.changeEndTime}
+          />
+          {this.state.editing ? <button onClick={this.save} >Save</button> : null}
+        </div>
+      )
+    } else {
+      return (
+        <div className="workoutsPage">
+          <h2>Loading...</h2>
+        </div>
+      )
+    }
+    
   }
 }
 

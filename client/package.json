@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "moment": "^2.18.1",
     "r3-library": "^0.2.2",
+    "rc-time-picker": "^2.4.1",
     "react": "^15.6.1",
     "react-autocomplete": "^1.5.10",
     "react-bootstrap": "^0.31.0",
+    "react-datepicker": "^0.52.0",
     "react-dom": "^15.6.1",
     "react-dropzone": "^3.13.3",
     "react-edit-inline": "^1.0.8",

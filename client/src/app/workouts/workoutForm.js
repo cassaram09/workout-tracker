@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import InlineEdit from 'react-edit-inline';
+import DatePicker from 'react-datepicker'
+import moment from 'moment';
+import TimePicker from 'rc-time-picker';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'rc-time-picker/assets/index.css';
 
 class WorkoutForm extends Component {
   constructor(props) {
@@ -10,24 +15,23 @@ class WorkoutForm extends Component {
       workout: this.props.workout
     }
 
-    this.updateField = (data) => {
-      var state = Object.assign({}, this.state)
-      var field = Object.keys(data)[0]
-      var value = data[field]
-      state.workout[field] = value
-      return this.setState(state);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.workout) {
-      if (this.props.workout.name != nextProps.workout.name) {
-        return this.setState({workout: nextProps.workout});
+      for (let key in this.props.workout) {
+        if ( this.props.workout[key] != nextProps.workout[key] ) {
+          return this.setState({workout: nextProps.workout});
+        }
       }
     }
   }
 
   render(){
+
+    var date = moment(this.state.workout.date)
+    var start_time = moment(this.state.workout.start_time)
+    var end_time = moment(this.state.workout.end_time)
     const style = {
       width: '100%',
       display: 'block',
@@ -48,32 +52,16 @@ class WorkoutForm extends Component {
           style={style}
         />
 
-        <InlineEdit
-          className='default'
-          activeClassName="editing"
-          text={this.state.workout.data || 'No date entered.'}
-          paramName="end_time"
-          change={this.props.updateField}
-          style={style}
-        />
+        <p>
+          <TimePicker onChange={this.props.changeStartTime} value={start_time} showSecond={false} />
+        </p>
+        <p>
+          <TimePicker onChange={this.props.changeEndTime} value={end_time} showSecond={false} />
+        </p>
+        <p>
+          <DatePicker placeholderText="Click to select a date" onChange={this.props.changeDate} selected={date} />
+        </p>
 
-         <InlineEdit
-          className='default'
-          activeClassName="editing"
-          text={this.state.workout.start_time || 'No time entered.'}
-          paramName="start_time"
-          change={this.props.updateField}
-          style={style}
-        />
-
-        <InlineEdit
-          className='default'
-          activeClassName="editing"
-          text={this.state.workout.end_time || 'No time entered.'}
-          paramName="end_time"
-          change={this.props.updateField}
-          style={style}
-        />
       </div>
     )
   }
