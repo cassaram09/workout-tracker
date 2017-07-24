@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 
 import User from '../users/userResource'
 import Auth from '../auth/authResource'
-
+import Store from '../_store/store'
 
 class Header extends React.Component {
   constructor(props){
@@ -15,13 +15,12 @@ class Header extends React.Component {
 
     this.logOut = (event) =>{
       event.preventDefault();
-        this.props.actions.dispatchAction('logout');
-      }
+      this.props.actions.dispatchAction('logout');
+    }
   }
 
   render() {
-
-     if (!this.props.session) {
+    if (!this.props.session) {
       return (
          <Navbar>
           <Navbar.Header>

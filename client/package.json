@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "moment": "^2.18.1",
-    "r3-library": "^0.2.2",
+    "r3-library": "file:///Users/mattcassara/Development/Personal/r3-library/r3-library-0.2.2.tgz",
     "rc-time-picker": "^2.4.1",
     "react": "^15.6.1",
     "react-autocomplete": "^1.5.10",

@@ -7,6 +7,7 @@ import { Link, IndexLink } from 'react-router';
 import {Workout} from '../_store/index'
 import StoreHelpers from '../_store/storeHelpers'
 import WorkoutForm from './workoutForm'
+import ExerciseForm from '../exercises/exerciseForm'
 
 
 
@@ -67,6 +68,7 @@ class WorkoutPage extends Component {
     if (!this.state.workout){
       this.workout.resourceActions.workout_get({id: this.props.params.id}).then( (response) => {
         this.setState({workout: response })
+        console.log(response)
       })
     }
   }
@@ -81,6 +83,9 @@ class WorkoutPage extends Component {
 
   render() {
     if (this.state.workout) {
+      var exercises = this.state.workout.exercises.map(exercise => {
+        return <ExerciseForm exercise={exercise} />
+      })
       return (
         <div className="workoutsPage">
           <WorkoutForm 
@@ -90,6 +95,8 @@ class WorkoutPage extends Component {
           changeStartTime={this.changeStartTime}
           changeEndTime={this.changeEndTime}
           />
+
+          {exercises}
           {this.state.editing ? <button onClick={this.save} >Save</button> : null}
         </div>
       )

@@ -4,34 +4,19 @@ import {bindActionCreators} from 'redux';
 
 import User from './users/userResource'
 import Store from './_store/store'
-
 import Header from './common/header'
+import Auth from './auth/authComponent'
 
 class App extends Component {
- constructor(){
-  super()
-
-  this.getCurrentUser = () => {
-    User.dispatchAction('getCurrentUser')(Store.dispatch)
-   }
+  constructor(){
+    super()
   }  
-
-  componentWillMount(){
-    if (sessionStorage.jwt) {
-      this.getCurrentUser()
-    }
-  }
-
-  componentWillUpdate(){
-    if (sessionStorage.jwt) {
-      this.getCurrentUser()
-    }
-  }
 
   render() {
     return (
       <div className="App container">
-        <Header />
+        <Auth />
+        <Header  />
         {this.props.children}
       </div>
     );

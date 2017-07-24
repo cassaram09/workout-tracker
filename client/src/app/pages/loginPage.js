@@ -8,6 +8,7 @@ import TextInput from '../common/textInput'
 
 import User from '../users/userResource'
 
+
 class LoginPage extends Component {
   constructor(){
     super()

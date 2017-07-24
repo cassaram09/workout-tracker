@@ -20,6 +20,15 @@ class ExerciseForm extends Component {
       exercise: this.props.exercise
     }
 
+    this.saveExercise = (event) => {
+      event.preventDefault();
+      var state = Object.assign({}, this.state)
+      state.exercise.exercise_sets_attributes = state.exercise.exercise_sets
+      this.props.actions.dispatchAction('update', state)
+      delete state.exercise.exercise_sets_attributes;
+      return
+    }
+
     this.updateExerciseName = (event) => {
       var state = Object.assign({}, this.state)
       state.exercise.name = event.target.value
@@ -98,7 +107,7 @@ class ExerciseForm extends Component {
           <input
             type="submit"
             className="btn btn-primary"
-            onClick={this.props.saveExercise}
+            onClick={this.saveExercise}
           />
         </p>
 
