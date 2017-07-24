@@ -27,5 +27,6 @@ module WorkoutTracker
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.autoload_paths << Rails.root.join('lib')
+    config.active_record.time_zone_aware_types = [:datetime, :time]
   end
 end

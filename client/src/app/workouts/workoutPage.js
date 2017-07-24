@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 import { Link, IndexLink } from 'react-router';
 
-import Workout from './workoutResource'
+import {Workout} from '../_store/index'
 import StoreHelpers from '../_store/storeHelpers'
 import WorkoutForm from './workoutForm'
 
@@ -26,28 +26,26 @@ class WorkoutPage extends Component {
 
     this.save = (event) => {
       event.preventDefault();
+      var state = this.state
+      debugger
       this.props.actions.dispatchAction('update', this.state);
       this.setState({editing: !this.state.editing})
     }
 
-     this.toggleEdit = () => {
-      this.setState({editing: !this.state.editing})
-    }
-
-     this.updateWorkoutState = (event) => {
-      const field = event.target.name;
-      const workout = this.state.workout;
-      workout[field] = event.target.value;
-      return this.setState({workout: workout});
+    this.updateField = (data) => {
+      var state = Object.assign({}, this.state)
+      var field = Object.keys(data)[0]
+      var value = data[field]
+      state.workout[field] = value
+      state.editing = true;
+      return this.setState(state);
     }
   }
 
   componentDidMount(){
     if (!this.state.workout){
-      // this.props.actions.dispatchAction(Workout, 'get', this.props.params.id );
-      this.workout.get(this.props.params.id).then( (response) => {
+      this.workout.resourceActions.workout_get({id: this.props.params.id}).then( (response) => {
         this.setState({workout: response })
-        console.log("GET EXERCISE ON LOAD", response)
       })
     }
   }
@@ -62,28 +60,14 @@ class WorkoutPage extends Component {
 
   render() {
     var workout = this.state.workout ? this.state.workout :  {name: "Loading..."}
-
-    if (this.state.editing) {
-      return (
+    return (
       <div className="workoutsPage">
         <WorkoutForm 
-        workout={this.state.workout} 
-        onSave={this.save} 
-        onChange={this.updateWorkoutState} />
+        workout={workout} 
+        updateField={this.updateField} />
+        {this.state.editing ? <button onClick={this.save} >Save</button> : null}
       </div>
-      )
-    } else {
-      return (
-        <div id="workoutsPage">
-          <h1>{workout.name}</h1>
-          <button onClick={this.toggleEdit} 
-            className="btn btn-default">edit
-          </button>
-           <button onClick={this.delete} className='btn btn-danger'>Delete</button>
-        </div>
-      )
-    }
-    
+    )
   }
 }
 
