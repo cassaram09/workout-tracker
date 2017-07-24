@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "r3-library": "^0.1.7",
+    "r3-library": "^0.2.2",
     "react": "^15.6.1",
     "react-autocomplete": "^1.5.10",
     "react-bootstrap": "^0.31.0",
