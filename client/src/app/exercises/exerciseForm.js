@@ -25,6 +25,10 @@ class ExerciseForm extends Component {
       this.props.updateField(event.target.value, field, index)
     }
 
+    this.selectName = (field, index, value) => {
+      this.props.updateField(value, field, index)
+    }
+
     this.shouldItemRender = (item, value) => {
       var convertedItem = item.label.toLowerCase()
       var convertedValue = value.toLowerCase()
@@ -93,7 +97,7 @@ class ExerciseForm extends Component {
           shouldItemRender={this.shouldItemRender}
           value={this.state.exercise.name}
           onChange={this.updateName.bind(this, 'name', this.props.index)}
-          onSelect={this.updateName.bind(this, 'name', this.props.index)}
+          onSelect={this.selectName.bind(this, 'name', this.props.index)}
         />
           <Table responsive>
             <thead>
