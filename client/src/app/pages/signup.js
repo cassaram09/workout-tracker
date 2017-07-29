@@ -12,7 +12,7 @@ class SignUpPage extends Component {
     super()
 
     this.state={
-      auth: {
+      user: {
         email: '',
         password: '',
         password_confirmation: ''
@@ -22,9 +22,9 @@ class SignUpPage extends Component {
     // handle field changes
     this.onChange = (event) =>{
       const field = event.target.name;
-      const auth = this.state.auth;
-      auth[field] = event.target.value
-      return this.setState({auth: auth})
+      const user = this.state.user;
+      user[field] = event.target.value
+      return this.setState({user: user})
     }
 
     // dispatches the API call action
@@ -43,21 +43,21 @@ class SignUpPage extends Component {
             name="email"
             label="Email"
             type="email"
-            value={this.state.auth.email}
+            value={this.state.user.email}
             onChange={this.onChange}/>
 
           <TextInput
             name="password"
             label="Password"
             type="password"
-            value={this.state.auth.password}
+            value={this.state.user.password}
             onChange={this.onChange}/>
 
           <TextInput
             name="password_confirmation"
             label="Confirm Password"
             type="password"
-            value={this.state.auth.password_confirmation}
+            value={this.state.user.password_confirmation}
             onChange={this.onChange}/>
 
           <input

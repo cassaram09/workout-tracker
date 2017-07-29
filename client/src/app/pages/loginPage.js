@@ -14,7 +14,7 @@ class LoginPage extends Component {
     super()
 
     this.state={
-      auth: {
+      user: {
         email: '',
         password: ''
       }
@@ -23,9 +23,9 @@ class LoginPage extends Component {
     // handle field changes
     this.onChange = (event) =>{
       const field = event.target.name;
-      const auth = this.state.auth;
-      auth[field] = event.target.value
-      return this.setState({auth: auth})
+      const user = this.state.user;
+      user[field] = event.target.value
+      return this.setState({user: user})
     }
 
     // dispatches the API call action
@@ -44,14 +44,14 @@ class LoginPage extends Component {
             name="email"
             label="Email"
             type="email"
-            value={this.state.auth.email}
+            value={this.state.user.email}
             onChange={this.onChange}/>
 
           <TextInput
             name="password"
             label="Password"
             type="password"
-            value={this.state.auth.password}
+            value={this.state.user.password}
             onChange={this.onChange}/>
 
           <input
