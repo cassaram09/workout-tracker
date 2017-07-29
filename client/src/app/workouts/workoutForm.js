@@ -7,6 +7,24 @@ import TimePicker from 'rc-time-picker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'rc-time-picker/assets/index.css';
 
+import InfiniteCalendar from 'react-infinite-calendar';
+import 'react-infinite-calendar/styles.css'; // Make sure to import the default stylesheet
+import Modal from  'react-modal'
+
+import CalendarModal from '../common/calendarModal'
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+
 class WorkoutForm extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +33,24 @@ class WorkoutForm extends Component {
       workout: this.props.workout
     }
 
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+
+  }
+
+
+  openModal() {
+    this.setState({modalIsOpen: true});
+  }
+
+  afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    this.subtitle.style.color = '#f00';
+  }
+
+  closeModal() {
+    this.setState({modalIsOpen: false});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,6 +64,9 @@ class WorkoutForm extends Component {
   }
 
   render(){
+
+    var today = new Date();
+    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
 
     var date = moment(this.state.workout.date)
     var start_time = moment(this.state.workout.start_time)
@@ -59,7 +98,9 @@ class WorkoutForm extends Component {
           <TimePicker onChange={this.props.changeEndTime} value={end_time} showSecond={false} />
         </p>
         <p>
+          
           <DatePicker placeholderText="Click to select a date" onChange={this.props.changeDate} selected={date} />
+            <CalendarModal selectDate={this.props.changeDate} />
         </p>
 
       </div>
