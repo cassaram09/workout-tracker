@@ -1,17 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import InlineEdit from 'react-edit-inline';
-import DatePicker from 'react-datepicker'
 import moment from 'moment';
-import TimePicker from 'rc-time-picker';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'rc-time-picker/assets/index.css';
-
-import InfiniteCalendar from 'react-infinite-calendar';
-import 'react-infinite-calendar/styles.css'; // Make sure to import the default stylesheet
-import Modal from  'react-modal'
-
 import CalendarModal from '../common/calendarModal'
+import TimeInput from '../common/timeInput'
 
 const customStyles = {
   content : {
@@ -33,24 +25,16 @@ class WorkoutForm extends Component {
       workout: this.props.workout
     }
 
-    this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.style = {
+      width: '100%',
+      display: 'block',
+      margin: 0,
+      padding: 0,
+      fontSize: 15,
+      outline: 0,
+      border: '1px solid grey'
+    }
 
-  }
-
-
-  openModal() {
-    this.setState({modalIsOpen: true});
-  }
-
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    this.subtitle.style.color = '#f00';
-  }
-
-  closeModal() {
-    this.setState({modalIsOpen: false});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,44 +49,27 @@ class WorkoutForm extends Component {
 
   render(){
 
-    var today = new Date();
-    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+    const date = moment(this.state.workout.date).format('l')
+    const start_time = moment(this.state.workout.start_time).format('LT')
+    const end_time = moment(this.state.workout.end_time).format('LT')
 
-    var date = moment(this.state.workout.date)
-    var start_time = moment(this.state.workout.start_time)
-    var end_time = moment(this.state.workout.end_time)
-    const style = {
-      width: '100%',
-      display: 'block',
-      margin: 0,
-      padding: 0,
-      fontSize: 15,
-      outline: 0,
-      border: '1px solid grey'
-    }
     return (
       <div>
-        <InlineEdit
-          className='default'
-          activeClassName="editing"
-          text={this.state.workout.name}
-          paramName="name"
-          change={this.props.updateField}
-          style={style}
-        />
-
-        <p>
-          <TimePicker onChange={this.props.changeStartTime} value={start_time} showSecond={false} />
-        </p>
-        <p>
-          <TimePicker onChange={this.props.changeEndTime} value={end_time} showSecond={false} />
-        </p>
-        <p>
-          
-          <DatePicker placeholderText="Click to select a date" onChange={this.props.changeDate} selected={date} />
-            <CalendarModal selectDate={this.props.changeDate} />
-        </p>
-
+        <label>Name</label>
+          <InlineEdit
+            className='default'
+            activeClassName="editing"
+            text={this.state.workout.name}
+            paramName="name"
+            change={this.props.updateField}
+            style={this.style}
+          />
+        <label>Start Time</label>
+          <TimeInput updateField={this.props.updateField} time={start_time} field={'start_time'} />
+        <label>End Time</label>
+          <TimeInput updateField={this.props.updateField}  time={end_time} field={'end_time'}/>
+        <label>Date</label>
+          <CalendarModal updateField={this.props.updateField} date={date} />
       </div>
     )
   }
