@@ -10,15 +10,17 @@ import Autocomplete from 'react-autocomplete'
 import {Exercise} from '../_store/index'
 import ExerciseSet from './exerciseSet'
 
-
+import {deepClone} from '../utilities/utilities'
 
 class ExerciseForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      exercise: this.props.exercise
+      exercise: this.props.exercise,
     }
+
+
 
     // this.saveExercise = (event) => {
     //   event.preventDefault();
@@ -32,12 +34,14 @@ class ExerciseForm extends Component {
     this.updateExerciseName = (event) => {
       var state = Object.assign({}, this.state)
       state.exercise.name = event.target.value
+      this.props.toggleEdit();
       return this.setState(state);
     }
 
     this.selectExerciseName = (name) => {
       var state = Object.assign({}, this.state)
       state.exercise.name = name
+     this.props.toggleEdit();
       return this.setState(state);
     }
 
@@ -50,13 +54,19 @@ class ExerciseForm extends Component {
     this.addSet = () => {
       var state = Object.assign({}, this.state)
       var sets = state.exercise.exercise_sets
+      // state.exercise.exercises_set_attributes = []
       sets.push({repititions: 0, set_id: sets.length, weight: 0 });
+      // state.exercise.exercise_sets_attributes.push({repititions: 0, set_id: sets.length, weight: 0 });
+      this.props.toggleEdit();
       return this.setState(state);
     }
 
     this.removeSet = () => {
       var state = Object.assign({}, this.state)
+      
       state.exercise.exercise_sets.pop()
+      this.props.toggleEdit();
+
       return this.setState(state);
     }
 
@@ -67,6 +77,7 @@ class ExerciseForm extends Component {
       var value = event.target.value
       var state = Object.assign({}, this.state)
       state.exercise.exercise_sets[id][name] = value
+      this.props.toggleEdit();
       return this.setState(state);
     }
     
@@ -81,6 +92,9 @@ class ExerciseForm extends Component {
   }
 
   render(){
+    var sets = this.state.exercise.exercise_sets.map((set, index) => {
+      return <ExerciseSet set={set} updateSet={this.updateSet} removeSet={this.removeSet} index={index} />
+    })
     return (
       <div>
         <Autocomplete
@@ -97,20 +111,13 @@ class ExerciseForm extends Component {
           }
           shouldItemRender={this.shouldItemRender}
           value={this.state.exercise.name}
-          onChange={this.updateExerciseName}
+          onChange={this.props.save.bind(this, this.props.index)}
           onSelect={this.selectExerciseName}
         />
-   
-        <ExerciseSet exercise={this.state.exercise} updateSet={this.updateSet} removeSet={this.removeSet} addSet={this.addSet} />
 
-        <p>
-          <input
-            type="submit"
-            className="btn btn-primary"
-            onClick={this.props.save}
-          />
-        </p>
-
+        {sets}
+        
+        <button onClick={this.addSet}>Add Set</button>
       </div>
     )
   }
@@ -120,7 +127,10 @@ ExerciseForm.propTypes = {
   exercise: React.PropTypes.object.isRequired,
   onSave: React.PropTypes.func.isRequired,
   onChange: React.PropTypes.func.isRequired,
+  key: React.PropTypes.string.isRequired,
 }
+
+// <ExerciseSet set={set} updateSet={this.updateSet} removeSet={this.removeSet} index={index} />
 
 function mapDispatchToProps(dispatch){
   return {
