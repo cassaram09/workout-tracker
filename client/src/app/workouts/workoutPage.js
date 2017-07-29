@@ -7,7 +7,6 @@ import { Link, IndexLink } from 'react-router';
 import {Workout} from '../_store/index'
 import StoreHelpers from '../_store/storeHelpers'
 import WorkoutForm from './workoutForm'
-import ExerciseForm from '../exercises/exerciseForm'
 import moment from 'moment';
 
 import {deepClone} from '../utilities/utilities'
@@ -51,15 +50,14 @@ class WorkoutPage extends Component {
       return this.setState({editing: false})
     }
 
-    this.saveExercise = (index, event) => {
-      event.preventDefault();
+    this.updateExerciseField = (value, field, index) => {
       var state = deepClone(this.state)
-      state.workout.exercises[index].name = event.target.value;
+      state.workout.exercises[index].name = value;
       this.setState(state)
       return this.setState({editing: true})
     }
 
-    this.updateField = (value, field) => {
+    this.updateWorkoutField = (value, field) => {
       var state = deepClone(this.state)
       state.workout[field] = value
       state.editing = true;
@@ -85,28 +83,25 @@ class WorkoutPage extends Component {
   }
 
   render() {
+
     if (this.state.workout) {
-
-      var exercises = this.state.workout.exercises.map((exercise, index)=> {
-        return <ExerciseForm exercise={exercise} save={this.saveExercise} toggleEdit={this.toggleEdit} index={index} />
-      })
-
       return (
         <div className="workoutsPage">
           {this.state.editing ? <button onClick={this.save} >Save</button> : null}
-          <WorkoutForm workout={this.state.workout} updateField={this.updateField} />
-          {exercises}
+          <WorkoutForm 
+            workout={this.state.workout} 
+            updateWorkoutField={this.updateWorkoutField} 
+            updateExerciseField={this.updateExerciseField}
+            toggleEdit={this.toggleEdit} 
+          />
         </div>
       )
-
     } else {
-
       return (
         <div className="workoutsPage">
           <h2>Loading...</h2>
         </div>
       )
-
     }
     
   }

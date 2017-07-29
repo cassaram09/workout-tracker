@@ -2,20 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import InlineEdit from 'react-edit-inline';
 import moment from 'moment';
+
 import CalendarModal from '../common/calendarModal'
 import TimeInput from '../common/timeInput'
-
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
-
+import ExerciseForm from '../exercises/exerciseForm'
 
 class WorkoutForm extends Component {
   constructor(props) {
@@ -53,8 +43,20 @@ class WorkoutForm extends Component {
     const start_time = moment(this.state.workout.start_time).format('LT')
     const end_time = moment(this.state.workout.end_time).format('LT')
 
+    var exercises = this.state.workout.exercises.map((exercise, index)=> {
+      return ( 
+        <ExerciseForm 
+          exercise={exercise} 
+          updateField={this.props.updateExerciseField} 
+          toggleEdit={this.props.toggleEdit} 
+          index={index} 
+        />
+      )
+    })
+
     return (
       <div>
+
         <label>Name</label>
           <InlineEdit
             className='default'
@@ -64,12 +66,18 @@ class WorkoutForm extends Component {
             change={this.props.updateField}
             style={this.style}
           />
+
         <label>Start Time</label>
-          <TimeInput updateField={this.props.updateField} time={start_time} field={'start_time'} />
+          <TimeInput updateField={this.props.updateWorkoutField} time={start_time} field={'start_time'} />
+
         <label>End Time</label>
-          <TimeInput updateField={this.props.updateField}  time={end_time} field={'end_time'}/>
+          <TimeInput updateField={this.props.updateWorkoutField}  time={end_time} field={'end_time'}/>
+
         <label>Date</label>
-          <CalendarModal updateField={this.props.updateField} date={date} />
+          <CalendarModal updateField={this.props.updateWorkoutField} date={date} />
+
+        {exercises}
+
       </div>
     )
   }

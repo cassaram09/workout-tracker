@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import TextInput from '../common/textInput';
 
-import {DropdownButton, MenuItem} from 'react-bootstrap'
+import {DropdownButton, MenuItem, Grid, Row, Col, Table} from 'react-bootstrap'
 import Autocomplete from 'react-autocomplete'
 
 import {Exercise} from '../_store/index'
@@ -18,31 +18,11 @@ class ExerciseForm extends Component {
 
     this.state = {
       exercise: this.props.exercise,
+      items: [{ label: 'Bench Press' }, { label: 'Deadlift' }, { label: 'Squat' } ]
     }
 
-
-
-    // this.saveExercise = (event) => {
-    //   event.preventDefault();
-    //   var state = Object.assign({}, this.state)
-    //   state.exercise.exercise_sets_attributes = state.exercise.exercise_sets
-    //   this.props.actions.dispatchAction('update', state)
-    //   delete state.exercise.exercise_sets_attributes;
-    //   return
-    // }
-
-    this.updateExerciseName = (event) => {
-      var state = Object.assign({}, this.state)
-      state.exercise.name = event.target.value
-      this.props.toggleEdit();
-      return this.setState(state);
-    }
-
-    this.selectExerciseName = (name) => {
-      var state = Object.assign({}, this.state)
-      state.exercise.name = name
-     this.props.toggleEdit();
-      return this.setState(state);
+    this.updateName = (field, index, event) => {
+      this.props.updateField(event.target.value, field, index)
     }
 
     this.shouldItemRender = (item, value) => {
@@ -54,19 +34,15 @@ class ExerciseForm extends Component {
     this.addSet = () => {
       var state = Object.assign({}, this.state)
       var sets = state.exercise.exercise_sets
-      // state.exercise.exercises_set_attributes = []
       sets.push({repititions: 0, set_id: sets.length, weight: 0 });
-      // state.exercise.exercise_sets_attributes.push({repititions: 0, set_id: sets.length, weight: 0 });
       this.props.toggleEdit();
       return this.setState(state);
     }
 
     this.removeSet = () => {
       var state = Object.assign({}, this.state)
-      
       state.exercise.exercise_sets.pop()
       this.props.toggleEdit();
-
       return this.setState(state);
     }
 
@@ -92,18 +68,23 @@ class ExerciseForm extends Component {
   }
 
   render(){
+    
+    var length = this.state.exercise.exercise_sets.length
     var sets = this.state.exercise.exercise_sets.map((set, index) => {
-      return <ExerciseSet set={set} updateSet={this.updateSet} removeSet={this.removeSet} index={index} />
+      return (
+        <tr>
+          <td>Set {index + 1}</td>
+          <td>{set.weight}</td>
+          <td>{set.repetitions}</td>
+        </tr>
+      )
     })
+
     return (
-      <div>
+      <div className='exerciseForm' style={{border: '1px dotted blue', padding: '10px'}}>
         <Autocomplete
           getItemValue={(item) => item.label}
-          items={[
-            { label: 'Bench Press' },
-            { label: 'Deadlift' },
-            { label: 'Squat' }
-          ]}
+          items={this.state.items}
           renderItem={(item, isHighlighted) => 
             <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
               {item.label}
@@ -111,11 +92,22 @@ class ExerciseForm extends Component {
           }
           shouldItemRender={this.shouldItemRender}
           value={this.state.exercise.name}
-          onChange={this.props.save.bind(this, this.props.index)}
-          onSelect={this.selectExerciseName}
+          onChange={this.updateName.bind(this, 'name', this.props.index)}
+          onSelect={this.updateName.bind(this, 'name', this.props.index)}
         />
-
-        {sets}
+          <Table responsive>
+            <thead>
+              <tr>
+                <th>Set</th>
+                <th>Weight</th>
+                <th>Reps</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              {sets}
+            </tbody>
+          </Table>
         
         <button onClick={this.addSet}>Add Set</button>
       </div>
@@ -130,8 +122,6 @@ ExerciseForm.propTypes = {
   key: React.PropTypes.string.isRequired,
 }
 
-// <ExerciseSet set={set} updateSet={this.updateSet} removeSet={this.removeSet} index={index} />
-
 function mapDispatchToProps(dispatch){
   return {
     actions: bindActionCreators({dispatchAction: Exercise.dispatchAction}, dispatch)
@@ -139,3 +129,8 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(null, mapDispatchToProps)(ExerciseForm);
+
+
+ // <Col xs={4} md={2}>
+ //          <ExerciseSet set={set} updateSet={this.updateSet} removeSet={this.removeSet} index={index} />
+ //        </Col>

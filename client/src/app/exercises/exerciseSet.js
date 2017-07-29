@@ -4,31 +4,21 @@ import PropTypes from 'prop-types';
 class ExerciseSet extends Component {
 
   render(){
-    var index = this.props.index;
+    const index = this.props.index;
     
-    return (
-      
+    return (   
       <div id="exerciseSet">
-        <div className='exercise-set' style={ {display: 'inline-block'} }>
-          <h3>Set {index + 1}</h3>
-          <div>
-            <label>Repititions</label>
-            <p>
-              <input type='text' value={this.props.set.repititions} name='repititions' id={`set_${index+1}`} onChange={this.props.updateSet}/> 
-            </p>
-          </div>
-          <div className='field'>
-            <label>Weight</label>
-            <p>
-              <input type='text' value={this.props.set.weight} name='weight' id={`set_${index+1}`} onChange={this.props.updateSet}/> 
-            </p>
-          </div> 
+
+        <h3>Set {index + 1} <button onClick={this.props.removeSet.bind(this, this.props.index)}>X</button> </h3>
+         
+        <div>
+          <label>Repititions</label>
+          <input type='text' value={this.props.set.repetitions} name='repititions' id={`set_${index+1}`} onChange={this.props.updateSet}/> 
         </div>
-
-        <p>
-          <button onClick={this.props.removeSet.bind(this, this.props.index)}>Remove Set</button>
-        </p>
-
+        <div className='field'>
+          <label>Weight</label>
+          <input type='text' value={this.props.set.weight} name='weight' id={`set_${index+1}`} onChange={this.props.updateSet}/> 
+        </div> 
       </div>
     )
   }
@@ -40,3 +30,5 @@ ExerciseSet.propTypes = {
 }
 
 export default ExerciseSet;
+
+
