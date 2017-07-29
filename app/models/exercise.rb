@@ -6,7 +6,7 @@ class Exercise < ApplicationRecord
   accepts_nested_attributes_for :exercise_sets
 
   before_destroy :destroy_exercise_sets
-
+  
   private
 
   def destroy_exercise_sets

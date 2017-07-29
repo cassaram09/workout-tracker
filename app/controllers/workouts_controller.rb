@@ -1,4 +1,5 @@
 class WorkoutsController < ApplicationController
+  
   def index
     @workouts = Workout.where(user_id: current_user.id)
     render json: @workouts
@@ -33,6 +34,6 @@ class WorkoutsController < ApplicationController
 
   private
   def workout_params
-    params.require(:workout).permit(:id, :name, :rest_time, :start_time, :end_time, :date, exercises_attributes: [])
+    params.require(:workout).permit(:id, :name, :rest_time, :start_time, :end_time, :date, exercises_attributes: [:id, :name, :rest_time, exercise_sets_attributes: [:repititions, :weight, :id, :exercise_id]])
   end
 end

@@ -9,7 +9,7 @@ import StoreHelpers from '../_store/storeHelpers'
 import WorkoutForm from './workoutForm'
 import ExerciseForm from '../exercises/exerciseForm'
 
-
+import {deepClone} from '../utilities/utilities'
 
 class WorkoutPage extends Component {
   constructor(props){
@@ -26,10 +26,30 @@ class WorkoutPage extends Component {
     }
 
     this.save = (event) => {
+      var deepclone = deepClone
       event.preventDefault();
-      var state = this.state
-      this.props.actions.dispatchAction('update', this.state);
-      this.setState({editing: !this.state.editing})
+      var oldState = this.state;
+      var state = deepclone(this.state)
+
+      state.workout.exercises_attributes = state.workout.exercises
+      debugger
+      var exercises = state.workout.exercises_attributes
+      for ( let exercise in exercises ) {
+        exercises[exercise].exercise_sets_attributes =  exercises[exercise].exercise_sets
+        delete exercises[exercise].exercise_sets
+      }
+      delete state.workout.exercises
+      this.props.actions.dispatchAction('update', state);
+      this.setState({editing: false})
+    }
+
+    this.saveExercise = (event) => {
+      event.preventDefault();
+      var state = Object.assign({}, this.state)
+      state.exercise.exercise_sets_attributes = state.exercise.exercise_sets
+      this.props.actions.dispatchAction('update', state)
+      delete state.exercise.exercise_sets_attributes;
+      return
     }
 
     this.updateField = (data) => {
@@ -68,6 +88,7 @@ class WorkoutPage extends Component {
     if (!this.state.workout){
       this.workout.resourceActions.workout_get({id: this.props.params.id}).then( (response) => {
         this.setState({workout: response })
+
         console.log(response)
       })
     }
@@ -84,7 +105,7 @@ class WorkoutPage extends Component {
   render() {
     if (this.state.workout) {
       var exercises = this.state.workout.exercises.map(exercise => {
-        return <ExerciseForm exercise={exercise} />
+        return <ExerciseForm exercise={exercise} save={this.saveExercise} />
       })
       return (
         <div className="workoutsPage">
@@ -127,4 +148,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutPage);
-
