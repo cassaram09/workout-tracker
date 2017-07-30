@@ -8,7 +8,7 @@ class TimeInput extends Component {
     super(props)
 
     this.state = {
-      time: this.props.time,
+      time: this.props.value,
       show: false
     }
 
@@ -18,7 +18,7 @@ class TimeInput extends Component {
       var string = event.target.value.trim();
       if ( string.match(this.pattern) ) {
         this.setState({time: string})
-        return this.props.updateField(string, this.props.field);
+        return this.props.updateField(string, this.props.name);
       }
       this.showPopUp();
       return this.setState({time: ''})
@@ -40,9 +40,6 @@ class TimeInput extends Component {
   }
 
   render() {
-    const tooltip = (
-      <Tooltip id="tooltip"><strong>Holy guacamole!</strong> Check this info.</Tooltip>
-    );
 
     const style = {
       position: 'absolute',

@@ -23,7 +23,7 @@ class CalendarModal extends Component {
 
     this.selectDate = (date) => {
       var converted = moment(date).format('l')
-      this.props.updateField(converted, 'date')
+      this.props.updateField(converted, this.props.name)
       this.close();
     }
 
@@ -32,11 +32,11 @@ class CalendarModal extends Component {
   render() {
     var today = new Date();
     var lastMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30);
-    var date = this.props.date || today
+    var date = this.props.value || today
 
     return (
       <div>
-        <input value={this.props.date} onClick={this.open}/>
+        <input value={this.props.value} onClick={this.open}/>
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Body>
             <Button onClick={this.close}>Close</Button>

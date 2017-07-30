@@ -9,6 +9,8 @@ import Autocomplete from 'react-autocomplete'
 
 import {Exercise} from '../_store/index'
 import ExerciseSet from './exerciseSet'
+import InlineEdit from 'react-edit-inline';
+
 
 import {deepClone} from '../utilities/utilities'
 
@@ -21,6 +23,19 @@ class ExerciseForm extends Component {
       items: [{ label: 'Bench Press' }, { label: 'Deadlift' }, { label: 'Squat' } ]
     }
 
+    this.children = ['car']
+
+    this.style = {
+      width: '100%',
+      display: 'block',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      fontSize: 15,
+      outline: 0,
+      border: '1px solid grey'
+    }
+
     this.updateName = (field, index, event) => {
       this.props.updateField(event.target.value, field, index)
     }
@@ -30,6 +45,9 @@ class ExerciseForm extends Component {
     }
 
     this.shouldItemRender = (item, value) => {
+      if ( !item || !value ){
+        return
+      }
       var convertedItem = item.label.toLowerCase()
       var convertedValue = value.toLowerCase()
       return convertedItem.match(convertedValue) ? true : false ;
@@ -40,6 +58,7 @@ class ExerciseForm extends Component {
       var sets = state.exercise.exercise_sets
       sets.push({repititions: 0, set_id: sets.length, weight: 0 });
       this.props.toggleEdit();
+      this.props.updateField(sets, 'exercise_sets', this.props.index)
       return this.setState(state);
     }
 
@@ -72,15 +91,15 @@ class ExerciseForm extends Component {
   }
 
   render(){
-    
+
     var length = this.state.exercise.exercise_sets.length
     var sets = this.state.exercise.exercise_sets.map((set, index) => {
       return (
-        <tr>
-          <td>Set {index + 1}</td>
-          <td>{set.weight}</td>
-          <td>{set.repetitions}</td>
-        </tr>
+        <ExerciseSet
+          set={set}
+          index={index} 
+          updateSet={this.updateSet}
+        />
       )
     })
 

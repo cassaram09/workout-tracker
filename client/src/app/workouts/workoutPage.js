@@ -34,7 +34,12 @@ class WorkoutPage extends Component {
       event.preventDefault();
       var state = deepClone(this.state)
 
+      var Moment = moment;
+
       state.workout.date = moment(state.workout.date).unix();
+
+      debugger
+
       state.workout.start_time = moment(state.workout.start_time, "HH:mm aA").unix();
       state.workout.end_time = moment(state.workout.end_time, "HH:mm aA").unix();
 
@@ -50,9 +55,9 @@ class WorkoutPage extends Component {
       return this.setState({editing: false})
     }
 
-    this.updateExerciseField = (value, field, index) => {
+    this.updateExerciseSet = (value, field, index) => {
       var state = deepClone(this.state)
-      state.workout.exercises[index].name = value;
+      state.workout.exercises[index][field] = value;
       this.setState(state)
       return this.setState({editing: true})
     }
@@ -64,12 +69,19 @@ class WorkoutPage extends Component {
       return this.setState(state);
     }
 
+    this.update = (value) => {
+      var state = deepClone(this.state)
+      state.workout = value.workout
+      state.editing = true;
+      return this.setState(state);
+    }
+
   }
 
   componentDidMount(){
     if (!this.state.workout){
       this.workout.resourceActions.workout_get({id: this.props.params.id}).then( (response) => {
-        this.setState({workout: response})
+        this.setState({workout: parseDates(response)})
       })
     }
   }
@@ -83,16 +95,15 @@ class WorkoutPage extends Component {
   }
 
   render() {
-
+    console.log(this.state.workout)
     if (this.state.workout) {
       return (
         <div className="workoutsPage">
           {this.state.editing ? <button onClick={this.save} >Save</button> : null}
           <WorkoutForm 
             workout={this.state.workout} 
-            updateWorkoutField={this.updateWorkoutField} 
-            updateExerciseField={this.updateExerciseField}
             toggleEdit={this.toggleEdit} 
+            update={this.update}
           />
         </div>
       )
@@ -111,9 +122,17 @@ WorkoutPage.propTypes = {
 
 }
 
+function parseDates(workout) {
+  var state = deepClone(workout)
+  state.start_time = moment(state.start_time).format('LT')
+  state.end_time = moment(state.end_time).format('LT')
+  return state;
+}
+
 function mapStateToProps(state, ownProps) { 
   const workout = StoreHelpers.findById(state.workouts, ownProps.params.id)
-  return {workout: workout};
+
+  return {workout: parseDates(workout)};
 };
 
 function mapDispatchToProps(dispatch){
