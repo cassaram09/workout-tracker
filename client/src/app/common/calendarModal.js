@@ -35,8 +35,10 @@ class CalendarModal extends Component {
     var date = this.props.value || today
 
     return (
-      <div>
-        <input value={this.props.value} onClick={this.open}/>
+      <div className='calendarModal form-group'>
+        <div className='field-group'>
+          <input  className="form-control" value={this.props.value} onClick={this.open}/>
+        </div>
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Body>
             <Button onClick={this.close}>Close</Button>

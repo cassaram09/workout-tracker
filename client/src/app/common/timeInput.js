@@ -12,7 +12,7 @@ class TimeInput extends Component {
       show: false
     }
 
-    this.pattern = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]\s?[aApP][mM]$/i;
+    this.pattern = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]\s?$/i;
 
     this.validateTime = (event) => {
       var string = event.target.value.trim();
@@ -26,7 +26,7 @@ class TimeInput extends Component {
 
     this.handleChange = (event) => {
       var string = event.target.value;
-      if (string.length > 8){
+      if (string.length > 5){
         return
       }
       this.setState({time: string})
@@ -53,8 +53,10 @@ class TimeInput extends Component {
     }
 
     return (
-      <div className='timeInput'>
-        <input  ref='timeInput' type='text' placeholder='HH:MM PM' value={this.state.time} maxlength="10" onChange={this.handleChange} onBlur={this.validateTime} />
+      <div className='timeInput form-group'>
+        <div className="field">
+          <input   className="form-control" ref='timeInput' type='text' placeholder='HH:MM PM' value={this.state.time} maxlength="10" onChange={this.handleChange} onBlur={this.validateTime} />
+        </div>
         <Overlay
           show={this.state.show}
           onHide={() => this.setState({ show: false })}

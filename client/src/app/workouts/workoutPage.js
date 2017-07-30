@@ -34,12 +34,7 @@ class WorkoutPage extends Component {
       event.preventDefault();
       var state = deepClone(this.state)
 
-      var Moment = moment;
-
       state.workout.date = moment(state.workout.date).unix();
-
-      debugger
-
       state.workout.start_time = moment(state.workout.start_time, "HH:mm aA").unix();
       state.workout.end_time = moment(state.workout.end_time, "HH:mm aA").unix();
 
@@ -81,7 +76,7 @@ class WorkoutPage extends Component {
   componentDidMount(){
     if (!this.state.workout){
       this.workout.resourceActions.workout_get({id: this.props.params.id}).then( (response) => {
-        this.setState({workout: parseDates(response)})
+        this.setState({workout: response})
       })
     }
   }
@@ -122,17 +117,10 @@ WorkoutPage.propTypes = {
 
 }
 
-function parseDates(workout) {
-  var state = deepClone(workout)
-  state.start_time = moment(state.start_time).format('LT')
-  state.end_time = moment(state.end_time).format('LT')
-  return state;
-}
-
 function mapStateToProps(state, ownProps) { 
   const workout = StoreHelpers.findById(state.workouts, ownProps.params.id)
 
-  return {workout: parseDates(workout)};
+  return {workout: workout};
 };
 
 function mapDispatchToProps(dispatch){
