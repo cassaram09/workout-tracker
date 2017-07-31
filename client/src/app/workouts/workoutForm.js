@@ -55,15 +55,21 @@ class WorkoutForm extends Component {
       this.props.update(state)
     }
 
+    this.removeExercise = (index) =>{
+      var state = deepClone(this.state)
+      state.workout.exercises.splice(index, 1)
+      this.props.update(state);
+    }
+
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.workout) {
-      for (let key in this.props.workout) {
-        if ( this.props.workout[key] != nextProps.workout[key] ) {
+      // for (let key in this.props.workout) {
+      //   if ( this.props.workout[key] != nextProps.workout[key] ) {
           return this.setState({workout: nextProps.workout});
-        }
-      }
+      //   }
+      // }
     }
   }
 
@@ -77,6 +83,7 @@ class WorkoutForm extends Component {
         <ExerciseForm 
           exercise={exercise} 
           updateExercise={this.updateExercise} 
+          removeExercise={this.removeExercise}
           toggleEdit={this.props.toggleEdit} 
           index={index} 
         />

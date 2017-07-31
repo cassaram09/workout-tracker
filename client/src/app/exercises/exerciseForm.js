@@ -80,6 +80,10 @@ class ExerciseForm extends Component {
       this.props.toggleEdit();
       this.props.updateExercise(exercise, this.props.index)
     }
+
+    this.remove = () =>{
+      this.props.removeExercise(this.props.index)
+    }
     
   }
 
@@ -103,9 +107,8 @@ class ExerciseForm extends Component {
   }
 
   render(){
-    var exercise = this.state.exercise
-    var length = exercise.exercise_sets.length
-    var sets = exercise.exercise_sets.map((set, index) => {
+    var length = this.state.exercise.exercise_sets.length
+    var sets = this.state.exercise.exercise_sets.map((set, index) => {
       return (
         <ExerciseSet set={set} index={index} updateSet={this.updateSet.bind(this, index)}/>
       )
@@ -126,6 +129,7 @@ class ExerciseForm extends Component {
           onChange={this.updateName}
           onSelect={this.selectName}
         />
+        <button onClick={this.remove}>Remove Exercise</button>
           <Table responsive>
             <thead>
               <tr>
