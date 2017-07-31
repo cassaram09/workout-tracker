@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Row, Col} from 'react-bootstrap'
+import {Grid, Row, Col, Table} from 'react-bootstrap'
 import moment from 'moment';
 
 import CalendarModal from '../common/calendarModal'
@@ -91,30 +91,40 @@ class WorkoutForm extends Component {
     })
 
     return (
-      <div>
-        <Row>
-          <Col xs={12} md={3}>
-            <label>Name</label>
-            <InlineEdit value={name} name={"name"} onChange={this.updateWorkoutField}/>
-          </Col>
-          <Col  xs={12} md={3} >
-            <label>Start Time</label>
-            <TimeInput updateField={this.updateWorkoutField} value={start_time} name={'start_time'} />
-          </Col>
-          <Col  xs={12} md={3} >
-            <label>End Time</label>
-            <TimeInput updateField={this.updateWorkoutField}  value={end_time} name={'end_time'}/>
-          </Col>
-          <Col  xs={12} md={3} >
-            <label>Date</label>
-            <CalendarModal updateField={this.updateWorkoutField} value={date} name={'date'} />
-          </Col>
-        </Row>
-        <Row>
-          <button onClick={this.addExercise}>Add Exercise</button>
-          {exercises}
-        </Row>
+
+      <div className='workoutForm'>
+        <Table responsive>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Start</th>
+              <th>Finish</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <InlineEdit value={name} name={"name"} onChange={this.updateWorkoutField}/>
+              </td>
+              <td>
+                <CalendarModal updateField={this.updateWorkoutField} value={date} name={'date'} />
+              </td>
+              <td>
+                <TimeInput updateField={this.updateWorkoutField} value={start_time} name={'start_time'} />
+              </td>
+              <td>
+                <TimeInput updateField={this.updateWorkoutField}  value={end_time} name={'end_time'}/>
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+
+        <button onClick={this.addExercise}>Add Exercise</button>
+        
+        {exercises}
       </div>
+    
     )
   }
 }
@@ -126,3 +136,27 @@ WorkoutForm.propTypes = {
 }
 
 export default WorkoutForm;
+
+ // <div>
+ //        <Row>
+ //          <Col xs={12} md={3}>
+ //            <label>Name</label>
+            
+ //          </Col>
+ //          <Col  xs={12} md={3} >
+ //            <label>Start Time</label>
+            
+ //          </Col>
+ //          <Col  xs={12} md={3} >
+ //            <label>End Time</label>
+            
+ //          </Col>
+ //          <Col  xs={12} md={3} >
+ //            <label>Date</label>
+            
+ //          </Col>
+ //        </Row>
+ //        <Row>
+          
+ //        </Row>
+ //      </div>

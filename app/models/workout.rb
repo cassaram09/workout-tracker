@@ -3,6 +3,8 @@ class Workout < ApplicationRecord
   has_many :exercises
   belongs_to :user
 
+  validates :date, :start_time, :end_time, presence: true
+
   accepts_nested_attributes_for :exercises, allow_destroy: true
 
   def date=(val)

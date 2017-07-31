@@ -11,7 +11,6 @@ import moment from 'moment';
 
 import {deepClone} from '../utilities/utilities'
 
-
 class WorkoutPage extends Component {
   constructor(props){
     super(props)
