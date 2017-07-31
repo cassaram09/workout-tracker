@@ -4,10 +4,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Dropzone from 'react-dropzone'
 import request from 'superagent';
-
-import ReactUploadFile from 'react-upload-file';
-
 import User from './userResource'
+import Store from '../_store/store'
 
 class ProfileImage extends Component {
   constructor(props){
@@ -16,21 +14,7 @@ class ProfileImage extends Component {
     this.uploadFile = (event) =>{
       event.preventDefault();
       var file = event.target.files[0]
-     
-      var data = {user: {avatar: file, email: ''}}
-      return this.props.actions.dispatchAction('uploadImage', data)
-    }
-
-    this.onDrop = (acceptedFiles) => {
-      var dispatch = this.props.actions.dispatchAction
-      const req = request.post('/user-image').set('AUTHORIZATION', `Bearer ${sessionStorage.jwt}`)
-        acceptedFiles.forEach(file => {
-            req.attach('user[avatar]', file);
-        });
-        req.end(function(error, response){
-          console.log(response)
-          return dispatch('uploadImage', response.body )
-        });
+      this.props.actions.dispatchAction('uploadImage', file)
     }
   }
 
@@ -38,13 +22,7 @@ class ProfileImage extends Component {
 
     return (
       <div id="profileImage">
-       
-        <Dropzone
-          multiple={false}
-          accept="image/*"
-          onDrop={this.onDrop}>
-          <p>Drop an image or click to select a file to upload.</p>
-        </Dropzone>
+        <input type='file'  onChange={this.uploadFile} />
       </div>
     )
   }
@@ -64,4 +42,6 @@ function mapDispatchToProps(dispatch){
 
 
 export default connect(null, mapDispatchToProps)(ProfileImage);
+
+
 

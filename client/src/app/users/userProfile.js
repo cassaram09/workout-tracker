@@ -48,7 +48,7 @@ class UserProfile extends Component {
           <p>Height: {height}</p>
           <p>Weight: {weight}</p>
           <p>Age: {age}</p>
-          <img src={avatar}/>
+          <img src={avatar} style={{width: '100px', height: 'auto'}}/>
           <button onClick={this.toggleEdit} className="btn btn-default">Edit</button>
         </div>
       )

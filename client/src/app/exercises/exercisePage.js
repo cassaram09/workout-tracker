@@ -8,8 +8,6 @@ import {Exercise} from '../_store/index'
 import StoreHelpers from '../_store/storeHelpers'
 import ExerciseForm from './exerciseForm'
 
-
-
 class ExercisePage extends Component {
   constructor(props){
     super(props)
