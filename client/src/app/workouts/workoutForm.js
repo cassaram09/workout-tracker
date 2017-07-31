@@ -13,72 +13,38 @@ class WorkoutForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      workout: this.props.workout
-    }
-
-    this.children = []
-
-    this.style = {
-      width: '100%',
-      display: 'block',
-      margin: 0,
-      padding: 0,
-      fontSize: 15,
-      outline: 0,
-      border: '1px solid grey'
-    }
-
-    this.updateName = (obj) => {
-      var state = deepClone(this.state)
-      state.workout.name = obj.name
-      this.props.update(state)
-    }
-
     this.updateWorkoutField = (value, field) => {
-      var state = deepClone(this.state)
-      state.workout[field] = value
-      state.editing = true;
-      this.props.update(state)
+      var workout = deepClone(this.props.workout)
+      workout[field] = value
+      this.props.update(workout)
     }
 
     this.addExercise = () =>{
-      var state = deepClone(this.state)
-      state.workout.exercises.push({name: '', weight: '', repetitions: '', exercise_sets: []})
-      this.setState(state)
-    }
-
-    this.updateExercise = (exercise, index) => {
-      var state = deepClone(this.state)
-      state.workout.exercises[index] = exercise;
-      state.editing = true;
-      this.props.update(state)
+      var workout = deepClone(this.props.workout)
+      workout.exercises.push({name: '', weight: '', repetitions: '', exercise_sets: []})
+      this.props.update(workout)
     }
 
     this.removeExercise = (index) =>{
-      var state = deepClone(this.state)
-      state.workout.exercises.splice(index, 1)
-      this.props.update(state);
+      var workout = deepClone(this.props.workout)
+      workout.exercises.splice(index, 1)
+      this.props.update(workout);
     }
 
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.workout) {
-      // for (let key in this.props.workout) {
-      //   if ( this.props.workout[key] != nextProps.workout[key] ) {
-          return this.setState({workout: nextProps.workout});
-      //   }
-      // }
+    this.updateExercise = (exercise, index) => {
+      var workout = deepClone(this.props.workout)
+      workout.exercises[index] = exercise;
+      this.props.update(workout)
     }
+
   }
 
   render(){
 
-    const date = moment(this.state.workout.date).format('l')
-    const { start_time, end_time, name } = this.state.workout
+    const date = moment(this.props.workout.date).format('l')
+    const { start_time, end_time, name } = this.props.workout
 
-    var exercises = this.state.workout.exercises.map((exercise, index)=> {
+    var exercises = this.props.workout.exercises.map((exercise, index)=> {
       return ( 
         <ExerciseForm 
           exercise={exercise} 

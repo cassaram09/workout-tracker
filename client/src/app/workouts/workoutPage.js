@@ -64,8 +64,9 @@ class WorkoutPage extends Component {
     }
 
     this.update = (value) => {
+
       var state = deepClone(this.state)
-      state.workout = value.workout
+      state.workout = value
       state.editing = true;
       return this.setState(state);
     }
