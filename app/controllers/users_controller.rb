@@ -15,6 +15,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def image
+    @user = User.find_by(id: current_user.id)
+    @user.update(user_params)
+    render json: @user
+  end
+
   def update
     @user = User.find_by(id: current_user.id)
     if @user.update(user_params)

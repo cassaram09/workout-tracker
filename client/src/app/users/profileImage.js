@@ -22,12 +22,14 @@ class ProfileImage extends Component {
     }
 
     this.onDrop = (acceptedFiles) => {
-      const req = request.post('/users').set('AUTHORIZATION', `Bearer ${sessionStorage.jwt}`)
+      var dispatch = this.props.actions.dispatchAction
+      const req = request.post('/user-image').set('AUTHORIZATION', `Bearer ${sessionStorage.jwt}`)
         acceptedFiles.forEach(file => {
             req.attach('user[avatar]', file);
         });
-        req.end(function(){
-         console.log('image uploaded')
+        req.end(function(error, response){
+          console.log(response)
+          return dispatch('uploadImage', response.body )
         });
     }
   }

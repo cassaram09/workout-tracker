@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
   patch '/users' => 'users#update'
+  post '/user-image' => 'users#image'
   get '/current-user' => 'users#get_current_user'
   post '/password-reset' => 'users#password'
   post '/signup' => 'users#create'

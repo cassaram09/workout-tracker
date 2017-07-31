@@ -32,15 +32,13 @@ class UserProfile extends Component {
 
   }
 
-
-
   componentWillReceiveProps(nextProps) {
     return this.setState({user: nextProps.user});
   }
 
   render(){
 
-    var {name, email, height, weight, age, gender } = this.state.user;
+    var {name, email, height, weight, age, gender, avatar} = this.state.user;
 
     if ( !this.state.editing ){
       return (
@@ -50,6 +48,7 @@ class UserProfile extends Component {
           <p>Height: {height}</p>
           <p>Weight: {weight}</p>
           <p>Age: {age}</p>
+          <img src={avatar}/>
           <button onClick={this.toggleEdit} className="btn btn-default">Edit</button>
         </div>
       )
