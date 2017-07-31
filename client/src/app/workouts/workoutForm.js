@@ -102,27 +102,3 @@ WorkoutForm.propTypes = {
 }
 
 export default WorkoutForm;
-
- // <div>
- //        <Row>
- //          <Col xs={12} md={3}>
- //            <label>Name</label>
-            
- //          </Col>
- //          <Col  xs={12} md={3} >
- //            <label>Start Time</label>
-            
- //          </Col>
- //          <Col  xs={12} md={3} >
- //            <label>End Time</label>
-            
- //          </Col>
- //          <Col  xs={12} md={3} >
- //            <label>Date</label>
-            
- //          </Col>
- //        </Row>
- //        <Row>
-          
- //        </Row>
- //      </div>
