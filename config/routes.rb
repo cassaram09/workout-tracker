@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
   patch '/users' => 'users#update'
   post '/user-image' => 'users#image'
+  post '/reports' => 'users#reports'
   get '/current-user' => 'users#get_current_user'
   post '/password-reset' => 'users#password'
   post '/signup' => 'users#create'

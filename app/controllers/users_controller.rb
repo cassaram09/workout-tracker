@@ -15,6 +15,31 @@ class UsersController < ApplicationController
     end
   end
 
+  def reports
+    @user = User.find_by(id: current_user.id)
+    exercise_ids = @user.exercises.where(name: 'Decline Press').pluck(:id)
+    set_weights = ExerciseSet.where(exercise_id: exercise_ids).pluck(:weight)
+    set_weights = []
+    @weights = [
+      {x: '8/9/10' , y: 135},
+      {x: '8/9/10' , y: 185},
+      {x: '8/9/10' , y: 225},
+      {x: '8/9/10' , y: 225},
+      {x: '8/9/10' , y: 225},
+      {x: '8/11/10' , y: 135},
+      {x: '8/11/10' , y: 185},
+      {x: '8/11/10' , y: 235},
+      {x: '8/11/10' , y: 235},
+      {x: '8/11/10' , y: 235},
+      {x: '8/13/10' , y: 135},
+      {x: '8/13/10' , y: 185},
+      {x: '8/13/10' , y: 245},
+      {x: '8/13/10' , y: 245},
+      {x: '8/13/10' , y: 245},
+    ]
+    render json: @weights
+  end
+
   def image
     @user = User.find_by(id: current_user.id)
     @user.update(user_params)

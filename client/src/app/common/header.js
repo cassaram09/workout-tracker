@@ -60,7 +60,8 @@ class Header extends React.Component {
             <MenuItem eventKey={5}>
               <a href="/logout" onClick={this.logOut}>Log Out</a>
             </MenuItem>
-          </Nav>      
+          </Nav> 
+          <img src={this.props.user.avatar} style={{width: '25px', height: 'auto', 'margin-top':'12px'}}/>    
         </Navbar>
       )
     }
@@ -73,7 +74,7 @@ Header.propTypes = {
 }
 
 function mapStateToProps(state, ownProps){
-  return {session: state.session}
+  return {session: state.session, user: state.user}
 }
 
 function mapDispatchToProps(dispatch){

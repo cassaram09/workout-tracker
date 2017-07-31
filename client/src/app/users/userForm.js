@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../common/textInput'
 import InlineEdit from 'react-edit-inline';
-
+import User from './userResource'
+import {connect} from 'react-redux';  
+import {bindActionCreators} from 'redux';
 
 class UserForm extends Component {
   constructor(props){
@@ -26,6 +28,12 @@ class UserForm extends Component {
       var value = data[field]
       state.user[field] = value
       return this.setState(state);
+    }
+
+    this.uploadFile = (event) =>{
+      event.preventDefault();
+      var file = event.target.files[0]
+      this.props.actions.dispatchAction('uploadImage', file)
     }
     
   }
@@ -75,6 +83,7 @@ class UserForm extends Component {
           label="age"
           value={age}
           onChange={this.updateField} />
+
          <p>
           <input
             type="submit"
@@ -94,4 +103,10 @@ UserForm.propTypes = {
   onChange: React.PropTypes.func.isRequired,
 }
 
-export default UserForm;
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators({dispatchAction: User.dispatchAction}, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(UserForm);
