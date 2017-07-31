@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Chart from 'chart.js';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 class Charty extends Component {
   constructor(props){
@@ -11,14 +11,15 @@ class Charty extends Component {
   render(){
     return (
       <div>
-      <LineChart width={600} height={300} data={this.props.data}margin={{top: 20, right: 0, left: 0, bottom: 20}}>
-       <XAxis dataKey="date"/>
-       <YAxis/>
-       <Tooltip/>
-       <Legend />
-       <Line type="monotone" dataKey="weight" stroke="#8884d8" activeDot={{r: 8}}/>
-       <Line type="monotone" dataKey="body_fat" stroke="#1114d8" activeDot={{r: 8}}/>
-      </LineChart>
+        <ScatterChart width={400} height={400} margin={{top: 20, right: 20, bottom: 20, left: 20}}>
+        <XAxis dataKey={'x'} name='stature' unit='cm'/>
+        <YAxis dataKey={'y'} name='weight' unit='kg'/>
+        <ZAxis dataKey={'z'} range={[60, 400]} name='score' unit='km'/>
+        <CartesianGrid />
+        <Tooltip cursor={{strokeDasharray: '3 3'}}/>
+        <Legend/>
+        <Scatter name='A school' data={this.props.data1} fill='#8884d8' />
+      </ScatterChart>
       </div>
     );
   }
