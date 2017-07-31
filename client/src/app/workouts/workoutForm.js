@@ -7,7 +7,7 @@ import CalendarModal from '../common/calendarModal'
 import TimeInput from '../common/timeInput'
 import ExerciseForm from '../exercises/exerciseForm'
 import {deepClone} from '../utilities/utilities'
-import InlineEdit from '../common/inlineEdit';
+import InlineEdit from '../common/inlineEdit'
 
 class WorkoutForm extends Component {
   constructor(props) {
@@ -37,6 +37,27 @@ class WorkoutForm extends Component {
       this.props.update(workout)
     }
 
+    this.save = (event) => {
+      event.preventDefault();
+      var workout = deepClone(this.props.workout)
+
+      workout.date = moment(workout.date).unix();
+      workout.start_time = moment(workout.start_time, "HH:mm aA").unix();
+      workout.end_time = moment(workout.end_time, "HH:mm aA").unix();
+
+      workout.exercises_attributes = workout.exercises
+      var exercises = workout.exercises_attributes
+
+      for ( let exercise in exercises ) {
+        exercises[exercise].exercise_sets_attributes =  exercises[exercise].exercise_sets
+        delete exercises[exercise].exercise_sets
+      }
+
+      delete workout.exercises
+
+      this.props.save({workout: workout})
+    }
+
   }
 
   render(){
@@ -59,6 +80,7 @@ class WorkoutForm extends Component {
     return (
 
       <div className='workoutForm'>
+        <button onClick={this.save} >Save</button>
         <Table responsive>
           <thead>
             <tr>

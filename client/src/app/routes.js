@@ -24,8 +24,8 @@ export default(
     <Route path='/profile' component={UserProfilePage} onEnter={requireAuth} />
     <Route path='/reports' component={Reports} onEnter={requireAuth} />
     <Route path='/workouts' component={workouts.WorkoutsPage} onEnter={requireAuth} >
-      <Route name='newWorkout' path='/workouts/new' component={workouts.WorkoutPage} />
-       <Route name='workout' path='/workouts/:id' component={workouts.WorkoutPage} />
+      <Route name='newWorkout' path='/workouts/new' component={workouts.NewWorkoutPage} />
+      <Route name='workout' path='/workouts/:id' component={workouts.WorkoutPage} />
     </Route>
   </Route>
 )

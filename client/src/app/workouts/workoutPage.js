@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux'; 
-import { Link, IndexLink } from 'react-router';
 
 import {Workout} from '../_store/index'
 import StoreHelpers from '../_store/storeHelpers'
@@ -14,72 +13,31 @@ import {deepClone} from '../utilities/utilities'
 class WorkoutPage extends Component {
   constructor(props){
     super(props)
-    this.workout = Workout;
+
     this.state = {
       workout: this.props.workout,
-      editing: false,
-    }
-
-    this.toggleEdit = () =>{
-      this.setState({editing: true})
     }
 
     this.delete = (event) => {
       event.preventDefault();
-      this.props.actions.dispatchAction('delete', this.state.workout.id);
-    }
-
-    this.save = (event) => {
-      event.preventDefault();
-      var state = deepClone(this.state)
-
-      state.workout.date = moment(state.workout.date).unix();
-      state.workout.start_time = moment(state.workout.start_time, "HH:mm aA").unix();
-      state.workout.end_time = moment(state.workout.end_time, "HH:mm aA").unix();
-
-      state.workout.exercises_attributes = state.workout.exercises
-      var exercises = state.workout.exercises_attributes
-      for ( let exercise in exercises ) {
-        exercises[exercise].exercise_sets_attributes =  exercises[exercise].exercise_sets
-        delete exercises[exercise].exercise_sets
-      }
-      delete state.workout.exercises
-
-      if (this.props.newWorkout)
-        this.props.actions.dispatchAction('create', state);
-      else {
-         this.props.actions.dispatchAction('update', state);
-      }
-      return this.setState({editing: false})
-    }
-
-    this.updateExerciseSet = (value, field, index) => {
-      var state = deepClone(this.state)
-      state.workout.exercises[index][field] = value;
-      this.setState(state)
-      return this.setState({editing: true})
-    }
-
-    this.updateWorkoutField = (value, field) => {
-      var state = deepClone(this.state)
-      state.workout[field] = value
-      state.editing = true;
-      return this.setState(state);
+      return this.props.actions.dispatchAction('delete', this.state.workout.id);
     }
 
     this.update = (value) => {
-
       var state = deepClone(this.state)
       state.workout = value
-      state.editing = true;
       return this.setState(state);
+    }
+
+    this.save = (state) => {
+      return this.props.actions.dispatchAction('update', state);
     }
 
   }
 
   componentDidMount(){
     if (!this.state.workout){
-      this.workout.resourceActions.workout_get({id: this.props.params.id}).then( (response) => {
+      Workout.resourceActions.workout_get({id: this.props.params.id}).then( (response) => {
         this.setState({workout: response})
       })
     }
@@ -97,12 +55,7 @@ class WorkoutPage extends Component {
     if (this.state.workout) {
       return (
         <div className="workoutsPage">
-          {this.state.editing ? <button onClick={this.save} >Save</button> : null}
-          <WorkoutForm 
-            workout={this.state.workout} 
-            toggleEdit={this.toggleEdit} 
-            update={this.update}
-          />
+          <WorkoutForm workout={this.state.workout} update={this.update}save={this.save} />
         </div>
       )
     } else {
@@ -122,23 +75,7 @@ WorkoutPage.propTypes = {
 
 function mapStateToProps(state, ownProps) { 
   var workout = StoreHelpers.findById(state.workouts, ownProps.params.id)
-  var newWorkout = false;
-
-  var start_time = new Date().getHours() + ':' + new Date().getMinutes()
-  var end_time = (new Date().getHours() + 1 ) + ':' + new Date().getMinutes()
-
-  if (!workout) {
-    workout = {
-      name: '',
-      date: new Date(),
-      end_time: end_time,
-      start_time: start_time,
-      exercises: []
-    }
-    newWorkout = true;
-
-  }
-  return {workout: workout, newWorkout: newWorkout};
+  return {workout: workout};
 };
 
 function mapDispatchToProps(dispatch){
