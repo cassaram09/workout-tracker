@@ -11,6 +11,8 @@ import * as routines from './routines/index'
 import LoginPage from './pages/loginPage'
 import SignUpPage from './pages/signup'
 import UserProfilePage from './users/userProfilePage'
+import Reports from './users/reports'
+
 
 
 export default(
@@ -20,17 +22,10 @@ export default(
     <Route path='/login' component={LoginPage} />
     <Route path='/signup' component={SignUpPage} />
     <Route path='/profile' component={UserProfilePage} onEnter={requireAuth} />
-    <Route path='/exercises' component={exercises.ExercisesPage} onEnter={requireAuth} >
-      <Route name='newExercise' path='/exercises/new' component={exercises.NewExercisePage} />
-      <Route name='exercise' path='/exercises/:id' component={exercises.ExercisePage} />
-    </Route>
+    <Route path='/reports' component={Reports} onEnter={requireAuth} />
     <Route path='/workouts' component={workouts.WorkoutsPage} onEnter={requireAuth} >
       <Route name='newWorkout' path='/workouts/new' component={workouts.NewWorkoutPage} />
        <Route name='workout' path='/workouts/:id' component={workouts.WorkoutPage} />
-    </Route>
-    <Route path='/routines' component={routines.RoutinesPage} onEnter={requireAuth} >
-      <Route name='newRoutine' path='/routines/new' component={routines.NewRoutinePage} />
-       <Route name='routine' path='/routines/:id' component={routines.RoutinePage} />
     </Route>
   </Route>
 )
@@ -44,3 +39,13 @@ function requireAuth(nextState, replace){
     })
   }
 }
+
+// <Route path='/exercises' component={exercises.ExercisesPage} onEnter={requireAuth} >
+//       <Route name='newExercise' path='/exercises/new' component={exercises.NewExercisePage} />
+//       <Route name='exercise' path='/exercises/:id' component={exercises.ExercisePage} />
+//     </Route>
+
+ // <Route path='/routines' component={routines.RoutinesPage} onEnter={requireAuth} >
+ //      <Route name='newRoutine' path='/routines/new' component={routines.NewRoutinePage} />
+ //       <Route name='routine' path='/routines/:id' component={routines.RoutinePage} />
+ //    </Route>

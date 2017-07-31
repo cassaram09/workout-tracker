@@ -49,15 +49,12 @@ class Header extends React.Component {
 
           <Nav>
             <MenuItem eventKey={1}>
-              <Link to="/exercises" activeClassName="active">Exercises</Link>
-            </MenuItem>
-            <MenuItem eventKey={2}>
               <Link to="/workouts" activeClassName="active">Workouts</Link>
             </MenuItem>
-            <MenuItem eventKey={3}>
-              <Link to="/routines" activeClassName="active">Routines</Link>
+            <MenuItem eventKey={2}>
+              <Link to="/reports" activeClassName="active">Reports</Link>
             </MenuItem>
-            <MenuItem eventKey={4}>
+            <MenuItem eventKey={3}>
               <Link to="/profile" activeClassName="active">Profile</Link>
             </MenuItem>
             <MenuItem eventKey={5}>
