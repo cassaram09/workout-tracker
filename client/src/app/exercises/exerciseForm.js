@@ -36,12 +36,16 @@ class ExerciseForm extends Component {
       border: '1px solid grey'
     }
 
-    this.updateName = (field, index, event) => {
-      this.props.updateField(event.target.value, field, index)
+    this.updateName = (event) => {
+      var exercise = deepClone(this.state.exercise);
+      exercise.name = event.target.value;
+      this.props.updateExercise(exercise, this.props.index)
     }
 
-    this.selectName = (field, index, value) => {
-      this.props.updateField(value, field, index)
+    this.selectName = (value) => {
+      var exercise = deepClone(this.state.exercise);
+      exercise.name = value;
+      this.props.updateExercise(exercise, this.props.index)
     }
 
     this.shouldItemRender = (item, value) => {
@@ -54,52 +58,56 @@ class ExerciseForm extends Component {
     }
 
     this.addSet = () => {
-      var state = Object.assign({}, this.state)
-      var sets = state.exercise.exercise_sets
-      sets.push({repititions: 0, set_id: sets.length, weight: 0 });
+      var exercise = deepClone(this.state.exercise)
+      var sets = exercise.exercise_sets
+      sets.push({repetitions: 0, set_id: sets.length, weight: 0 });
       this.props.toggleEdit();
-      this.props.updateField(sets, 'exercise_sets', this.props.index)
-      return this.setState(state);
+      this.props.updateExercise(exercise, this.props.index)
     }
 
     this.removeSet = () => {
-      var state = Object.assign({}, this.state)
-      state.exercise.exercise_sets.pop()
+      var exercise = deepClone(this.state.exercise)
+      exercise.exercise_sets.pop()
       this.props.toggleEdit();
-      return this.setState(state);
+      this.props.updateExercise(exercise, this.props.index)
     }
 
-    this.updateSet = (event) =>{
-      var id = event.target.id.substr(event.target.id.length - 1);
-      id = parseInt(id, 10) - 1
+    this.updateSet = (index, event) =>{
       var name = event.target.name
       var value = event.target.value
-      var state = Object.assign({}, this.state)
-      state.exercise.exercise_sets[id][name] = value
+      var exercise = deepClone(this.state.exercise)
+      exercise.exercise_sets[index][name] = value
       this.props.toggleEdit();
-      return this.setState(state);
+      this.props.updateExercise(exercise, this.props.index)
     }
     
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.exercise) {
-      if (this.props.exercise.name != nextProps.exercise.name) {
-        return this.setState({exercise: nextProps.exercise});
+      var current = this.props.exercise;
+      var next = nextProps.exercise;
+      if (current.name !== next.name || current.exercise_sets.length !== next.exercise_sets.length ) {
+        return this.setState({exercise: next});
+      }
+      if (current.exercise_sets.length === next.exercise_sets.length) {
+        for (var i = 0; i < current.exercise_sets.length; i++) {
+          let c = current.exercise_sets[i]
+          let n = next.exercise_sets[i]
+          if ( c.weight != n.weight || c.repetitions != n.repetitions) {
+            return this.setState({exercise: next});
+          }
+        }
       }
     }
   }
 
   render(){
-
-    var length = this.state.exercise.exercise_sets.length
-    var sets = this.state.exercise.exercise_sets.map((set, index) => {
+    var exercise = this.state.exercise
+    var length = exercise.exercise_sets.length
+    var sets = exercise.exercise_sets.map((set, index) => {
       return (
-        <ExerciseSet
-          set={set}
-          index={index} 
-          updateSet={this.updateSet}
-        />
+        <ExerciseSet set={set} index={index} updateSet={this.updateSet.bind(this, index)}/>
       )
     })
 
@@ -115,8 +123,8 @@ class ExerciseForm extends Component {
           }
           shouldItemRender={this.shouldItemRender}
           value={this.state.exercise.name}
-          onChange={this.updateName.bind(this, 'name', this.props.index)}
-          onSelect={this.selectName.bind(this, 'name', this.props.index)}
+          onChange={this.updateName}
+          onSelect={this.selectName}
         />
           <Table responsive>
             <thead>

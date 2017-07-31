@@ -24,10 +24,10 @@ class ExerciseSet extends Component {
       <tr>
         <td>Set {index + 1}</td>
         <td>
-          <input type='text' value={this.props.set.weight} name='weight' id={`set_${index+1}`} onChange={this.props.updateSet}/> 
+          <input type='text' value={this.props.set.weight} name='weight' onChange={this.props.updateSet}/> 
         </td>
         <td>
-          <input type='text' value={this.props.set.repetitions} name='repititions' id={`set_${index+1}`} onChange={this.props.updateSet}/> 
+          <input type='text' value={this.props.set.repetitions} name='repetitions' onChange={this.props.updateSet}/> 
         </td>
       </tr>
     )

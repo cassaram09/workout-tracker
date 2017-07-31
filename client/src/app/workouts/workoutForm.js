@@ -42,6 +42,18 @@ class WorkoutForm extends Component {
       this.props.update(state)
     }
 
+    this.addExercise = () =>{
+      var state = deepClone(this.state)
+      state.workout.exercises.push({name: '', weight: '', repetitions: '', exercise_sets: []})
+      this.setState(state)
+    }
+
+    this.updateExercise = (exercise, index) => {
+      var state = deepClone(this.state)
+      state.workout.exercises[index] = exercise;
+      state.editing = true;
+      this.props.update(state)
+    }
 
   }
 
@@ -58,47 +70,43 @@ class WorkoutForm extends Component {
   render(){
 
     const date = moment(this.state.workout.date).format('l')
-    // const start_time = moment(this.state.workout.start_time).format('LT')
-    // const end_time = moment(this.state.workout.end_time).format('LT')
-
-     const start_time = this.state.workout.start_time
-    const end_time = this.state.workout.end_time
+    const { start_time, end_time, name } = this.state.workout
 
     var exercises = this.state.workout.exercises.map((exercise, index)=> {
       return ( 
         <ExerciseForm 
           exercise={exercise} 
-          update={this.props.update} 
+          updateExercise={this.updateExercise} 
           toggleEdit={this.props.toggleEdit} 
           index={index} 
-          parent={this}
         />
       )
     })
 
     return (
       <div>
-          <Row>
-            <Col xs={12} md={3}>
-              <label>Name</label>
-              <InlineEdit value={this.state.workout.name} name={"name"} onChange={this.updateWorkoutField}/>
-            </Col>
-            <Col  xs={12} md={3} >
-              <label>Start Time</label>
-              <TimeInput updateField={this.updateWorkoutField} value={start_time} name={'start_time'} />
-            </Col>
-            <Col  xs={12} md={3} >
-              <label>End Time</label>
-              <TimeInput updateField={this.updateWorkoutField}  value={end_time} name={'end_time'}/>
-            </Col>
-            <Col  xs={12} md={3} >
-              <label>Date</label>
-              <CalendarModal updateField={this.updateWorkoutField} value={date} name={'date'} />
-            </Col>
-          </Row>
-          <Row>
-            {exercises}
-          </Row>
+        <Row>
+          <Col xs={12} md={3}>
+            <label>Name</label>
+            <InlineEdit value={name} name={"name"} onChange={this.updateWorkoutField}/>
+          </Col>
+          <Col  xs={12} md={3} >
+            <label>Start Time</label>
+            <TimeInput updateField={this.updateWorkoutField} value={start_time} name={'start_time'} />
+          </Col>
+          <Col  xs={12} md={3} >
+            <label>End Time</label>
+            <TimeInput updateField={this.updateWorkoutField}  value={end_time} name={'end_time'}/>
+          </Col>
+          <Col  xs={12} md={3} >
+            <label>Date</label>
+            <CalendarModal updateField={this.updateWorkoutField} value={date} name={'date'} />
+          </Col>
+        </Row>
+        <Row>
+          <button onClick={this.addExercise}>Add Exercise</button>
+          {exercises}
+        </Row>
       </div>
     )
   }
