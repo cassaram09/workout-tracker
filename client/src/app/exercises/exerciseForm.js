@@ -71,7 +71,7 @@ class ExerciseForm extends Component {
     return (
       <div className='exerciseForm' style={{border: '1px dotted blue', padding: '10px'}} >
         <div className='form-group' >
-          <input className="form-control" type='text' value={this.props.exercise.name} name='name' onChange={this.props.updateName}/> 
+          <input className="form-control" type='text' value={this.props.exercise.name} name='name' onChange={this.updateName}/> 
         </div>
         <button onClick={this.remove}>Remove Exercise</button>
           <Table responsive>

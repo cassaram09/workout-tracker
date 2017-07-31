@@ -17,7 +17,7 @@ class WorkoutPage extends Component {
     this.workout = Workout;
     this.state = {
       workout: this.props.workout,
-      editing: false
+      editing: false,
     }
 
     this.toggleEdit = () =>{
@@ -45,7 +45,11 @@ class WorkoutPage extends Component {
       }
       delete state.workout.exercises
 
-      this.props.actions.dispatchAction('update', state);
+      if (this.props.newWorkout)
+        this.props.actions.dispatchAction('create', state);
+      else {
+         this.props.actions.dispatchAction('update', state);
+      }
       return this.setState({editing: false})
     }
 
@@ -90,7 +94,6 @@ class WorkoutPage extends Component {
   }
 
   render() {
-    console.log(this.state.workout)
     if (this.state.workout) {
       return (
         <div className="workoutsPage">
@@ -118,9 +121,24 @@ WorkoutPage.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) { 
-  const workout = StoreHelpers.findById(state.workouts, ownProps.params.id)
+  var workout = StoreHelpers.findById(state.workouts, ownProps.params.id)
+  var newWorkout = false;
 
-  return {workout: workout};
+  var start_time = new Date().getHours() + ':' + new Date().getMinutes()
+  var end_time = (new Date().getHours() + 1 ) + ':' + new Date().getMinutes()
+
+  if (!workout) {
+    workout = {
+      name: '',
+      date: new Date(),
+      end_time: end_time,
+      start_time: start_time,
+      exercises: []
+    }
+    newWorkout = true;
+
+  }
+  return {workout: workout, newWorkout: newWorkout};
 };
 
 function mapDispatchToProps(dispatch){
