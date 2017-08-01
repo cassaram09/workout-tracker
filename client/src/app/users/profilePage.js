@@ -7,27 +7,28 @@ import {bindActionCreators} from 'redux';
 import User from './userResource'
 import StoreHelpers from '../_store/storeHelpers'
 import UserForm from './userForm'
+import { deepClone } from '../utilities/utilities'
+import SweetAlert from 'sweetalert-react'; // eslint-disable-line import/no-extraneous-dependencies
+import 'sweetalert/dist/sweetalert.css';
 
-
-class UserProfile extends Component {
+class ProfilePage extends Component {
   constructor(props){
     super(props) 
 
     this.state = {
       user: this.props.user,
-      editing: false
     }
 
-    this.toggleEdit = () => {
-      this.setState({editing: !this.state.editing})
+    this.update = (user) => {
+      var state = deepClone(this.state)
+      state.user = user;
+      return this.setState(state)
     }
 
-    this.updateUser = (event) => {
-      event.preventDefault();
-      var state = Object.assign({}, this.state)
+    this.save = () => {
+      var state = deepClone(this.state)
       delete state.user.avatar;
       this.props.actions.dispatchAction('update', state)
-      return this.toggleEdit();
     }
 
   }
@@ -44,7 +45,13 @@ class UserProfile extends Component {
       return (
         <div id='userProfile'>
           <h2>Profile</h2>
-          <UserForm user={this.state.user} updateUser={this.updateUser} /> 
+          <UserForm user={this.state.user} update={this.update} save={this.save} />
+          <SweetAlert show={this.state.user.updated} title="Profile Updated!" onConfirm={() => { 
+            var state = deepClone(this.state)
+            delete state.user.updated
+            debugger
+            return this.setState(state) 
+          }} />
         </div>
       )
     } 
@@ -52,7 +59,7 @@ class UserProfile extends Component {
 
 }
 
-UserProfile.propTypes = {
+ProfilePage.propTypes = {
 
 }
 
@@ -65,4 +72,4 @@ function mapDispatchToProps(dispatch){
     actions: bindActionCreators({dispatchAction: User.dispatchAction}, dispatch)
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

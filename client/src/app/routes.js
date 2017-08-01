@@ -10,7 +10,7 @@ import * as routines from './routines/index'
 
 import LoginPage from './pages/loginPage'
 import SignUpPage from './pages/signup'
-import UserProfilePage from './users/userProfilePage'
+import ProfilePage from './users/profilePage'
 import Reports from './users/reports'
 
 
@@ -21,7 +21,7 @@ export default(
     <IndexRoute component={HomePage}/>
     <Route path='/login' component={LoginPage} />
     <Route path='/signup' component={SignUpPage} />
-    <Route path='/profile' component={UserProfilePage} onEnter={requireAuth} />
+    <Route path='/profile' component={ProfilePage} onEnter={requireAuth} />
     <Route path='/reports' component={Reports} onEnter={requireAuth} />
     <Route path='/workouts' component={workouts.WorkoutsPage} onEnter={requireAuth} >
       <Route name='newWorkout' path='/workouts/new' component={workouts.NewWorkoutPage} />

@@ -10,24 +10,20 @@ class UserForm extends Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      user: this.props.user
-    }
-
     this.updateField = (event) => {
-      var state = Object.assign({}, this.state)
+      var user = Object.assign({}, this.props.user)
       var field = event.target.name
       var value = event.target.value
-      state.user[field] = value
-      return this.setState(state);
+      user[field] = value
+      this.props.update(user)
     }
 
     this.updateInlineField = (data) => {
-      var state = Object.assign({}, this.state)
+      var user = Object.assign({}, this.props.user)
       var field = Object.keys(data)[0]
       var value = data[field]
-      state.user[field] = value
-      return this.setState(state);
+      user[field] = value
+      this.props.update(user)
     }
 
     this.uploadFile = (event) =>{
@@ -39,25 +35,10 @@ class UserForm extends Component {
   }
 
   render(){
-    var {name, email, height, weight, age, gender } = this.state.user;
+    var {name, email, height, weight, age, gender } = this.props.user;
 
     return (
       <div id="userForm">
-        <InlineEdit
-          activeClassName="editing"
-          text={name}
-          paramName="name"
-          change={this.updateInlineField}
-          style={{
-            width: '100%',
-            display: 'inline-block',
-            margin: 0,
-            padding: 0,
-            fontSize: 15,
-            outline: 0,
-            border: '1px solid grey'
-          }}
-        />
         <TextInput
           name="name"
           label="Name"
@@ -88,7 +69,7 @@ class UserForm extends Component {
           <input
             type="submit"
             className="btn btn-primary"
-            onClick={this.props.updateUser}
+            onClick={this.props.save}
           />
         </p>
       </div>
