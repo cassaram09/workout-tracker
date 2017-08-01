@@ -5,6 +5,8 @@ import InlineEdit from 'react-edit-inline';
 import User from './userResource'
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux';
+import SweetAlert from 'sweetalert-react'; // eslint-disable-line import/no-extraneous-dependencies
+import 'sweetalert/dist/sweetalert.css';
 
 class UserForm extends Component {
   constructor(props){
@@ -29,7 +31,9 @@ class UserForm extends Component {
     this.uploadFile = (event) =>{
       event.preventDefault();
       var file = event.target.files[0]
-      this.props.actions.dispatchAction('uploadImage', file)
+      this.props.actions.dispatchAction('uploadImage', file).then((response) =>{
+        this.props.toggleAlert()
+      })
     }
     
   }

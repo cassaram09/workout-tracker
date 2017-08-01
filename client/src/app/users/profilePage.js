@@ -20,8 +20,6 @@ class ProfilePage extends Component {
       show: false
     }
 
-    console.log('STATE', this.state.user)
-
     this.update = (user) => {
       var state = deepClone(this.state)
       state.user = user;
@@ -54,7 +52,7 @@ class ProfilePage extends Component {
       return (
         <div id='userProfile'>
           <h2>Profile</h2>
-          <UserForm user={this.state.user} update={this.update} save={this.save} />
+          <UserForm user={this.state.user} update={this.update} save={this.save} toggleAlert={this.toggleAlert} />
           <SweetAlert show={this.state.show} title="Profile Updated!" onConfirm={() => {return this.setState({show: false}) } } />
         </div>
       )
