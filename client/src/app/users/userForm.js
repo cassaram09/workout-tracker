@@ -35,7 +35,7 @@ class UserForm extends Component {
   }
 
   render(){
-    var {name, email, height, weight, age, gender } = this.props.user;
+    var {name, email, height, weight, age, gender, drinker, vegetarian } = this.props.user;
 
     return (
       <div id="userForm">
@@ -65,13 +65,31 @@ class UserForm extends Component {
           value={age}
           onChange={this.updateField} />
 
-         <p>
+        <div class='field-group'>
+          <label>Sex</label><br/>
+          <input type='radio' checked={gender == 'male' ? true : false} name="gender" value='male' onChange={this.updateField}/>Male
+          <input type='radio' checked={gender == 'female' ? true : false} name="gender" value='female' onChange={this.updateField}/>Female
+        </div>
+
+        <div class='field-group'>
+          <label>Drinker</label>
+          <input type='checkbox' checked={true} name="drinker" value='true' onChange={this.updateField}/>
+        </div>
+
+        <div class='field-group'>
+          <input
+            type="file"
+            label='file'
+            onChange={this.uploadFile} />
+        </div>
+
+         <div class='field-group'>
           <input
             type="submit"
             className="btn btn-primary"
             onClick={this.props.save}
           />
-        </p>
+        </div>
       </div>
     )
   }
