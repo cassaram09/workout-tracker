@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import {Button} from 'react-bootstrap'
 import Workout from './workoutResource'
 import WorkoutCard from './workoutCard'
+import WorkoutSelect from './workoutSelect'
 
 
 class WorkoutsPage extends Component {
@@ -17,9 +18,7 @@ class WorkoutsPage extends Component {
 
 
   render() {
-    var workouts = this.props.workouts.map((workout, index) => (
-      <WorkoutCard index={index} key={workout.id} workout={workout}/>
-    ))
+  
     
     return (
       <div id="workoutsPage">
@@ -27,7 +26,7 @@ class WorkoutsPage extends Component {
           <Button bsStyle="default">
             <Link to={"/workouts/new"}>New Workout</Link>
           </Button>
-          {workouts}
+           <WorkoutSelect workouts={this.props.workouts}/>
         </div>
         <div className="col-md-8">
           {this.props.children}
