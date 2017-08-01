@@ -17,7 +17,10 @@ class ProfilePage extends Component {
 
     this.state = {
       user: this.props.user,
+      show: false
     }
+
+    console.log('STATE', this.state.user)
 
     this.update = (user) => {
       var state = deepClone(this.state)
@@ -25,10 +28,16 @@ class ProfilePage extends Component {
       return this.setState(state)
     }
 
+    this.toggleAlert = () =>{
+      return this.setState({show: true})
+    }
+
     this.save = () => {
       var state = deepClone(this.state)
       delete state.user.avatar;
-      this.props.actions.dispatchAction('update', state)
+      this.props.actions.dispatchAction('update', state).then((response) =>{
+        this.toggleAlert()
+      })
     }
 
   }
@@ -46,12 +55,7 @@ class ProfilePage extends Component {
         <div id='userProfile'>
           <h2>Profile</h2>
           <UserForm user={this.state.user} update={this.update} save={this.save} />
-          <SweetAlert show={this.state.user.updated} title="Profile Updated!" onConfirm={() => { 
-            var state = deepClone(this.state)
-            delete state.user.updated
-            debugger
-            return this.setState(state) 
-          }} />
+          <SweetAlert show={this.state.show} title="Profile Updated!" onConfirm={() => {return this.setState({show: false}) } } />
         </div>
       )
     } 

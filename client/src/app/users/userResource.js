@@ -9,9 +9,7 @@ const User = new Resource('user', url, API.headers)
   .registerNewAction('/password-reset', 'changePassword', 'POST')
   .registerNewAction('/current-user', 'getCurrentUser', 'GET', (state, action) => {return action.data})
   .addReducerAction('update', (state, action) => {
-    var data = action.data
-    data.updated = true
-    return data;
+    return action.data;
   })
   .addResourceAction('/users', 'update', 'PATCH')
   .updateReducerAction('uploadImage', (state, action) => {
