@@ -22,3 +22,15 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.profile-avatar {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 100%;
+  position: absolute;
+  right: 5px;
+  top: 7px;
+  border: 1px solid grey;
+}
+    

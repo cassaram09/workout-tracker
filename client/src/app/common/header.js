@@ -22,10 +22,10 @@ class Header extends React.Component {
   render() {
     if (!this.props.session) {
       return (
-         <Navbar>
+         <Navbar inverse collapseOnSelect fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <IndexLink to="/" activeClassName="active">Home</IndexLink>
+              <IndexLink to="/" activeClassName="active">YourFitnessFriend</IndexLink>
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
@@ -33,36 +33,42 @@ class Header extends React.Component {
               <Link to="/login" activeClassName="active">Login</Link>
             </NavItem>
             <NavItem eventKey={2}>
-              <Link to="/signup" activeClassName="active">SignUp</Link>
+              <Link to="/signup" activeClassName="active">Sign Up</Link>
             </NavItem>
           </Nav>
         </Navbar>
       )
     } else {
       return (
-        <Navbar>
+        <Navbar inverse collapseOnSelect fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <IndexLink to="/" activeClassName="active">Home</IndexLink>
+              <Link to="/profile" activeClassName="active">
+                <img className='profile-avatar' src={this.props.user.avatar}/> 
+              </Link>
             </Navbar.Brand>
+            <Navbar.Toggle />
           </Navbar.Header>
-
-          <Nav>
-            <MenuItem eventKey={1}>
-              <Link to="/workouts" activeClassName="active">Workouts</Link>
-            </MenuItem>
-            <MenuItem eventKey={2}>
-              <Link to="/reports" activeClassName="active">Reports</Link>
-            </MenuItem>
-            <MenuItem eventKey={3}>
-              <Link to="/profile" activeClassName="active">Profile</Link>
-            </MenuItem>
-            <MenuItem eventKey={5}>
-              <a href="/logout" onClick={this.logOut}>Log Out</a>
-            </MenuItem>
-          </Nav> 
-          <img src={this.props.user.avatar} style={{width: '25px', height: 'auto', 'margin-top':'12px'}}/>    
+          <Navbar.Collapse>
+            <Nav>
+              <MenuItem eventKey={1}>
+                <Link to="/" activeClassName="active">Dashboard</Link>
+              </MenuItem>
+              <MenuItem eventKey={2}>
+                <Link to="/workouts" activeClassName="active">Workouts</Link>
+              </MenuItem>
+              <MenuItem eventKey={3}>
+                <Link to="/reports" activeClassName="active">Reports</Link>
+              </MenuItem>
+            </Nav> 
+            <Nav pullRight>
+               <MenuItem eventKey={4}>
+                <a href="/logout" onClick={this.logOut}>Log Out</a>
+              </MenuItem>
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
+        
       )
     }
   }
@@ -85,3 +91,16 @@ function mapDispatchToProps(dispatch){
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+
+
+<Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <IndexLink to="/" activeClassName="active">Home</IndexLink>
+            </Navbar.Brand>
+          </Navbar.Header>
+
+          
+             
+        </Navbar>
