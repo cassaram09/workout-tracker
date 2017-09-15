@@ -1,4 +1,4 @@
-export function deepClone(source){
+const deepClone = source => {
   // If the source isn't an Object or Array, throw an error.
   if ( !(source instanceof Object) || source instanceof Date || source instanceof String) {
     throw 'Only Objects or Arrays are supported.'
@@ -22,4 +22,8 @@ export function deepClone(source){
   }
 
   return target;
+}
+
+export {
+  deepClone
 }
