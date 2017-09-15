@@ -1,16 +1,12 @@
-import Resource from 'r3-library'
-import API from '../api/api'
-import {browserHistory} from 'react-router'
+import Resource from 'r3-library';
+import {API} from '../../utils/constants';
+import {browserHistory} from 'react-router';
 
 var res = Resource;
-
-const url = ''
-
 const state = !!sessionStorage.jwt
-
 const headers = {'Content-Type': "application/json"}
 
-const Auth = new Resource('auth', url, headers).registerDefaults().configureState(state)
+const Auth = new Resource('auth', '', headers).registerDefaults().configureState(state)
 
 Auth.registerNewAction(url + '/login', 'login', 'POST', function(state, action){
   if ( action.data.error ) {
@@ -24,7 +20,7 @@ Auth.registerNewAction(url + '/login', 'login', 'POST', function(state, action){
   return !!sessionStorage.jwt
 })
 
-Auth.registerNewAction(url + '/signup', 'signup', 'POST', function(state, action){
+Auth.registerNewAction('/signup', 'signup', 'POST', function(state, action){
   sessionStorage.setItem('jwt', action.data.jwt)
   browserHistory.push('/');
   API.headers['AUTHORIZATION']= `Bearer ${action.data.jwt}`
@@ -47,4 +43,3 @@ Auth.addReducerAction('logout', function(state, action){
 })
 
 export default Auth;
-

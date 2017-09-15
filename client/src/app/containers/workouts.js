@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 import {Button} from 'react-bootstrap';
 
-import Workout from '../modules/workout/workoutResource';
+import Workout from '../modules/workouts/workoutResource';
 import WorkoutCard from '../modules/workouts/workoutCard';
 import WorkoutSelect from '../modules/workouts/workoutSelect';
 
