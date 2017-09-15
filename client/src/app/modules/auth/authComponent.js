@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import User from '../users/userResource'
-import Store from '../store/store' 
+import Store from '../../store/store' 
 
 class AuthComponent extends React.Component {
   render(){
-   
     if (this.props.session){
       User.dispatchAction('getCurrentUser')(Store.dispatch)
     }
