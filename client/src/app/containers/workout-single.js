@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux'; 
-
-import {Workout} from '../store/index'
-import StoreHelpers from '../store/storeHelpers'
-import WorkoutForm from './workoutForm'
 import moment from 'moment';
 
-import {deepClone} from '../utilities/utilities'
+import {findById, deepClone} from '../utils/tools'
+import {Workout} from '../modules/workouts/workoutResource';
+import {WorkoutForm} from '../modules/workouts/workoutForm';
 
-class WorkoutPage extends Component {
+class Workout extends Component {
   constructor(props){
     super(props)
 
@@ -37,8 +34,8 @@ class WorkoutPage extends Component {
 
   componentDidMount(){
     if (!this.state.workout){
-      Workout.resourceActions.workout_get({id: this.props.params.id}).then( (response) => {
-        this.setState({workout: response})
+      Workout.resourceActions.workout_get({id: this.props.params.id}).then( workout => {
+        this.setState({workout: workout})
       })
     }
   }
@@ -69,19 +66,15 @@ class WorkoutPage extends Component {
   }
 }
 
-WorkoutPage.propTypes = {
-
-}
-
-function mapStateToProps(state, ownProps) { 
-  var workout = StoreHelpers.findById(state.workouts, ownProps.params.id)
+const mapStateToProps = (state, ownProps) => { 
+  var workout = findById(state.workouts, ownProps.params.id)
   return {workout: workout};
 };
 
-function mapDispatchToProps(dispatch){
+const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({dispatchAction: Workout.dispatchAction}, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkoutPage);
+export default connect(mapStateToProps, mapDispatchToProps)(Workout);
