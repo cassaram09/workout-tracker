@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-
 import {connect} from 'react-redux';  
-import {bindActionCreators} from 'redux'; 
-
-import {Workout} from '../store/index'
-import WorkoutForm from './workoutForm'
+import {bindActionCreators} from 'redux';
 import moment from 'moment';
 
-import {deepClone} from '../utilities/utilities'
+import {deepClone} from '../utils/tools'
+import {Workout} from '../modules/workouts/workoutResource';
+import {WorkoutForm} from '../modules/workouts/workoutForm';
 
-class NewWorkoutPage extends Component {
+class NewWorkout extends Component {
   constructor(props){
     super(props)
 
@@ -40,21 +37,17 @@ class NewWorkoutPage extends Component {
 
   render() {
     return (
-      <div className="newWorkoutPage">
+      <div className="newWorkout">
         <WorkoutForm  workout={this.state.workout} update={this.update} save={this.save} />
       </div>
     )
   }
 }
 
-NewWorkoutPage.propTypes = {
-
-}
-
-function mapDispatchToProps(dispatch){
+const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({dispatchAction: Workout.dispatchAction}, dispatch)
   }
 }
 
-export default connect(null, mapDispatchToProps)(NewWorkoutPage);
+export default connect(null, mapDispatchToProps)(NewWorkout);
