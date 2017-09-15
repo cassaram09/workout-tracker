@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-bootstrap'
 import PropTypes from 'prop-types';
 import { Link, IndexLink } from 'react-router';
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux';  
 
-class HomePage extends Component {
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux';
+
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'; 
+
+class Home extends Component {
 
   render(){
     if (this.props.session){
@@ -43,12 +45,13 @@ class HomePage extends Component {
 
 }
 
-HomePage.propTypes = {
-  actions: PropTypes.object.isRequired
+Home.propTypes = {
+  actions: PropTypes.object.isRequired,
+  session: PropTypes.bool.isRequired
 }
 
-function mapStateToProps(state, ownProps){
+const mapStateToProps = (state, ownProps) => {
   return {session: state.session}
 }
 
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps)(Home);
