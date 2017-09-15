@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import TextInput from '../common/textInput'
-import InlineEdit from 'react-edit-inline';
-import User from './userResource'
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux';
 import SweetAlert from 'sweetalert-react'; // eslint-disable-line import/no-extraneous-dependencies
 import 'sweetalert/dist/sweetalert.css';
+
+import TextInput from '../common/textInput'
+import User from './userResource'
 
 class UserForm extends Component {
   constructor(props){
@@ -106,7 +106,7 @@ UserForm.propTypes = {
   onChange: React.PropTypes.func.isRequired,
 }
 
-function mapDispatchToProps(dispatch){
+const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({dispatchAction: User.dispatchAction}, dispatch)
   }
