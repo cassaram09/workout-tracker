@@ -1,13 +1,11 @@
 import React, {PropTypes} from 'react';
 import { Link, IndexLink } from 'react-router';
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux';  
-
-import User from '../users/userResource'
-import Auth from '../auth/authResource'
-import Store from '../store/store'
+import User from '../modules/users/userResource'
+import Auth from '../modules/auth/authResource'
 
 class Header extends React.Component {
   constructor(props){
@@ -74,33 +72,18 @@ class Header extends React.Component {
   }
 }
 
-
 Header.propTypes = {
   actions: PropTypes.object.isRequired
 }
 
-function mapStateToProps(state, ownProps){
+const mapStateToProps = (state, ownProps) => {
   return {session: state.session, user: state.user}
 }
 
-function mapDispatchToProps(dispatch){
+const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({dispatchAction: Auth.dispatchAction}, dispatch)
   }
 }
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
-
-
-
-<Navbar>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <IndexLink to="/" activeClassName="active">Home</IndexLink>
-            </Navbar.Brand>
-          </Navbar.Header>
-
-          
-             
-        </Navbar>

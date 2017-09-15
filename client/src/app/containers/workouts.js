@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 import {Button} from 'react-bootstrap';
 
-import Workout from '../modules/workout/ workoutResource';
-import WorkoutCard from '../modules/workoutsworkoutCard';
+import Workout from '../modules/workout/workoutResource';
+import WorkoutCard from '../modules/workouts/workoutCard';
 import WorkoutSelect from '../modules/workouts/workoutSelect';
 
 class Workouts extends Component {

@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import moment from 'moment';
 
 import {findById, deepClone} from '../utils/tools'
-import {Workout} from '../modules/workouts/workoutResource';
+import {WorkoutResource} from '../modules/workouts/workoutResource';
 import {WorkoutForm} from '../modules/workouts/workoutForm';
 
 class Workout extends Component {
@@ -73,7 +73,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    actions: bindActionCreators({dispatchAction: Workout.dispatchAction}, dispatch)
+    actions: bindActionCreators({dispatchAction: WorkoutResource.dispatchAction}, dispatch)
   }
 }
 
