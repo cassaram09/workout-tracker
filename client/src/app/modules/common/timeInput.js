@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {Overlay, Tooltip} from 'react-bootstrap'
 
@@ -37,11 +37,7 @@ class TimeInput extends Component {
       setTimeout(() => ( this.setState({show: false}) ), 3000);
     }
 
-  }
-
-  render() {
-
-    const style = {
+    this.style = {
       position: 'absolute',
       backgroundColor: '#EEE',
       boxShadow: '0 5px 10px rgba(0, 0, 0, 0.2)',
@@ -52,6 +48,9 @@ class TimeInput extends Component {
       padding: 10,
     }
 
+  }
+
+  render() {
     return (
       <div className='timeInput form-group'>
         <div className="field">
@@ -63,11 +62,10 @@ class TimeInput extends Component {
           placement="right"
           target={() => ReactDOM.findDOMNode(this.refs.timeInput)}
         >
-          <div style={style}>Please enter a correct time.</div>
+          <div style={this.style}>Please enter a correct time.</div>
         </Overlay>
       </div>
-    )
-    
+    ) 
   }
 
 }
