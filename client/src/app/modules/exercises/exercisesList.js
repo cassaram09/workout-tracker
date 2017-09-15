@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import { Link, IndexLink } from 'react-router';
 
-const exercisesList = ({exercises}) => {
+function exercisesList({exercises}) {
   return(
     <ul className='list-group'>
       {exercises.map(exercise => (
