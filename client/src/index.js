@@ -6,8 +6,7 @@ import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 import Store from './app/store/store';  
 import routes from './app/routes';
-import './index.css';
-import App from './app/App';
+import App from './app/app';
 
 ReactDOM.render(
   // wrap our Application in a provider so it's connected to the redux store

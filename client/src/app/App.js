@@ -3,9 +3,11 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';  
 
 import User from './users/userResource'
-import Store from './_store/store'
+import Store from './store/store'
 import Header from './common/header'
 import Auth from './auth/authComponent'
+
+import './app.css'
 
 class App extends Component {
   constructor(){

@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import { Link, IndexLink } from 'react-router';
 
 import Routine from './routineResource'
-import StoreHelpers from '../_store/storeHelpers'
+import StoreHelpers from '../store/storeHelpers'
 import RoutineForm from './routineForm'
 
 

@@ -13,6 +13,10 @@ const headers = {'Content-Type': "application/json"}
 const Auth = new Resource('auth', url, headers).registerDefaults().configureState(state)
 
 Auth.registerNewAction(url + '/login', 'login', 'POST', function(state, action){
+  if ( action.data.error ) {
+    console.log(`%c LOGIN UNSUCCESSFUL`, 'color: red')
+    return state
+  }
   sessionStorage.setItem('jwt', action.data.jwt)
   browserHistory.push('/');
   API.headers['AUTHORIZATION']= `Bearer ${action.data.jwt}`
