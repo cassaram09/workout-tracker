@@ -1,8 +1,7 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-// component that wraps text input with additional functionality
-
-const TextInput = ({name, onChange, placeholder, value, type, label}) => {  
+function TextInput({name, onChange, placeholder, value, type, label}) {  
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
