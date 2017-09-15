@@ -5,8 +5,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import {Button} from 'react-bootstrap'
-import {Exercise} from '../store/index'
-import ExercisesList from './exercisesList'
+import Exercise from '../modules/exercises/exerciseResource'
+import ExercisesList from '../modules/exercises/exercisesList'
 
 class ExercisesPage extends Component {
   componentWillMount(){

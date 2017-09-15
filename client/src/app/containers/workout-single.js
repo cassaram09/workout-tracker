@@ -4,8 +4,8 @@ import {bindActionCreators} from 'redux';
 import moment from 'moment';
 
 import {findById, deepClone} from '../utils/tools'
-import {WorkoutResource} from '../modules/workouts/workoutResource';
-import {WorkoutForm} from '../modules/workouts/workoutForm';
+import WorkoutResource from '../modules/workouts/workoutResource';
+import WorkoutForm from '../modules/workouts/workoutForm';
 
 class Workout extends Component {
   constructor(props){

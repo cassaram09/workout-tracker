@@ -10,6 +10,7 @@ const headers = {'Content-Type': "application/json"}
 const Auth = new Resource('auth', '', headers).registerDefaults().configureState(state)
 
 Auth.registerNewAction('/login', 'login', 'POST', function(state, action){
+  debugger
   if ( action.data.error ) {
     console.log(`%c LOGIN UNSUCCESSFUL`, 'color: red')
     return state
@@ -30,7 +31,7 @@ Auth.registerNewAction('/signup', 'signup', 'POST', function(state, action){
 })
 
 Auth.resourceActions.auth_logout = () => {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     sessionStorage.removeItem('jwt');
     !sessionStorage.jwt ? resolve({jwt: 'deleted'}) : reject(Error("Error"));
   });

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import {Grid, Row, Col, Table} from 'react-bootstrap';
 import moment from 'moment';
 
-import CalendarModal from 'app/modules/common/calendarModal';
-import TimeInput from 'app/modules/common/timeInput';
-import ExerciseForm from 'app/modules/exercises/exerciseForm';
-import InlineEdit from 'app/modules/common/inlineEdit';
-import {deepClone} from 'app/utils/tools';
+import CalendarModal from '../common/calendarModal';
+import TimeInput from '../common/timeInput';
+import ExerciseForm from '../exercises/exerciseForm';
+import InlineEdit from '../common/inlineEdit';
+import {deepClone} from '../../utils/tools';
 
 class WorkoutForm extends Component {
   constructor(props) {

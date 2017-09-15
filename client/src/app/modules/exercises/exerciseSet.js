@@ -20,7 +20,7 @@ function ExerciseSet({index}) {
 }
 
 ExerciseSet.propTypes = {
-  index: PropTypes.index.isRequired
+  
 }
 
 export default ExerciseSet;

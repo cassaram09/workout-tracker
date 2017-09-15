@@ -16,7 +16,7 @@ function WorkoutSelect({workouts}) {
   }
 
   if (workouts.length > 0) {
-    options = this.props.workouts.map( (workout, index) => {
+    var options = this.props.workouts.map( (workout, index) => {
       var date = moment(workout.date).format('L')
       return {value: workout.id, label: `${date} - ${workout.name}`}
     })
@@ -27,7 +27,7 @@ function WorkoutSelect({workouts}) {
       <Select
         name="form-field-name"
         value={''}
-        options={[]}
+        options={options}
         onChange={loadWorkout}
       />
     </div>

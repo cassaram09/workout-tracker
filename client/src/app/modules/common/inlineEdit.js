@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-function InlineEdit({name, value placeholder, onChange}) {  
+function InlineEdit({name, value, placeholder, onChange}) {  
   
   const onChangeHandler = (event) => {
     onChange(event.target.value, name)

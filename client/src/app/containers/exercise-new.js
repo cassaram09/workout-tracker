@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux'; 
 
-import ExerciseForm from './exerciseForm'
-import {Exercise} from '../store/index'
+import Exercise from '../modules/exercises/exerciseResource'
+import ExerciseForm from '../modules/exercises/exerciseForm'
 
 class NewExercisePage extends Component {
   constructor(){

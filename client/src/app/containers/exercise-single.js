@@ -4,14 +4,12 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 import { Link, IndexLink } from 'react-router';
 
-import {Exercise} from '../store/index'
-import StoreHelpers from '../store/storeHelpers'
-import ExerciseForm from './exerciseForm'
+import Exercise from '../modules/exercises/exerciseResource'
+import ExerciseForm from '../modules/exercises/exerciseForm'
 
 class ExercisePage extends Component {
   constructor(props){
     super(props)
-    this.exercise = Exercise;
 
     this.state = {
       exercise: this.props.exercise,

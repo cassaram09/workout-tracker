@@ -1,9 +1,8 @@
 import Resource from 'r3-library';
 import request from 'superagent';
 
-import {API} from 'app/utils/constants';
-import Store from 'app/store/store';
-
+import {API} from '../../utils/constants';
+import Store from '../../store/store';
 
 const url = '/users'
 
