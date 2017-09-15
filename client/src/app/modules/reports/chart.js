@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import Chart from 'chart.js';
 import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
-class Charty extends Component {
-  constructor(props){
-    super(props);
-  }
-
+class WorkoutChart extends Component {
   render(){
     return (
       <div>
@@ -26,8 +22,4 @@ class Charty extends Component {
 
 }
 
-
-export default Charty;
-
-
-
+export default WorkoutChart;
