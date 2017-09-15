@@ -1,5 +1,5 @@
-import Resource from 'r3-library'
-import API from '../api/api'
+import Resource from 'r3-library';
+import {API} from 'app/utils/constants';
 
 const url = API.base + '/workouts'
 

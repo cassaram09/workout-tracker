@@ -1,6 +1,7 @@
 import Resource from 'r3-library';
-import {API} from '../../utils/constants';
 import {browserHistory} from 'react-router';
+
+import {API} from 'app/utils/constants';
 
 var res = Resource;
 const state = !!sessionStorage.jwt
@@ -8,7 +9,7 @@ const headers = {'Content-Type': "application/json"}
 
 const Auth = new Resource('auth', '', headers).registerDefaults().configureState(state)
 
-Auth.registerNewAction(url + '/login', 'login', 'POST', function(state, action){
+Auth.registerNewAction('/login', 'login', 'POST', function(state, action){
   if ( action.data.error ) {
     console.log(`%c LOGIN UNSUCCESSFUL`, 'color: red')
     return state
@@ -29,11 +30,10 @@ Auth.registerNewAction('/signup', 'signup', 'POST', function(state, action){
 })
 
 Auth.resourceActions.auth_logout = () => {
-  var promise = new Promise((resolve, reject) => {
+  return Promise((resolve, reject) => {
     sessionStorage.removeItem('jwt');
     !sessionStorage.jwt ? resolve({jwt: 'deleted'}) : reject(Error("Error"));
   });
-  return promise; 
 }
 
 Auth.addReducerAction('logout', function(state, action){
