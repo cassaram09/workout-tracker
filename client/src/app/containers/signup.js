@@ -1,11 +1,10 @@
-import React, {Component, PropTypes} from 'react'
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
+import React, {Component, PropTypes} from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
-import Auth from '../auth/authResource'
-import TextInput from '../common/textInput'
-
-import User from '../users/userResource'
+import Auth from '../modules/auth/authResource';
+import TextInput from '../modules/common/textInput';
+import User from '../modules/users/userResource';
 
 class SignUpPage extends Component {
   constructor(){
@@ -71,14 +70,10 @@ class SignUpPage extends Component {
 
 }
 
-SignUpPage.propTypes = {
-
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({dispatchAction: Auth.dispatchAction}, dispatch)
   }
 }
 
-export default connect(null, mapDispatchToProps)(SignUpPage);
+export default connect(null, mapDispatchToProps)(SignUp);
