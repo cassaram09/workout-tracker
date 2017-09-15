@@ -1,29 +1,27 @@
 import React from 'react';
 import { Route, IndexRoute} from 'react-router';
 
-import App from './app'
-import HomePage from './pages/homePage'
-
-import * as exercises from './exercises/index'
-import * as workouts from './workouts/index'
-import * as routines from './routines/index'
-
-import LoginPage from './pages/loginPage'
-import SignUpPage from './pages/signup'
-import ProfilePage from './users/profilePage'
-import Reports from './users/reports'
+import App from './app';
+import Home from './containers/home';
+import Login from './containers/login';
+import SignUp from './containers/signup';
+import Profile from './containers/profile';
+import Reports from './containers/reports';
+import NewWorkout from './containers/workout-new';
+import Workout from './containers/workout-single';
+import Workouts from './containers/workouts';
 
 export default(
   // configure our routes - set App as our top level component with Home as the index route
   <Route path='/' component={App}>
-    <IndexRoute component={HomePage}/>
-    <Route path='/login' component={LoginPage} />
-    <Route path='/signup' component={SignUpPage} />
-    <Route path='/profile' component={ProfilePage} onEnter={requireAuth} />
+    <IndexRoute component={Home}/>
+    <Route path='/login' component={Login} />
+    <Route path='/signup' component={SignUp} />
+    <Route path='/profile' component={Profile} onEnter={requireAuth} />
     <Route path='/reports' component={Reports} onEnter={requireAuth} />
-    <Route path='/workouts' component={workouts.WorkoutsPage} onEnter={requireAuth} >
-      <Route name='newWorkout' path='/workouts/new' component={workouts.NewWorkoutPage} />
-      <Route name='workout' path='/workouts/:id' component={workouts.WorkoutPage} />
+    <Route path='/workouts' component={Workouts} onEnter={requireAuth} >
+      <Route name='newWorkout' path='/workouts/new' component={NewWorkout} />
+      <Route name='workout' path='/workouts/:id' component={Workout} />
     </Route>
   </Route>
 )

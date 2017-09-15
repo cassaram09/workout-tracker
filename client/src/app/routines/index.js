@@ -1,5 +1,0 @@
-export {default as RoutinesPage} from './routinesPage'
-export {default as NewRoutinePage} from './newRoutinePage'
-export {default as RoutinePage} from './routinePage'
-export {default as RoutinesList} from './routinesList'
-export {default as RoutineForm} from './routineForm'
