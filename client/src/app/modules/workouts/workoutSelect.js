@@ -6,7 +6,7 @@ import moment from 'moment';
 
 function WorkoutSelect({workouts}) {
 
-  const value;
+  var value = '';
 
   const loadWorkout = (data) => {
     if (data) {

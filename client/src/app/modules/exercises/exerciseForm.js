@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {DropdownButton, MenuItem, Grid, Row, Col, Table} from 'react-bootstrap';
 
 import ExerciseSet from './exerciseSet';
-import {deepClone} from 'app/utils/tools';
+import {deepClone} from '../../utils/tools';
 
 class ExerciseForm extends Component {
   constructor(props) {

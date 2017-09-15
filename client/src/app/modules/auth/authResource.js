@@ -1,7 +1,7 @@
 import Resource from 'r3-library';
 import {browserHistory} from 'react-router';
 
-import {API} from 'app/utils/constants';
+import {API} from '../../utils/constants';
 
 var res = Resource;
 const state = !!sessionStorage.jwt

@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';  
 import {Grid, Row, Col } from 'react-bootstrap'
 
 import TextInput from '../common/textInput'
-
 import User from './userResource'
 
 class PasswordReset extends Component {
@@ -92,7 +91,7 @@ PasswordReset.propTypes = {
 
 }
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   var credentials = Object.assign({}, state.user, {credentials: {
         old_password: '',
         password: '',
@@ -103,7 +102,7 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({dispatchAction: User.dispatchAction}, dispatch)
   }
