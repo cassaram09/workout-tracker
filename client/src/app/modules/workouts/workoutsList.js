@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
-import { Link, IndexLink } from 'react-router';
-import moment from 'moment'
+import {Link} from 'react-router';
+import moment from 'moment';
 
-const workoutsList = ({workouts}) => {
+function workoutsList({workouts}) {
   return(
     <ul className='list-group'>
       {workouts.map(workout => {
