@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import Charty from './chart'
 import request from 'superagent';
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux';
-import User from './userResource'
+
+import User from '../modules/users/userResource';
+import Charty from '../modules/reports/chart';
 
 const data01 = [{x: 100, y: 200, z: 200}, {x: 101, y: 100, z: 260},
                   {x: 170, y: 300, z: 400}, {x: 140, y: 250, z: 280},
@@ -13,6 +13,7 @@ const data01 = [{x: 100, y: 200, z: 200}, {x: 101, y: 100, z: 260},
 class Reports extends Component {
   constructor(props){
     super(props);
+
     this.data = [
       {x: 100 , y: 135},
       {x: 100 , y: 185},
@@ -34,13 +35,12 @@ class Reports extends Component {
     this.generateReport = () => {
       var that = this;
       const req = request.post('/reports').set('AUTHORIZATION', `Bearer ${sessionStorage.jwt}`)
-        req.end(function(error, response){
-          console.log(response.body)
-        });
+      req.end(function(error, response){
+        console.log(response.body)
+      });
     }
+
   }
-
-
 
   render(){
     return (
@@ -54,16 +54,10 @@ class Reports extends Component {
 
 }
 
-Reports.propTypes = {
-
-}
-
-function mapDispatchToProps(dispatch){
+const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({dispatchAction: User.dispatchAction}, dispatch)
   }
 }
-
-
 
 export default connect(null, mapDispatchToProps)(Reports);
