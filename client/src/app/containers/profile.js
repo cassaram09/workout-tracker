@@ -4,7 +4,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import User from '../modules/users/userResource'
+import { deepClone } from '../utils/tools'
 import UserForm from '../modules/users/userForm'
+import SweetAlert from 'sweetalert-react'
 
 class Profile extends Component {
   constructor(props){

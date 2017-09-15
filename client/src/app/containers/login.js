@@ -1,15 +1,11 @@
-import React, {Component, PropTypes} from 'react'
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
+import React, {Component, PropTypes} from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
-import Auth from '../auth/authResource'
+import Auth from '../modules/auth/authResource';
+import TextInput from '../modules/common/textInput';
 
-import TextInput from '../common/textInput'
-
-import User from '../users/userResource'
-
-
-class LoginPage extends Component {
+class Login extends Component {
   constructor(){
     super()
 
@@ -65,15 +61,10 @@ class LoginPage extends Component {
 
 }
 
-LoginPage.propTypes = {
-
-}
-
-// map our sessionActions to class props
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({dispatchAction: Auth.dispatchAction}, dispatch)
   }
 }
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(Login);
