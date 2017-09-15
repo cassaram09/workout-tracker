@@ -24,6 +24,11 @@ const deepClone = source => {
   return target;
 }
 
+const findById = (state, id) => {
+  return state.filter(obj => obj.id == id)[0]
+}
+
 export {
-  deepClone
+  deepClone,
+  findById
 }
