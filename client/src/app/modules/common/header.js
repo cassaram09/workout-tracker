@@ -4,8 +4,8 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 
-import User from '../modules/users/userResource'
-import Auth from '../modules/auth/authResource'
+import User from 'app/modules/users/userResource'
+import Auth from 'app/modules/auth/authResource'
 
 class Header extends React.Component {
   constructor(props){

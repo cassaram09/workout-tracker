@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 class ExerciseSet extends Component {
-
   render(){
     const index = this.props.index;
     
@@ -26,7 +25,7 @@ class ExerciseSet extends Component {
 }
 
 ExerciseSet.propTypes = {
-
+  index: PropTypes.index.isRequired
 }
 
 export default ExerciseSet;

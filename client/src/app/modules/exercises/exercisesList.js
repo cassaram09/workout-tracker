@@ -1,12 +1,8 @@
-// component for rendering list of cats for user
-
 import React, {PropTypes} from 'react';
 import { Link, IndexLink } from 'react-router';
 
-
 const exercisesList = ({exercises}) => {
   return(
-
     <ul className='list-group'>
       {exercises.map(exercise => (
         <li className="list-group-item" key={exercise.id}>
