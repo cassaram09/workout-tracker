@@ -6,7 +6,7 @@ import Auth from '../modules/auth/authResource';
 import TextInput from '../modules/common/textInput';
 import User from '../modules/users/userResource';
 
-class SignUpPage extends Component {
+class SignUp extends Component {
   constructor(){
     super()
 
@@ -70,7 +70,7 @@ class SignUpPage extends Component {
 
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({dispatchAction: Auth.dispatchAction}, dispatch)
   }
