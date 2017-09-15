@@ -13,8 +13,6 @@ import SignUpPage from './pages/signup'
 import ProfilePage from './users/profilePage'
 import Reports from './users/reports'
 
-
-
 export default(
   // configure our routes - set App as our top level component with Home as the index route
   <Route path='/' component={App}>
@@ -39,13 +37,3 @@ function requireAuth(nextState, replace){
     })
   }
 }
-
-// <Route path='/exercises' component={exercises.ExercisesPage} onEnter={requireAuth} >
-//       <Route name='newExercise' path='/exercises/new' component={exercises.NewExercisePage} />
-//       <Route name='exercise' path='/exercises/:id' component={exercises.ExercisePage} />
-//     </Route>
-
- // <Route path='/routines' component={routines.RoutinesPage} onEnter={requireAuth} >
- //      <Route name='newRoutine' path='/routines/new' component={routines.NewRoutinePage} />
- //       <Route name='routine' path='/routines/:id' component={routines.RoutinePage} />
- //    </Route>
