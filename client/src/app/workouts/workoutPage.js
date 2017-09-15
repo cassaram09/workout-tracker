@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux'; 
 
-import {Workout} from '../_store/index'
-import StoreHelpers from '../_store/storeHelpers'
+import {Workout} from '../store/index'
+import StoreHelpers from '../store/storeHelpers'
 import WorkoutForm from './workoutForm'
 import moment from 'moment';
 

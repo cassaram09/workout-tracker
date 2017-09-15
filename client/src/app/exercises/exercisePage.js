@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 import { Link, IndexLink } from 'react-router';
 
-import {Exercise} from '../_store/index'
-import StoreHelpers from '../_store/storeHelpers'
+import {Exercise} from '../store/index'
+import StoreHelpers from '../store/storeHelpers'
 import ExerciseForm from './exerciseForm'
 
 class ExercisePage extends Component {

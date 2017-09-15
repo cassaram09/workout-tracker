@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import User from './userResource'
-import StoreHelpers from '../_store/storeHelpers'
+import StoreHelpers from '../store/storeHelpers'
 import UserForm from './userForm'
 import { deepClone } from '../utilities/utilities'
 import SweetAlert from 'sweetalert-react'; // eslint-disable-line import/no-extraneous-dependencies

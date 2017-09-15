@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
 import {Button} from 'react-bootstrap'
-import {Exercise} from '../_store/index'
+import {Exercise} from '../store/index'
 import ExercisesList from './exercisesList'
 
 class ExercisesPage extends Component {

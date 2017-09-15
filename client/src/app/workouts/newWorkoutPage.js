@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux'; 
 
-import {Workout} from '../_store/index'
+import {Workout} from '../store/index'
 import WorkoutForm from './workoutForm'
 import moment from 'moment';
 

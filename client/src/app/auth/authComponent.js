@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'; 
 
 import User from '../users/userResource'
-import Store from '../_store/store' 
+import Store from '../store/store' 
 
 class AuthComponent extends React.Component {
   render(){
